@@ -25,10 +25,10 @@ const typeDefs = `
     }
 `;
 
-const gqlpt = new GQLPTClient(
-    apiKey: "chatgpt-api-key",
-    typeDefs
-);
+const gqlpt = new GQLPTClient({
+  apiKey: "chatgpt-api-key",
+  typeDefs,
+});
 
 await gqlpt.connect();
 
@@ -47,4 +47,4 @@ const query = await gqlpt.query("Get all users where name is dan");
 
 ## License
 
-MIT - Dan Starns - danielstarns@hotmailcom
+MIT - Dan Starns - danielstarns@hotmail.com

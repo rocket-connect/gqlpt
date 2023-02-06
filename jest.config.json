@@ -1,0 +1,9 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "transform": {
+    "node_modules/.+\\.(j|t)sx?$": "ts-jest"
+  },
+  "transformIgnorePatterns": ["//node_modules"],
+  "testTimeout": 60000
+}

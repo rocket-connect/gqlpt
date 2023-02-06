@@ -1,0 +1,46 @@
+{
+  "name": "gqlpt",
+  "version": "0.0.0",
+  "description": "GQLPT leverages the power of ChatGPT to generate GraphQL queries from plain text.",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test jest",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danstarns/gqlpt.git"
+  },
+  "keywords": [],
+  "author": "danstarns - danielstarns@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danstarns/gqlpt/issues"
+  },
+  "homepage": "https://github.com/danstarns/gqlpt#readme",
+  "dependencies": {
+    "chatgpt": "4.1.1",
+    "dotenv": "16.0.3",
+    "graphql": "16.6.0",
+    "jest": "29.4.1",
+    "ts-jest": "29.0.5",
+    "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.12",
+    "@babel/preset-env": "7.20.2",
+    "@babel/preset-typescript": "7.18.6",
+    "@types/jest": "29.2.5",
+    "babel-jest": "29.3.1",
+    "jest": "29.3.1"
+  }
+}

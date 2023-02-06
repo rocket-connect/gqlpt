@@ -1,0 +1,1 @@
+export { GQLPTClient } from "./GQLPTClient";
