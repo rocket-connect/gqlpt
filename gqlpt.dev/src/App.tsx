@@ -2,6 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { Spinner } from "./components/Spinner";
 import { Editor } from "./components/Editor";
 
+const config = {
+  API_URL: process.env.API_URL,
+};
+
 function App() {
   const [apiKey, setApiKey] = useState<string>(
     localStorage.getItem("apiKey") || ""
@@ -37,7 +41,7 @@ function App() {
       setLoading(true);
       setError(undefined);
 
-      const res = await fetch("http://localhost:4000/generate", {
+      const res = await fetch(`${config.API_URL}/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
