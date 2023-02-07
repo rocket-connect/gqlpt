@@ -1,3 +1,3 @@
 npm install 
-npm run build
+npx tsc
 cp ../README.md ./README.md
