@@ -1,6 +1,6 @@
 {
   "name": "gqlpt",
-  "version": "0.0.0-alpha.1",
+  "version": "0.0.0-alpha.2",
   "description": "GQLPT leverages the power of ChatGPT to generate GraphQL queries from plain text.",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
