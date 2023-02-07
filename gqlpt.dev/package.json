@@ -1,0 +1,48 @@
+{
+  "name": "gqlpt.dev",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "client": "cross-env NODE_ENV=development webpack serve",
+    "server": "node --experimental-modules server.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "cors": "2.8.5",
+    "css-loader": "6.7.3",
+    "express": "4.18.2",
+    "express-static-gzip": "2.1.7",
+    "gqlpt": "file:../package",
+    "graphql": "16.6.0",
+    "monaco-editor-webpack-plugin": "7.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-monaco-editor": "0.51.0"
+  },
+  "devDependencies": {
+    "@tsconfig/create-react-app": "1.0.2",
+    "@tsconfig/node18": "1.0.1",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11",
+    "@types/webpack": "5.28.0",
+    "autoprefixer": "10.4.2",
+    "clean-webpack-plugin": "4.0.0",
+    "copy-webpack-plugin": "10.2.4",
+    "cross-env": "7.0.3",
+    "dotenv": "16.0.0",
+    "dotenv-webpack": "7.1.0",
+    "file-loader": "6.2.0",
+    "html-webpack-plugin": "5.5.0",
+    "postcss": "8.4.7",
+    "postcss-loader": "6.2.1",
+    "style-loader": "3.3.1",
+    "tailwindcss": "3.0.23",
+    "terser-webpack-plugin": "5.3.1",
+    "ts-loader": "9.2.6",
+    "typescript": "4.6.2",
+    "url-loader": "4.1.1",
+    "webpack": "5.69.1",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.7.4"
+  }
+}

@@ -32,7 +32,7 @@ const gqlpt = new GQLPTClient({
 
 await gqlpt.connect();
 
-const query = await gqlpt.query("Get all users where name is dan");
+const response = await gqlpt.generate("Get all users where name is dan");
 
 /*
     query {
