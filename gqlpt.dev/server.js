@@ -4,7 +4,7 @@ dotenv.config({ path: "./.env" });
 import express from "express";
 import cors from "cors";
 import expressStaticGzip from "express-static-gzip";
-import { GQLPTClient } from "gqlpt";
+import { GQLPTClient } from "../package/dist/index.js";
 
 const config = {
   STATIC_FOLDER: process.env.STATIC_FOLDER,

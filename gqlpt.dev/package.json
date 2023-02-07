@@ -13,7 +13,6 @@
     "css-loader": "6.7.3",
     "express": "4.18.2",
     "express-static-gzip": "2.1.7",
-    "gqlpt": "file:../package",
     "graphql": "16.6.0",
     "monaco-editor-webpack-plugin": "7.0.1",
     "react": "18.2.0",
