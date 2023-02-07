@@ -70,8 +70,8 @@ function App() {
   }, [apiKey, typeDefs, query]);
 
   return (
-    <div>
-      <div className="container mx-auto bg-gray-100 rounded-xl shadow border p-8 m-10">
+    <div className="bg-editor-dark py-10">
+      <div className="container mx-auto bg-gray-100 rounded-xl shadow border p-8">
         <h1 className="text-3xl text-gray-700 font-bold mb-5">GQLPT</h1>
         <p className="text-gray-500 text-lg mt-5">
           GQLPT leverages the power of ChatGPT to generate GraphQL queries from
@@ -106,7 +106,7 @@ function App() {
 
         <div className="container mx-auto flex align-center justify-center mt-5">
           <input
-            className="text-2xl shadow appearance-none border rounded py-2 w-5/6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded py-2 w-5/6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="apikey"
             type="text"
             placeholder="Query"
