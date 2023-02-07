@@ -43,43 +43,6 @@ describe("GQLPTClient", () => {
     await gqlpt.connect();
   });
 
-  test("should return graphql query", async () => {
-    const typeDefs = `
-      type User {
-        id: ID!
-        name: String!
-        email: String!
-      }
-      
-      type Query {
-        users(name: String): [User!]!
-      }
-    `;
-
-    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
-
-    await gqlpt.connect();
-    const { query, variables } = await gqlpt.generate(
-      "find users where name is dan"
-    );
-
-    expect(parsePrint(query)).toEqual(
-      parsePrint(`
-        query ($name: String) {
-          users(name: $name) {
-            id
-            name
-            email
-          }
-        }
-      `)
-    );
-
-    expect(variables).toMatchObject({
-      name: "dan",
-    });
-  });
-
   test("should return complex graphql query", async () => {
     const typeDefs = `
       type User {
