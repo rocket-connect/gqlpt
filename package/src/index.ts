@@ -6,7 +6,7 @@ export interface GQLPTClientOptions {
   typeDefs: string;
 }
 
-export default class GQLPTClient {
+export class GQLPTClient {
   private options: GQLPTClientOptions;
   private chatgpt?: ChatGPTAPI;
   private initMessage?: ChatMessage;
