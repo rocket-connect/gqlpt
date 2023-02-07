@@ -17,16 +17,10 @@ export const typeDefs = print(
         title_contains: String
     }
 
-    input UserWhere {
-        name: String
-        name_eq: String
-        email_contains: String
-    }
-
     type Query {
-        users(where: UserWhere): [User]
+        users: [User]
     }
 `)
 );
 
-export const query = `find someone with the email danielstarns@hotmail.com including posts where title contains 'beer'`;
+export const query = `find users including posts`;
