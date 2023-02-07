@@ -19,13 +19,13 @@ export default class GQLPTClient {
     } catch (error) {
       throw new Error(`Cannot parse typeDefs ${error}`);
     }
-  }
 
-  async connect() {
     this.chatgpt = new ChatGPTAPI({
       apiKey: this.options.apiKey,
     });
+  }
 
+  async connect() {
     this.initMessage = await this.chatgpt.sendMessage(
       `When I say Ping, you say Pong. Ping.`
     );
@@ -35,10 +35,6 @@ export default class GQLPTClient {
     query: string;
     variables?: Record<string, unknown>;
   }> {
-    if (!this.chatgpt) {
-      throw new Error("Not connected");
-    }
-
     const query = `
       With this graphql schema: '${this.options.typeDefs}',  
       generate a JSON object, where 'query' is a GraphQL query that fulfils this plain text '${plainText}',
@@ -48,6 +44,10 @@ export default class GQLPTClient {
     const message = await this.chatgpt.sendMessage(query, {
       conversationId: this?.initMessage?.conversationId,
     });
+
+    if (!this.initMessage) {
+      this.initMessage = message;
+    }
 
     const result = JSON.parse(message.text.replace(/`/g, "")) as {
       query: string;
