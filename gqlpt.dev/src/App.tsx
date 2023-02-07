@@ -35,6 +35,7 @@ function App() {
   const generate = useCallback(async () => {
     try {
       setLoading(true);
+      setError(undefined);
 
       const res = await fetch("http://localhost:4000/generate", {
         method: "POST",
