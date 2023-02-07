@@ -1,8 +1,10 @@
 # gqlpt
 
-https://gqlpt.dev/
-
 GQLPT leverages the power of ChatGPT to generate GraphQL queries from plain text.
+
+Live playground: https://gqlpt.dev/
+
+> This is really slow right now, any ideas to make it faster would be appreciated.
 
 ## Installation
 
