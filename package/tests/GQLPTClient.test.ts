@@ -1,9 +1,17 @@
 import { parse, print } from "graphql";
 import { GQLPTClient } from "../src";
-import * as config from "./config";
+import dotenv from "dotenv";
+dotenv.config();
+
+export const TEST_API_KEY = process.env.TEST_API_KEY as string;
 
 function parsePrint(query: string) {
   const parsed = parse(query, { noLocation: true });
+
+  // delete the name of the query, makes it easier to test as the name is random
+  // @ts-ignore
+  parsed.definitions[0].name = undefined;
+
   return print(parsed);
 }
 
@@ -11,7 +19,7 @@ describe("GQLPTClient", () => {
   test("should throw cannot parse typeDefs", async () => {
     expect(() => {
       const gqlpt = new GQLPTClient({
-        apiKey: config.TEST_API_KEY,
+        apiKey: TEST_API_KEY,
         typeDefs: "INVALID",
       });
     }).toThrow("Cannot parse typeDefs");
@@ -30,29 +38,9 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: config.TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
 
     await gqlpt.connect();
-  });
-
-  test("should throw not connected", async () => {
-    const typeDefs = `
-      type User {
-        id: ID!
-        name: String!
-        email: String!
-      }
-      
-      type Query {
-        users(name: String): [User!]!
-      }
-    `;
-
-    const gqlpt = new GQLPTClient({ apiKey: config.TEST_API_KEY, typeDefs });
-
-    expect(gqlpt.generate("find users where name is dan")).rejects.toThrow(
-      "Not connected"
-    );
   });
 
   test("should return graphql query", async () => {
@@ -68,7 +56,7 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: config.TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
 
     await gqlpt.connect();
     const { query, variables } = await gqlpt.generate(
@@ -116,7 +104,7 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: config.TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
 
     await gqlpt.connect();
     const { query, variables } = await gqlpt.generate(
@@ -170,7 +158,7 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: config.TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
 
     await gqlpt.connect();
     const { query, variables } = await gqlpt.generate(

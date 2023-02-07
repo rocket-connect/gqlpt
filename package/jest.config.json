@@ -1,9 +1,11 @@
 {
-  "preset": "ts-jest",
+  "preset": "ts-jest/presets/default-esm",
+  "extensionsToTreatAsEsm": [".ts"],
+  "verbose": true,
   "testEnvironment": "node",
   "transform": {
-    "node_modules/.+\\.(j|t)sx?$": "ts-jest"
+    "^.+\\.(ts|tsx)?$": ["ts-jest", { "useESM": true }]
   },
-  "transformIgnorePatterns": ["//node_modules"],
+  "testPathIgnorePatterns": ["./dist"],
   "testTimeout": 60000
 }

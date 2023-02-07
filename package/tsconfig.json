@@ -1,20 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["esnext"],
+    "lib": ["ES2022"],
+    "target": "ES2022",
+    "module": "ES2022",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "module": "ES2020",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "baseUrl": "./",
-    "outDir": "./dist/",
-    "rootDir": "./src"
+    "outDir": "dist",
+    "rootDir": "./src",
+    "types": ["jest", "node", "@types/jest"],
+    "sourceMap": true,
+    "composite": true
   },
-  "exclude": ["node_modules"],
-  "include": ["**/src/*.ts"]
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["./src/**/*", "./tests/**/*"]
 }
