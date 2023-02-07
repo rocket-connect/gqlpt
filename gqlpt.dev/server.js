@@ -15,8 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(expressStaticGzip(config.STATIC_FOLDER, {}));
-app.get("*", expressStaticGzip(config.STATIC_FOLDER, {}));
-app.use("*", expressStaticGzip(config.STATIC_FOLDER, {}));
 
 app.post("/generate", async (req, res) => {
   try {
@@ -33,6 +31,9 @@ app.post("/generate", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+app.get("*", expressStaticGzip(config.STATIC_FOLDER, {}));
+app.use("*", expressStaticGzip(config.STATIC_FOLDER, {}));
 
 function main() {
   app.listen(config.HTTP_PORT, (err) => {
