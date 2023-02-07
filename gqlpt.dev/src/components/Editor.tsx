@@ -18,7 +18,7 @@ export function Editor(
       language="graphql"
       theme="vs-dark"
       options={{
-        fontSize: 20,
+        fontSize: 18,
         readOnly: props.readonly,
         selectOnLineNumbers: true,
         lineNumbers: "off",

@@ -67,14 +67,26 @@ function App() {
   return (
     <div>
       <div className="container mx-auto bg-gray-100 rounded-xl shadow border p-8 m-10">
-        <p className="text-3xl text-gray-700 font-bold mb-5">GQLTP</p>
-        <p className="text-gray-500 text-lg">
+        <h1 className="text-3xl text-gray-700 font-bold mb-5">GQLTP</h1>
+        <p className="text-gray-500 text-lg mt-5">
           GQLPT leverages the power of ChatGPT to generate GraphQL queries from
           plain text.
         </p>
-
+        <p className="text-blue-500 text-lg mt-5">
+          <a href="https://github.com/danstarns/gqlpt">Github</a>
+        </p>
+        <p className="text-blue-500 text-lg mt-5">
+          <a href="https://github.com/danstarns/">MIT danstarns</a>
+        </p>
+        <p className="text-gray-500 italic text-lg mt-5">
+          Put your <span className="bold">non production</span>{" "}
+          <a className="text-blue-500" href="https://openai.com/">
+            https://openai.com/
+          </a>{" "}
+          API key here:
+        </p>
         <input
-          className="mt-5 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="mt-5 w-2/5 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="apikey"
           type="password"
           placeholder="API KEY"
@@ -83,9 +95,13 @@ function App() {
         />
       </div>
 
+      <p className="text-gray-500 text-lg my-5 text-center">
+        Write your question here:
+      </p>
+
       <div className="container mx-auto flex align-center justify-center mt-5">
         <input
-          className="text-2xl shadow appearance-none border rounded py-2 w-4/6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="text-2xl shadow appearance-none border rounded py-2 w-5/6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="apikey"
           type="text"
           placeholder="Query"
@@ -98,14 +114,14 @@ function App() {
           onClick={generate}
           disabled={loading}
           type="submit"
-          className="ml-5 text-2xl w-1/5 border border-transparent rounded bg-indigo-600 py-2 px-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="ml-5 text-2xl w-1/6 border border-transparent rounded bg-indigo-600 py-2 px-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           Generate
         </button>
       </div>
 
       {(error || loading) && (
-        <div className="container mx-auto flex flex-col justify-center align-center">
+        <div className="container mx-auto flex flex-col justify-center align-center mt-10">
           {error && (
             <div className="w-2/5 mt-5 mx-auto flex align-center justify-center bg-gray-100 rounded-xl shadow border p-8">
               <p className="text-red-900">{error}</p>
@@ -120,9 +136,12 @@ function App() {
         </div>
       )}
 
-      <div className="container mx-auto flex align-center justify-center mt-10">
+      <div className="container mx-auto flex align-center justify-between mt-10">
         <div className="bg-gray-100 rounded-xl shadow border p-8 m-5">
           <h2 className="text-2xl text-gray-700 font-bold bold mb-5">Schema</h2>
+
+          <p className="text-gray-500 text-lg my-5">Put your typeDefs here:</p>
+
           <Editor
             value={typeDefs}
             onChange={setTypeDefs}
@@ -136,6 +155,10 @@ function App() {
               <h2 className="text-2xl text-gray-700 font-bold bold mb-5">
                 Query
               </h2>
+              <p className="text-gray-500 text-lg my-5">
+                This will be the generated GraphQL query:
+              </p>
+
               <Editor
                 value={generatedQuery}
                 onChange={() => {}}
@@ -148,6 +171,11 @@ function App() {
               <h2 className="text-2xl text-gray-700 font-bold bold mb-5">
                 Variables
               </h2>
+
+              <p className="text-gray-500 text-lg my-5">
+                This will be the generated variables:
+              </p>
+
               <Editor
                 value={JSON.stringify(generatedVariables, null, 2)}
                 onChange={() => {}}
