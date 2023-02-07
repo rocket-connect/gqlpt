@@ -1,4 +1,7 @@
-export const typeDefs = `
+import { print, parse } from "graphql";
+
+export const typeDefs = print(
+  parse(`
     type User {
         name: String
         email: String
@@ -23,6 +26,7 @@ export const typeDefs = `
     type Query {
         users(where: UserWhere): [User]
     }
-`;
+`)
+);
 
 export const query = `find someone with the email danielstarns@hotmail.com including posts where title contains 'beer'`;

@@ -15,7 +15,7 @@ function App() {
     localStorage.getItem("typeDefs") || defaultValues.typeDefs
   );
   const [query, setQuery] = useState<string>(
-    localStorage.getItem("query") || defaultValues.typeDefs
+    localStorage.getItem("query") || defaultValues.query
   );
 
   const [generatedQuery, setGeneratedQuery] = useState<string>();
