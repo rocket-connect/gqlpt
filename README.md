@@ -8,6 +8,8 @@ Live playground: https://gqlpt.dev/
 
 ## Installation
 
+https://www.npmjs.com/package/gqlpt
+
 ```bash
 npm install gqlpt
 ```
