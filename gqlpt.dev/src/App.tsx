@@ -145,8 +145,8 @@ function App() {
           <Editor
             value={typeDefs}
             onChange={setTypeDefs}
-            width={600}
-            height={700}
+            width={650}
+            height={900}
           />
         </div>
         <div className="bg-gray-100 rounded-xl shadow border p-8 m-5">
@@ -162,9 +162,9 @@ function App() {
               <Editor
                 value={generatedQuery}
                 onChange={() => {}}
-                width={600}
+                width={650}
                 readonly={true}
-                height={300}
+                height={400}
               />
             </div>
             <div className="mt-10">
@@ -180,8 +180,8 @@ function App() {
                 value={JSON.stringify(generatedVariables, null, 2)}
                 onChange={() => {}}
                 readonly={true}
-                width={600}
-                height={300}
+                width={650}
+                height={400}
               />
             </div>
           </div>
