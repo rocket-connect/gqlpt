@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Spinner } from "./components/Spinner";
 import { Editor } from "./components/Editor";
+import * as defaultValues from "./defaults";
 
 const config = {
   API_URL: process.env.API_URL,
@@ -11,10 +12,10 @@ function App() {
     localStorage.getItem("apiKey") || ""
   );
   const [typeDefs, setTypeDefs] = useState<string>(
-    localStorage.getItem("typeDefs") || ""
+    localStorage.getItem("typeDefs") || defaultValues.typeDefs
   );
   const [query, setQuery] = useState<string>(
-    localStorage.getItem("query") || ""
+    localStorage.getItem("query") || defaultValues.typeDefs
   );
 
   const [generatedQuery, setGeneratedQuery] = useState<string>();
@@ -77,13 +78,12 @@ function App() {
           plain text.
         </p>
         <p className="text-blue-500 text-lg mt-5">
-          <a href="https://github.com/danstarns/gqlpt">Github</a>
-        </p>
-        <p className="text-blue-500 text-lg mt-5">
-          <a href="https://github.com/danstarns/">MIT danstarns</a>
+          <a href="https://github.com/danstarns/gqlpt">
+            https://github.com/danstarns/gqlpt
+          </a>
         </p>
         <p className="text-gray-500 italic text-lg mt-5">
-          Put your <span className="bold">non production</span>{" "}
+          Put your non production{" "}
           <a className="text-blue-500" href="https://openai.com/">
             https://openai.com/
           </a>{" "}
@@ -99,29 +99,31 @@ function App() {
         />
       </div>
 
-      <p className="text-gray-500 text-lg my-5 text-center">
-        Write your question here:
-      </p>
+      <div className="container mx-auto bg-gray-100 rounded-xl shadow border p-8 m-10">
+        <p className="text-gray-500 text-lg my-5 text-center">
+          Write your question here:
+        </p>
 
-      <div className="container mx-auto flex align-center justify-center mt-5">
-        <input
-          className="text-2xl shadow appearance-none border rounded py-2 w-5/6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="apikey"
-          type="text"
-          placeholder="Query"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          readOnly={loading}
-        />
+        <div className="container mx-auto flex align-center justify-center mt-5">
+          <input
+            className="text-2xl shadow appearance-none border rounded py-2 w-5/6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="apikey"
+            type="text"
+            placeholder="Query"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            readOnly={loading}
+          />
 
-        <button
-          onClick={generate}
-          disabled={loading}
-          type="submit"
-          className="ml-5 text-2xl w-1/6 border border-transparent rounded bg-indigo-600 py-2 px-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Generate
-        </button>
+          <button
+            onClick={generate}
+            disabled={loading}
+            type="submit"
+            className="ml-5 text-2xl w-1/6 border border-transparent rounded bg-indigo-600 py-2 px-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Generate
+          </button>
+        </div>
       </div>
 
       {(error || loading) && (
