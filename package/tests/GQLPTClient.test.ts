@@ -1,6 +1,8 @@
 import { parse, print } from "graphql";
 import { GQLPTClient } from "../src";
 import dotenv from "dotenv";
+import { describe, expect, test } from "@jest/globals";
+
 dotenv.config();
 
 export const TEST_API_KEY = process.env.TEST_API_KEY as string;
@@ -76,8 +78,8 @@ describe("GQLPTClient", () => {
 
     expect(parsePrint(query)).toEqual(
       parsePrint(`
-          query ($where: UserWhereInput) {
-            users(where: $where) {
+          query ($name: String) {
+            users(where: {name: $name}) {
               id
               name
               email
@@ -92,9 +94,7 @@ describe("GQLPTClient", () => {
     );
 
     expect(variables).toMatchObject({
-      where: {
-        name: "dan",
-      },
+      name: "dan",
     });
   });
 
