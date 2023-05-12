@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/danstarns/gqlpt#readme",
   "dependencies": {
-    "chatgpt": "4.1.1",
+    "chatgpt": "5.2.4",
     "graphql": "16.6.0"
   },
   "devDependencies": {
