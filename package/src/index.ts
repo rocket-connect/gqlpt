@@ -51,7 +51,6 @@ export class GQLPTClient {
       this.initMessage = message;
     }
 
-    console.log(message.text);
     const result = JSON.parse(message.text.replace(/`/g, "")) as {
       query: string;
       variables?: Record<string, unknown>;
