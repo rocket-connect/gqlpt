@@ -78,8 +78,8 @@ function App() {
           plain text.
         </p>
         <p className="text-blue-500 text-lg mt-5">
-          <a href="https://github.com/danstarns/gqlpt">
-            https://github.com/danstarns/gqlpt
+          <a href="https://github.com/rocket-connect/gqlpt">
+            https://github.com/rocket-connect/gqlpt
           </a>
         </p>
         <p className="text-gray-500 italic text-lg mt-5">

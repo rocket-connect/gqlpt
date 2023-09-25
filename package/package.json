@@ -25,15 +25,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danstarns/gqlpt.git"
+    "url": "git+https://github.com/rocket-connect/gqlpt.git"
   },
   "keywords": [],
-  "author": "danstarns - danielstarns@hotmail.com",
+  "author": "Rocket Connect - www.rocketconnect.co.uk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danstarns/gqlpt/issues"
+    "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
-  "homepage": "https://github.com/danstarns/gqlpt#readme",
+  "homepage": "https://github.com/rocket-connect/gqlpt#readme",
   "dependencies": {
     "chatgpt": "5.2.4",
     "graphql": "16.6.0"

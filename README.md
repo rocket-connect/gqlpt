@@ -51,4 +51,4 @@ const response = await gqlpt.generate("Get all users where name is dan");
 
 ## License
 
-MIT - Dan Starns - danielstarns@hotmail.com
+MIT - Rocket Connect - https://github.com/rocket-connect
