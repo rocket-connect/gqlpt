@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "baseUrl": "./",
     "outDir": "build",
+    "declarationMap": true,
+    "declaration": true,
     "rootDir": "./src",
     "types": ["jest", "node", "@types/jest"],
     "sourceMap": true,
