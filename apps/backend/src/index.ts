@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const config = {
   STATIC_FOLDER: path.join(__filename, "../../../playground/build"),
-  HTTP_PORT: 8080,
+  HTTP_PORT: 5000,
 };
 
 const app = express();
