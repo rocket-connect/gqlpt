@@ -7,20 +7,12 @@ on:
     branches: [main]
 
 jobs:
-  test-package:
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: cd ./package && ./build.sh
-      - run: cd ./package && npm run test
+      - uses: ./.github/actions/setup-project
+      - name: Test
+        run: pnpm test
         env:
           TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
