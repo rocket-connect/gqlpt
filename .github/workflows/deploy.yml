@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy-playground:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,10 +22,7 @@ jobs:
             cd ./gqlpt
             git reset --hard
             git pull origin main
-            cd ./package
-            npm install
-            npm run build
-            cd ../gqlpt.dev
-            npm install
-            npm run build
+            pnpm i
+            pnpm build
+            cd ../apps/backend
             pm2 restart gqlpt.dev
