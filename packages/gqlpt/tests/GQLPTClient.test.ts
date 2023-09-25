@@ -5,12 +5,13 @@ import { describe, expect, test } from "@jest/globals";
 
 dotenv.config();
 
-export const TEST_API_KEY = process.env.TEST_API_KEY as string;
+const TEST_API_KEY = process.env.TEST_API_KEY as string;
 
 function parsePrint(query: string) {
   const parsed = parse(query, { noLocation: true });
 
   // delete the name of the query, makes it easier to test as the name is random
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   parsed.definitions[0].name = undefined;
 
@@ -20,6 +21,7 @@ function parsePrint(query: string) {
 describe("GQLPTClient", () => {
   test("should throw cannot parse typeDefs", async () => {
     expect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const gqlpt = new GQLPTClient({
         apiKey: TEST_API_KEY,
         typeDefs: "INVALID",

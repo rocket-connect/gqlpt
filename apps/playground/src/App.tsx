@@ -4,10 +4,10 @@ import { Editor } from "./components/Editor";
 import * as defaultValues from "./defaults";
 
 const config = {
-  API_URL: process.env.API_URL,
+  API_URL: process.env.API_URL || "",
 };
 
-function App() {
+export function App() {
   const [apiKey, setApiKey] = useState<string>(
     localStorage.getItem("apiKey") || ""
   );
@@ -63,7 +63,8 @@ function App() {
       setGeneratedVariables(data.variables);
       setGeneratedQuery(data.query);
     } catch (error) {
-      setError(error.message);
+      const e = error as Error;
+      setError(e.message);
     } finally {
       setLoading(false);
     }
@@ -196,5 +197,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

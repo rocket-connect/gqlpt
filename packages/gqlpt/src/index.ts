@@ -26,7 +26,7 @@ export class GQLPTClient {
   }
 
   async connect() {
-    this.initMessage = await this.chatgpt.sendMessage(
+    this.initMessage = await this?.chatgpt?.sendMessage(
       `When I say Ping, you say Pong. Ping.`
     );
   }
@@ -43,7 +43,7 @@ export class GQLPTClient {
       Dont add any more text or formating to your response, I will JSON parse the text.
     `;
 
-    const message = await this.chatgpt.sendMessage(query, {
+    const message = await this?.chatgpt?.sendMessage(query, {
       conversationId: this?.initMessage?.conversationId,
     });
 
@@ -51,7 +51,7 @@ export class GQLPTClient {
       this.initMessage = message;
     }
 
-    const result = JSON.parse(message.text.replace(/`/g, "")) as {
+    const result = JSON.parse((message?.text || "").replace(/`/g, "")) as {
       query: string;
       variables?: Record<string, unknown>;
     };

@@ -4,17 +4,22 @@ dotenv.config({ path: "./.env" });
 import express from "express";
 import cors from "cors";
 import expressStaticGzip from "express-static-gzip";
-import { GQLPTClient } from "../package/dist/index.js";
+import { GQLPTClient } from "gqlpt";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
 
 const config = {
-  STATIC_FOLDER: process.env.STATIC_FOLDER,
-  HTTP_PORT: process.env.HTTP_PORT,
+  STATIC_FOLDER: path.join(__filename, "../../../playground/build"),
+  HTTP_PORT: 8080,
 };
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(expressStaticGzip(config.STATIC_FOLDER, {}));
+app.use(express.static("public"));
 
 app.post("/generate", async (req, res) => {
   try {
@@ -28,21 +33,18 @@ app.post("/generate", async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    res.status(500).send(error.message);
+    const e = error as Error;
+    res.status(500).send(e.message);
   }
 });
 
 app.get("*", expressStaticGzip(config.STATIC_FOLDER, {}));
 app.use("*", expressStaticGzip(config.STATIC_FOLDER, {}));
 
-function main() {
-  app.listen(config.HTTP_PORT, (err) => {
-    if (err) {
-      console.error(err);
-    }
+async function main() {
+  await app.listen(config.HTTP_PORT);
 
-    console.log(`istening at http://localhost:${config.HTTP_PORT}`);
-  });
+  console.log(`Listening at http://localhost:${config.HTTP_PORT}`);
 }
 
 main();

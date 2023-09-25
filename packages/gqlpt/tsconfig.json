@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "baseUrl": "./",
-    "outDir": "dist",
+    "outDir": "build",
     "rootDir": "./src",
     "types": ["jest", "node", "@types/jest"],
     "sourceMap": true,

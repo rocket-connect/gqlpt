@@ -1,6 +1,4 @@
-import React from "react";
-
-export function Spinner(props: React.PropsWithChildren<{}>) {
+export function Spinner() {
   return (
     <div role="status">
       <svg
