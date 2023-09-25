@@ -7,7 +7,7 @@ export function Editor(
     onChange: (...a: any) => any;
     value: any;
     readonly?: boolean;
-  }>
+  }>,
 ) {
   return (
     <MonacoEditor

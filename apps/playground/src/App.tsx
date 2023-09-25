@@ -9,13 +9,13 @@ const config = {
 
 export function App() {
   const [apiKey, setApiKey] = useState<string>(
-    localStorage.getItem("apiKey") || ""
+    localStorage.getItem("apiKey") || "",
   );
   const [typeDefs, setTypeDefs] = useState<string>(
-    localStorage.getItem("typeDefs") || defaultValues.typeDefs
+    localStorage.getItem("typeDefs") || defaultValues.typeDefs,
   );
   const [query, setQuery] = useState<string>(
-    localStorage.getItem("query") || defaultValues.query
+    localStorage.getItem("query") || defaultValues.query,
   );
 
   const [generatedQuery, setGeneratedQuery] = useState<string>();

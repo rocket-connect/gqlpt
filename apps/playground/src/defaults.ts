@@ -20,7 +20,7 @@ export const typeDefs = print(
         type Query {
             users(where: UserWhere): [User]
         }
-    `)
+    `),
 );
 
 export const query = `find user dan and his posts`;

@@ -27,7 +27,7 @@ export class GQLPTClient {
 
   async connect() {
     this.initMessage = await this?.chatgpt?.sendMessage(
-      `When I say Ping, you say Pong. Ping.`
+      `When I say Ping, you say Pong. Ping.`,
     );
   }
 

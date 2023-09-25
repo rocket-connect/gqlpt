@@ -75,7 +75,7 @@ describe("GQLPTClient", () => {
 
     await gqlpt.connect();
     const { query, variables } = await gqlpt.generate(
-      "find users and there posts where name is dan"
+      "find users and there posts where name is dan",
     );
 
     expect(parsePrint(query)).toEqual(
@@ -92,7 +92,7 @@ describe("GQLPTClient", () => {
               }
             }
           }
-        `)
+        `),
     );
 
     expect(variables).toMatchObject({
@@ -127,7 +127,7 @@ describe("GQLPTClient", () => {
 
     await gqlpt.connect();
     const { query, variables } = await gqlpt.generate(
-      "create user with name dan and his friends bob and alice"
+      "create user with name dan and his friends bob and alice",
     );
 
     expect(parsePrint(query)).toEqual(
@@ -140,8 +140,8 @@ describe("GQLPTClient", () => {
               email
             }
           }
-        `
-      )
+        `,
+      ),
     );
 
     expect(variables).toMatchObject({
