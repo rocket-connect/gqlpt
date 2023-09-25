@@ -118,8 +118,8 @@ importers:
   apps/playground:
     dependencies:
       css-loader:
-        specifier: 6.7.3
-        version: 6.7.3(webpack@5.69.1)
+        specifier: 6.8.1
+        version: 6.8.1(webpack@5.69.1)
       graphql:
         specifier: ^16.0.0 || ^17.0.0
         version: 16.0.0
@@ -3765,8 +3765,8 @@ packages:
       randomfill: 1.0.4
     dev: true
 
-  /css-loader@6.7.3(webpack@5.69.1):
-    resolution: {integrity: sha512-qhOH1KlBMnZP8FzRO6YCH9UHXQhVMcEGLyNdb7Hv2cpcmJbW0YrddO+tG1ab5nT41KpHIYGsbeHqxB9xPu1pKQ==}
+  /css-loader@6.8.1(webpack@5.69.1):
+    resolution: {integrity: sha512-xDAXtEVGlD0gJ07iclwWVkLoZOpEvAWaSyf6W18S2pOC//K8+qUDIx8IIT3D+HjnmkJPQeesOPv5aiUaJsCM2g==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
