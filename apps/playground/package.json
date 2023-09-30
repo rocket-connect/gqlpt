@@ -43,7 +43,7 @@
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.0",
     "postcss": "8.4.7",
-    "postcss-loader": "6.2.1",
+    "postcss-loader": "7.3.3",
     "style-loader": "3.3.1",
     "tailwindcss": "3.0.23",
     "terser-webpack-plugin": "5.3.1",
