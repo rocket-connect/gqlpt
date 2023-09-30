@@ -1,5 +1,5 @@
 {
-  "name": "@graphql-debugger/backend",
+  "name": "@gqlpt/backend",
   "version": "0.0.0-alpha.4",
   "main": "build/index.js",
   "types": "build/index.d.ts",
