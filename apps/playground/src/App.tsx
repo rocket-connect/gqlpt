@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { Spinner } from "./components/Spinner";
+
 import { Editor } from "./components/Editor";
+import { Spinner } from "./components/Spinner";
 import * as defaultValues from "./defaults";
 
 const config = {

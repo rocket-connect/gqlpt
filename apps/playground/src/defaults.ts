@@ -1,4 +1,4 @@
-import { print, parse } from "graphql";
+import { parse, print } from "graphql";
 
 export const typeDefs = print(
   parse(`

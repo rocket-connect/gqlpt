@@ -1,7 +1,8 @@
-import { parse, print } from "graphql";
-import { GQLPTClient } from "../src";
-import dotenv from "dotenv";
 import { describe, expect, test } from "@jest/globals";
+import dotenv from "dotenv";
+import { parse, print } from "graphql";
+
+import { GQLPTClient } from "../src";
 
 dotenv.config();
 
