@@ -1,17 +1,14 @@
-import dotenv from "dotenv";
-dotenv.config({ path: "./.env" });
-
-import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
 import expressStaticGzip from "express-static-gzip";
 import { GQLPTClient } from "gqlpt";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
+dotenv.config({ path: "./.env" });
 
 const config = {
-  STATIC_FOLDER: path.join(__filename, "../../../playground/build"),
+  STATIC_FOLDER: path.join(__dirname, "../../playground/build"),
   HTTP_PORT: 5000,
 };
 

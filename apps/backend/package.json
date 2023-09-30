@@ -6,7 +6,6 @@
   "files": [
     "build"
   ],
-  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"No tests\"",
-    "dev": "cross-env NODE_ENV=development ts-node-esm ./src/index.ts"
+    "dev": "cross-env NODE_ENV=development ts-node ./src/index.ts"
   },
   "dependencies": {
     "gqlpt": "workspace:^",

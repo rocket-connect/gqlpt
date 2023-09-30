@@ -1,5 +1,5 @@
-import OpenAI from "openai";
 import { parse, print } from "graphql";
+import OpenAI from "openai";
 
 export interface GQLPTClientOptions {
   apiKey: string;
@@ -8,7 +8,7 @@ export interface GQLPTClientOptions {
 
 export class GQLPTClient {
   private options: GQLPTClientOptions;
-  private openai?: OpenAI;
+  private openai: OpenAI;
 
   constructor(options: GQLPTClientOptions) {
     this.options = options;

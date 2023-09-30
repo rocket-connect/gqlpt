@@ -2,21 +2,13 @@
   "name": "gqlpt",
   "version": "0.0.0-alpha.4",
   "description": "GQLPT leverages the power of ChatGPT to generate GraphQL queries from plain text.",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "files": [
     "build"
   ],
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./build/index.js",
-      "types": "./build/index.d.ts",
-      "default": "./build/index.js"
-    }
-  },
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest",
     "build": "tsc"
   },
   "repository": {
