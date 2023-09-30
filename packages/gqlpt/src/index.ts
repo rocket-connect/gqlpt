@@ -1,4 +1,4 @@
-import { ChatGPTAPI, ChatMessage } from "chatgpt";
+import OpenAI from "openai";
 import { parse, print } from "graphql";
 
 export interface GQLPTClientOptions {
@@ -8,8 +8,7 @@ export interface GQLPTClientOptions {
 
 export class GQLPTClient {
   private options: GQLPTClientOptions;
-  private chatgpt?: ChatGPTAPI;
-  private initMessage?: ChatMessage;
+  private openai?: OpenAI;
 
   constructor(options: GQLPTClientOptions) {
     this.options = options;
@@ -20,15 +19,27 @@ export class GQLPTClient {
       throw new Error(`Cannot parse typeDefs ${error}`);
     }
 
-    this.chatgpt = new ChatGPTAPI({
+    this.openai = new OpenAI({
       apiKey: this.options.apiKey,
     });
   }
 
   async connect() {
-    this.initMessage = await this?.chatgpt?.sendMessage(
-      `When I say Ping, you say Pong. Ping.`,
-    );
+    const resposne = await this.openai.chat.completions.create({
+      messages: [
+        { role: "user", content: "When I say Ping, you say Pong" },
+        {
+          role: "user",
+          content: "Ping",
+        },
+      ],
+      model: "gpt-3.5-turbo",
+    });
+
+    const content = resposne.choices[0].message.content;
+    if (content !== "Pong") {
+      throw new Error("Cannot connect to OpenAI");
+    }
   }
 
   async generate(plainText: string): Promise<{
@@ -43,21 +54,17 @@ export class GQLPTClient {
       Dont add any more text or formating to your response, I will JSON parse the text.
     `;
 
-    const message = await this?.chatgpt?.sendMessage(query, {
-      conversationId: this?.initMessage?.conversationId,
+    const response = await this.openai.chat.completions.create({
+      messages: [{ role: "user", content: query }],
+      model: "gpt-3.5-turbo",
     });
+    const content = response.choices[0].message.content;
 
-    if (!this.initMessage) {
-      this.initMessage = message;
-    }
-
-    const result = JSON.parse((message?.text || "").replace(/`/g, "")) as {
+    const result = JSON.parse((content || "").replace(/`/g, "")) as {
       query: string;
       variables?: Record<string, unknown>;
     };
-
     const queryAst = parse(result.query, { noLocation: true });
-
     const printedQuery = print(queryAst);
 
     return {

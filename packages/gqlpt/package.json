@@ -34,7 +34,6 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
-    "chatgpt": "5.2.5"
-  },
-  "devDependencies": {}
+    "openai": "^4.11.0"
+  }
 }
