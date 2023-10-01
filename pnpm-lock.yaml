@@ -189,6 +189,9 @@ importers:
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
+      dedent:
+        specifier: ^1.5.1
+        version: 1.5.1
       graphql:
         specifier: ^16.0.0 || ^17.0.0
         version: 16.0.0
@@ -3819,7 +3822,6 @@ packages:
     peerDependenciesMeta:
       babel-plugin-macros:
         optional: true
-    dev: true
 
   /deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}

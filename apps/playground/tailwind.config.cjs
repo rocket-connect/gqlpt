@@ -12,7 +12,6 @@ module.exports = {
         ["graphiql-pink"]: "#FF5794",
         ["graphiql-highlight"]: "#444D60",
         ["editor-dark"]: "#1E1E1E",
-        ["gqlpt-purple"]: "#2E3192",
       },
     },
   },

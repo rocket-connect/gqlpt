@@ -1,6 +1,6 @@
 import { Container } from "../utils/Container";
 import { Logo } from "../utils/Logo";
-import { githubPurple, npmPurple } from "../utils/images";
+import { github, npm } from "../utils/images";
 
 export function Header() {
   return (
@@ -12,7 +12,7 @@ export function Header() {
               <span className="w-10">
                 <Logo />
               </span>
-              <span className="ml-5 self-center font-bold whitespace-nowrap text-gqlpt-purple text-xs md:text-lg">
+              <span className="ml-5 self-center font-bold whitespace-nowrap text-graphiql-dark text-xs md:text-lg">
                 GQLPT
               </span>
             </a>
@@ -22,7 +22,7 @@ export function Header() {
                 className="flex items-center"
               >
                 <span className="w-8">
-                  <img src={npmPurple} alt="npm" />
+                  <img src={npm} alt="npm" />
                 </span>
               </a>
               <a
@@ -30,7 +30,7 @@ export function Header() {
                 className="flex items-center"
               >
                 <span className="w-8">
-                  <img src={githubPurple} alt="github" />
+                  <img src={github} alt="github" />
                 </span>
               </a>
             </div>

@@ -10,10 +10,11 @@ export const typeDefs = print(
       
       type User {
         name: String!
+        logins: [Login!]!
       }
       
       input UserWhere {
-        email: String!
+        name: String!
       }
       
       input DateWhere {
@@ -27,7 +28,8 @@ export const typeDefs = print(
       }
       
       type Query {
-        logins(where: LoginWhere!): [Login!]!
+        logins(where: LoginWhere): [Login!]!
+        users(where: UserWhere): [User!]!
       }
   `),
 );
@@ -47,7 +49,32 @@ export const response = `query logins($where: LoginWhere!) {
 export const args = JSON.stringify({
   loginWhere: {
     user: {
-      email: "dan",
+      name: "dan",
     },
   },
 });
+
+export const gettingStarted = `import { GQLPTClient } from "gqlpt";
+
+const typeDefs = \`
+  type User {
+    name: String!
+    email: String!
+  }
+
+  type Query {
+    users(name: String): [User!]!
+  }
+\`;
+
+const gqlpt = new GQLPTClient({
+  apiKey: "chatgpt-api-key",
+  typeDefs,
+});
+
+await gqlpt.connect();
+
+const response = await gqlpt.generate(
+  "Get all users with name dan"
+);
+`;
