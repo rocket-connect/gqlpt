@@ -11,7 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-project
-      - run: cd ./packages/gqlpt && npm pack
-      - run: cd ./packages/gqlpt && npm publish
+      - run: cd ./packages/gqlpt && pnpm pack
+      - run: pnpm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+      - run: cd ./packages/gqlpt && pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
