@@ -8,6 +8,8 @@
 
 [![npm version](https://badge.fury.io/js/gqlpt.svg)](https://badge.fury.io/js/gqlpt) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![](./docs/screenshot.png)](https://www.gqlpt.dev/)
+
 </div>
 
 ## Installation
