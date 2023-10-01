@@ -8,7 +8,7 @@ export function Header() {
       <Container>
         <nav>
           <div className="flex flex-wrap items-center justify-between mx-auto py-2">
-            <a href="#" className="flex items-center">
+            <a href="/" className="flex items-center">
               <span className="w-10">
                 <Logo />
               </span>
@@ -18,7 +18,7 @@ export function Header() {
             </a>
             <div className="flex gap-10">
               <a
-                href="https://www.npmjs.com/search?q=graphql-debugger"
+                href="https://www.npmjs.com/package/gqlpt"
                 className="flex items-center"
               >
                 <span className="w-8">
@@ -26,7 +26,7 @@ export function Header() {
                 </span>
               </a>
               <a
-                href="https://github.com/rocket-connect/graphql-debugger"
+                href="https://github.com/rocket-connect/gqlpt"
                 className="flex items-center"
               >
                 <span className="w-8">
