@@ -13,6 +13,6 @@ jobs:
       - uses: ./.github/actions/setup-project
       - run: cd ./packages/gqlpt && pnpm pack
       - run: pnpm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-      - run: cd ./packages/gqlpt && pnpm publish
+      - run: cd ./packages/gqlpt && pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
