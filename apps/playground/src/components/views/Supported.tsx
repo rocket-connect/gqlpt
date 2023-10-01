@@ -9,7 +9,7 @@ import {
 const supported = [
   {
     name: "OpenAI",
-    content: "Using the OpenAI API.",
+    content: "Using the official OpenAI API.",
     img: openaiicon,
     link: "https://opentelemetry.io/",
   },
@@ -35,7 +35,7 @@ const supported = [
 
 export function Supported() {
   return (
-    <div className="bg-graphiql-light text-graphiql-medium py-5">
+    <div className="bg-graphiql-light text-graphiql-medium pt-5 pb-10">
       <Container>
         <div className="flex flex-col md:flex-row justify-between gap-10">
           {supported.map((item) => (

@@ -23,7 +23,7 @@ function TrafficLightsIcon(props: TrafficLightsIconProps) {
 
 export function CodeBlock({ code, language, title }: CodeBlockProps) {
   return (
-    <div className="p-5 w-full">
+    <div className="p-3 pb-0 w-full text-sm">
       <TrafficLightsIcon className="h-2.5 mb-2" />
       <p className="mb-2 font-bold">{title}</p>
       <div className="flex items-start px-1">

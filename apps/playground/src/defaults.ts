@@ -72,9 +72,6 @@ const gqlpt = new GQLPTClient({
   typeDefs,
 });
 
-await gqlpt.connect();
-
 const response = await gqlpt.generate(
   "Get all users with name dan"
-);
-`;
+);`;

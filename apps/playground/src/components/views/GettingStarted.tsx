@@ -13,19 +13,32 @@ export function GettingStarted() {
             <div className="flex flex-col gap-10 my-auto">
               <h2 className="text-4xl font-bold">Getting Started</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-                sapiente facilis quas incidunt minus culpa animi, non nobis
-                numquam quibusdam atque nulla eos ducimus distinctio
-                exercitationem officiis laboriosam. Eos, eveniet.
+                To begin using GQLPT, you'll first need to install the relevant{" "}
+                <a
+                  className="underline"
+                  href="https://www.npmjs.com/package/gqlpt"
+                >
+                  npm package
+                </a>
+                . Once installed, ensure you import the GQLPT client into your
+                project.
               </p>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-                sapiente facilis quas incidunt minus culpa animi, non nobis
-                numquam quibusdam atque nulla eos ducimus distinctio
-                exercitationem officiis laboriosam. Eos, eveniet.
+                Before constructing your GQLPT client, you'll need to obtain an
+                API key from OpenAI. You can register and get your key at{" "}
+                <a className="underline" href="https://openai.com/">
+                  OpenAI's official website
+                </a>
+                . With the API key at hand and your type definitions (typeDefs),
+                you can then instantiate a new GQLPT client instance.
+              </p>
+              <p>
+                Once everything is set up, utilize the 'generate' method on your
+                GQLPT client instance. To do this, provide the text you wish to
+                generate a GraphQL query from.
               </p>
             </div>
-            <div className="my-auto">
+            <div className="bg-graphiql-dark rounded-xl w-5/6">
               <CodeBlock
                 title="index.ts"
                 code={defaultValues.gettingStarted}
