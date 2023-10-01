@@ -38,7 +38,7 @@ export function GettingStarted() {
                 generate a GraphQL query from.
               </p>
             </div>
-            <div className="bg-graphiql-dark rounded-xl mx-auto">
+            <div className="bg-graphiql-dark rounded-xl w-5/6 mx-auto">
               <CodeBlock
                 title="index.ts"
                 code={defaultValues.gettingStarted}
