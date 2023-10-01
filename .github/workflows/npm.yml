@@ -9,14 +9,9 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: cd ./package/ && npm ci
-      - run: cd ./package/ && npm run build
-      - run: cd ./package && npm pack
-      - run: cd ./package && npm publish
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-project
+      - run: cd ./packages/gqlpt && npm pack
+      - run: cd ./packages/gqlpt && npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
