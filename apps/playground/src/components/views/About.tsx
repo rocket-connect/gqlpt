@@ -5,7 +5,7 @@ export function About() {
   return (
     <div className="bg-graphiql-light text-graphiql-dark">
       <Container>
-        <div className="flex flex-col xl:flex-row justify-center py-20 gap-10 w-4/6 mx-auto">
+        <div className="flex flex-col xl:flex-row justify-center py-20 gap-10 w-full md:w-4/6 mx-auto">
           <div className="my-auto mx-auto">
             <img className="md:mx-auto md:my-0 w-40" src={logo} alt="logo" />
           </div>

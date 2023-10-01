@@ -9,7 +9,9 @@ export function Home() {
   return (
     <div>
       <Intro />
-      <Playground />
+      <div className="hidden lg:block">
+        <Playground />
+      </div>
       <About />
       <Supported />
       <GettingStarted />
