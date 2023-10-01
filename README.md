@@ -4,7 +4,7 @@
 
 <h1>GQLPT</h1>
 
-<p>GQLPT leverages the power of ChatGPT to generate GraphQL queries from plain text.</p>
+<p>Leverage AI to generate GraphQL queries from plain text.</p>
 
 [![npm version](https://badge.fury.io/js/gqlpt.svg)](https://badge.fury.io/js/gqlpt) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
