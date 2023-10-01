@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/monorepo",
-  "version": "0.0.0-alpha.4",
+  "version": "0.0.0-alpha.5",
   "scripts": {
     "test": "turbo test",
     "dev": "cross-env turbo dev --filter \"backend\"",
