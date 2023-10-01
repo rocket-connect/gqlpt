@@ -27,7 +27,7 @@ export class GQLPTClient {
   async connect() {
     const resposne = await this.openai.chat.completions.create({
       messages: [
-        { role: "user", content: "When I say Ping, you say Pong" },
+        { role: "user", content: "When I say Ping, return exactly Pong" },
         {
           role: "user",
           content: "Ping",
