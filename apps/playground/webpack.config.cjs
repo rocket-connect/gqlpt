@@ -6,6 +6,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+require("dotenv").config();
 
 module.exports = {
   mode: "none",

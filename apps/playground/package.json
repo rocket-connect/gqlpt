@@ -25,13 +25,18 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
+    "clsx": "^2.0.0",
     "monaco-editor-webpack-plugin": "7.1.0",
+    "prettier": "^3.0.3",
+    "prism-react-renderer": "^2.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-monaco-editor": "0.54.0"
+    "react-dom": "18.2.0"
   },
   "engines": {
     "node": ">=18",
     "pnpm": ">=8"
+  },
+  "devDependencies": {
+    "@types/prettier": "^3.0.0"
   }
 }

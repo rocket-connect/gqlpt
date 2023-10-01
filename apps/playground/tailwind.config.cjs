@@ -1,11 +1,19 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./src/**/*.{html,ts,tsx}"],
   theme: {
     extend: {
       colors: {
+        ["graphql-otel-dark"]: "#221F20",
+        ["graphql-otel-green"]: "#2F8525",
+        ["graphiql-dark"]: "#202A3B",
+        ["graphiql-medium"]: "#2D3648",
+        ["graphiql-light"]: "#B7C2D7",
+        ["graphiql-border"]: "#3B4355",
+        ["graphiql-pink"]: "#FF5794",
+        ["graphiql-highlight"]: "#444D60",
         ["editor-dark"]: "#1E1E1E",
+        ["gqlpt-purple"]: "#2E3192",
       },
     },
   },
-  plugins: [],
 };
