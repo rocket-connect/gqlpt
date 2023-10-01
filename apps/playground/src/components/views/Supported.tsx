@@ -11,7 +11,7 @@ const supported = [
     name: "OpenAI",
     content: "Using the official OpenAI API.",
     img: openaiicon,
-    link: "https://opentelemetry.io/",
+    link: "https://openai.com/",
   },
   {
     name: "Typescript",
