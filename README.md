@@ -46,7 +46,7 @@ const response = await gqlpt.generate("Get all users where name is dan");
 
 /*
     query {
-        users(where: { name: "dan" }) {
+        users(name: "dan") {
             id
             name
             email
