@@ -1,6 +1,6 @@
 <div align="center" style="text-align: center;">
 
-<img src="./apps/playground/public/logo.svg" width="20%" alt="GraphQL Debugger">
+<img src="./apps/playground/public/logo.svg" width="20%" alt="GQLPT">
 
 <h1>GQLPT</h1>
 
