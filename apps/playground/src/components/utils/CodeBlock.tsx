@@ -98,7 +98,10 @@ export function CodeBlock({ code, language, title }: CodeBlockProps) {
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre
-              className={clsx(className, "flex overflow-scroll pb-6 w-5/6")}
+              className={clsx(
+                className,
+                "flex overflow-scroll custom-scrollbar pb-6 w-5/6",
+              )}
               style={style}
             >
               <code className="px-4">
