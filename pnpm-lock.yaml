@@ -221,8 +221,8 @@ importers:
         specifier: ^16.0.0 || ^17.0.0
         version: 16.0.0
       openai:
-        specifier: 4.11.0
-        version: 4.11.0
+        specifier: 4.11.1
+        version: 4.11.1
 
 packages:
 
@@ -6520,8 +6520,8 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openai@4.11.0:
-    resolution: {integrity: sha512-zU/MJxZTijL0Ym6CKoQPbnmHDsGZlH9g5zorPszdc41OyLxlhnlrorBcGzmGS9qpnjGGNncJR1hfg/mXq0OONw==}
+  /openai@4.11.1:
+    resolution: {integrity: sha512-GU0HQWbejXuVAQlDjxIE8pohqnjptFDIm32aPlNT1H9ucMz1VJJD0DaTJRQsagNaJ97awWjjVLEG7zCM6sm4SA==}
     hasBin: true
     dependencies:
       '@types/node': 18.18.1
