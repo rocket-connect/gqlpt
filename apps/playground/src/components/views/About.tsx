@@ -38,7 +38,7 @@ export function About() {
               .
             </p>
             <p>
-              Development and maintenance of GQLPT are handled by{" "}
+              Development and maintenance of GQLPT is handled by{" "}
               <a className="underline" href="https://rocketconnect.co.uk/">
                 Rocket Connect
               </a>

@@ -25,7 +25,7 @@ export class GQLPTClient {
   }
 
   async connect() {
-    const resposne = await this.openai.chat.completions.create({
+    const response = await this.openai.chat.completions.create({
       messages: [
         { role: "user", content: "When I say Ping, return exactly Pong" },
         {
@@ -36,7 +36,7 @@ export class GQLPTClient {
       model: "gpt-3.5-turbo",
     });
 
-    const content = resposne.choices[0].message.content;
+    const content = response.choices[0].message.content;
     if (content !== "Pong") {
       throw new Error("Cannot connect to OpenAI");
     }
