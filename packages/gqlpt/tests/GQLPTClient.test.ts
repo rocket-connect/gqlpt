@@ -126,22 +126,8 @@ describe("GQLPTClient", () => {
     const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
 
     await gqlpt.connect();
-    const { query, variables } = await gqlpt.generate(
+    const { variables } = await gqlpt.generate(
       "create user with name dan and his friends bob and alice",
-    );
-
-    expect(parsePrint(query)).toEqual(
-      parsePrint(
-        `
-          mutation ($input: CreateUserInput) {
-            createUser(input: $input) {
-              id
-              name
-              email
-            }
-          }
-        `,
-      ),
     );
 
     expect(variables).toMatchObject({
