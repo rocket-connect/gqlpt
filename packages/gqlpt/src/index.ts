@@ -19,6 +19,10 @@ export class GQLPTClient {
       throw new Error(`Cannot parse typeDefs ${error}`);
     }
 
+    if (!this.options.apiKey) {
+      throw new Error("Missing OpenAI Key");
+    }
+
     this.openai = new OpenAI({
       apiKey: this.options.apiKey,
     });

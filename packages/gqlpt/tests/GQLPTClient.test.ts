@@ -22,8 +22,7 @@ function parsePrint(query: string) {
 describe("GQLPTClient", () => {
   test("should throw cannot parse typeDefs", async () => {
     expect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const gqlpt = new GQLPTClient({
+      new GQLPTClient({
         apiKey: TEST_API_KEY,
         typeDefs: "INVALID",
       });
