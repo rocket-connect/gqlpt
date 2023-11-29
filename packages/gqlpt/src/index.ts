@@ -19,6 +19,10 @@ export class GQLPTClient {
       throw new Error(`Cannot parse typeDefs ${error}`);
     }
 
+    if (!this.options.apiKey) {
+      throw new Error("Missing OpenAI Key");
+    }
+
     this.openai = new OpenAI({
       apiKey: this.options.apiKey,
     });
@@ -56,7 +60,8 @@ export class GQLPTClient {
 
     const response = await this.openai.chat.completions.create({
       messages: [{ role: "user", content: query }],
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-1106",
+      response_format: { type: "json_object" },
     });
     const content = response.choices[0].message.content;
 
