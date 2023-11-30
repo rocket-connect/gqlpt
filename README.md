@@ -57,6 +57,12 @@ const response = await gqlpt.generate("Get all users where name is dan");
 */
 ```
 
+## FAQs
+
+1. I'm seeing the error "429 - Rate limit reached for requests" on making requests.
+
+This error is related to sending too many requests to OpenAI, and them trying to rate-limit you. Try limiting the requests to gqlpt, or upgrading to a [paid OpenAI API plan](https://help.openai.com/en/articles/6891829-error-code-429-rate-limit-reached-for-requests). In case of persistent errors, create an issue with us, or reach out to [OpenAI support](https://help.openai.com/en/) for OpenAI related errors.
+
 ## License
 
 MIT - Rocket Connect - https://github.com/rocket-connect
