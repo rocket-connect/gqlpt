@@ -19,13 +19,17 @@ export class GQLPTClient {
       throw new Error(`Cannot parse typeDefs ${error}`);
     }
 
+    if (!this.options.apiKey) {
+      throw new Error("Missing OpenAI Key");
+    }
+
     this.openai = new OpenAI({
       apiKey: this.options.apiKey,
     });
   }
 
   async connect() {
-    const resposne = await this.openai.chat.completions.create({
+    const response = await this.openai.chat.completions.create({
       messages: [
         { role: "user", content: "When I say Ping, return exactly Pong" },
         {
@@ -36,7 +40,7 @@ export class GQLPTClient {
       model: "gpt-3.5-turbo",
     });
 
-    const content = resposne.choices[0].message.content;
+    const content = response.choices[0].message.content;
     if (content !== "Pong") {
       throw new Error("Cannot connect to OpenAI");
     }
@@ -56,7 +60,8 @@ export class GQLPTClient {
 
     const response = await this.openai.chat.completions.create({
       messages: [{ role: "user", content: query }],
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-1106",
+      response_format: { type: "json_object" },
     });
     const content = response.choices[0].message.content;
 
