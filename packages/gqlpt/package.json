@@ -8,7 +8,7 @@
     "build"
   ],
   "scripts": {
-    "test": "NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest",
     "build": "tsc"
   },
   "repository": {
@@ -26,6 +26,6 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
-    "openai": "4.20.0"
+    "openai": "4.20.1"
   }
 }
