@@ -4,7 +4,7 @@ Thank you for your interest in contributing to GQLPT!
 
 This project is open source and welcomes contributions.
 
-The lead maintainer for GQLPT is [Dan Starns](https://twitter.com/dan_starns), and is supported by [Rocket Connect](https://rocketconnect.co.uk).
+The lead maintainer for GQLPT is [Dan Starns](https://twitter.com/dan_starns), and is supported by [rconnect.tech](https://rconnect.tech).
 
 Before making any changes we encourage you to either reach out to us or start a discussion in a GitHub issue.
 
