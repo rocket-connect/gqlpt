@@ -7,7 +7,6 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "declarationMap": true,
     "declaration": true,
     "sourceMap": false,
     "skipLibCheck": true,

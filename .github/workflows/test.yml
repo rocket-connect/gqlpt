@@ -10,9 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-project
+        with:
+          envs-test: ${{ secrets.ENVS_TEST }}
       - name: Test
         run: pnpm test
-        env:
-          TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
