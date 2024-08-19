@@ -20,7 +20,7 @@
   "dependencies": {
     "@gqlpt/playground": "workspace:^",
     "cors": "2.8.5",
-    "express": "4.18.2",
+    "express": "4.19.2",
     "express-static-gzip": "2.1.7",
     "gqlpt": "workspace:^"
   },
