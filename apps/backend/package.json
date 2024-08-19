@@ -25,7 +25,7 @@
     "gqlpt": "workspace:^"
   },
   "devDependencies": {
-    "@types/cors": "2.8.14",
+    "@types/cors": "2.8.17",
     "@types/express": "4.17.18"
   }
 }
