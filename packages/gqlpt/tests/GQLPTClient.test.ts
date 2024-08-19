@@ -1,10 +1,11 @@
-import { describe, expect, test } from "@jest/globals";
 import dotenv from "dotenv";
+dotenv.config();
+
+import { describe, expect, test } from "@jest/globals";
 import { parse, print } from "graphql";
 
 import { GQLPTClient } from "../src";
 
-dotenv.config();
 
 const TEST_API_KEY = process.env.TEST_API_KEY as string;
 
