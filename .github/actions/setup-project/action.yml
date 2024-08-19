@@ -9,7 +9,7 @@ inputs:
   node-version:
     description: "The version of Node.js to use for building the project."
     required: false
-    default: "20"
+    default: "20.16.0"
   turbo-version:
     description: "The version of Turbo to install globally."
     required: false
