@@ -5,15 +5,15 @@ inputs:
   pnpm-version:
     description: "The version of pnpm to use for installing dependencies."
     required: false
-    default: 8.0.0
+    default: 8.6.3
   node-version:
     description: "The version of Node.js to use for building the project."
     required: false
-    default: "18"
+    default: "20"
   turbo-version:
     description: "The version of Turbo to install globally."
     required: false
-    default: 1.10.7
+    default: 2.0.14
 
 runs:
   using: composite

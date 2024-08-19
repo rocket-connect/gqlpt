@@ -64,6 +64,7 @@ export function Playground() {
 
       const formattedQuery = await prettier.format(data.query, {
         parser: "graphql",
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         plugins: [require("prettier/parser-graphql")],
         printWidth: 20,
       });
