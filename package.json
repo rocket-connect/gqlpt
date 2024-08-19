@@ -4,7 +4,7 @@
   "packageManager": "pnpm@8.6.3",
   "scripts": {
     "test": "turbo test",
-    "dev": "cross-env turbo dev --filter \"backend\"",
+    "dev": "cross-env turbo dev --filter \"@gqlpt/backend\"",
     "build": "turbo build",
     "clean": "find . -type d \\( -name \"node_modules\" -o -name \"build\" -o -name \".turbo\" -o -name \"dist\" \\) -exec rm -rf {} +",
     "lint": "eslint .",

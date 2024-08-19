@@ -1,5 +1,6 @@
-import { parse, print } from "graphql";
 import { Adapter } from "@gqlpt/adapter-base";
+
+import { parse, print } from "graphql";
 
 export interface GQLPTClientOptions {
   typeDefs: string;
@@ -12,7 +13,7 @@ export class GQLPTClient {
   constructor(options: GQLPTClientOptions) {
     this.options = options;
 
-    if(!options.adapter) {
+    if (!options.adapter) {
       throw new Error("Missing adapter");
     }
 
