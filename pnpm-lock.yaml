@@ -161,6 +161,9 @@ importers:
 
   apps/backend:
     dependencies:
+      '@gqlpt/adapter-openai':
+        specifier: workspace:^
+        version: link:../../packages/adapter-openai
       '@gqlpt/playground':
         specifier: workspace:^
         version: link:../playground
@@ -215,14 +218,29 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
 
-  packages/gqlpt:
+  packages/adapter-base: {}
+
+  packages/adapter-openai:
     dependencies:
-      graphql:
-        specifier: ^16.0.0 || ^17.0.0
-        version: 16.0.0
+      '@gqlpt/adapter-base':
+        specifier: workspace:^
+        version: link:../adapter-base
       openai:
         specifier: 4.20.1
         version: 4.20.1
+
+  packages/gqlpt:
+    dependencies:
+      '@gqlpt/adapter-base':
+        specifier: workspace:^
+        version: link:../adapter-base
+      graphql:
+        specifier: ^16.0.0 || ^17.0.0
+        version: 16.0.0
+    devDependencies:
+      '@gqlpt/adapter-openai':
+        specifier: workspace:^
+        version: link:../adapter-openai
 
 packages:
 

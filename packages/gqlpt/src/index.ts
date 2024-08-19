@@ -1,49 +1,30 @@
 import { parse, print } from "graphql";
-import OpenAI from "openai";
+import { Adapter } from "@gqlpt/adapter-base";
 
 export interface GQLPTClientOptions {
-  apiKey: string;
   typeDefs: string;
+  adapter: Adapter;
 }
 
 export class GQLPTClient {
   private options: GQLPTClientOptions;
-  private openai: OpenAI;
 
   constructor(options: GQLPTClientOptions) {
     this.options = options;
+
+    if(!options.adapter) {
+      throw new Error("Missing adapter");
+    }
 
     try {
       parse(options.typeDefs);
     } catch (error) {
       throw new Error(`Cannot parse typeDefs ${error}`);
     }
-
-    if (!this.options.apiKey) {
-      throw new Error("Missing OpenAI Key");
-    }
-
-    this.openai = new OpenAI({
-      apiKey: this.options.apiKey,
-    });
   }
 
   async connect() {
-    const response = await this.openai.chat.completions.create({
-      messages: [
-        { role: "user", content: "When I say Ping, return exactly Pong" },
-        {
-          role: "user",
-          content: "Ping",
-        },
-      ],
-      model: "gpt-3.5-turbo",
-    });
-
-    const content = response.choices[0].message.content;
-    if (content !== "Pong") {
-      throw new Error("Cannot connect to OpenAI");
-    }
+    await this.options.adapter.connect();
   }
 
   async generate(plainText: string): Promise<{
@@ -58,14 +39,9 @@ export class GQLPTClient {
       Dont add any more text or formating to your response, I will JSON parse the text.
     `;
 
-    const response = await this.openai.chat.completions.create({
-      messages: [{ role: "user", content: query }],
-      model: "gpt-3.5-turbo-1106",
-      response_format: { type: "json_object" },
-    });
-    const content = response.choices[0].message.content;
+    const response = await this.options.adapter.sendText(query);
 
-    const result = JSON.parse((content || "").replace(/`/g, "")) as {
+    const result = JSON.parse((response || "").replace(/`/g, "")) as {
       query: string;
       variables?: Record<string, unknown>;
     };

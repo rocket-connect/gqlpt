@@ -1,3 +1,5 @@
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -21,8 +23,12 @@ app.use(express.static("public"));
 app.post("/generate", async (req, res) => {
   try {
     const { query, apiKey, typeDefs } = req.body;
-    const client = new GQLPTClient({
+    const adapter = new AdapterOpenAI({
       apiKey,
+    });
+
+    const client = new GQLPTClient({
+      adapter,
       typeDefs,
     });
 
