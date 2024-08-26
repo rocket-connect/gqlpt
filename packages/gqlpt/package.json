@@ -26,6 +26,6 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
-    "openai": "4.20.1"
+    "openai": "4.56.0"
   }
 }
