@@ -15,4 +15,8 @@ jobs:
       - run: pnpm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
         env:
           NPM_TOKEN: ${{secrets.npm_token}}
+      - run: START_PATH="." node ./packages/utils/build/bump-versions.js
+        env:
+          VERSION: ${{github.ref_name}}
       - run: cd ./packages/gqlpt && pnpm publish --no-git-checks
+      - run: pnpm publish -r --no-git-checks
