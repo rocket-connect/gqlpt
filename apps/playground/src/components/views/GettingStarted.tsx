@@ -1,5 +1,4 @@
 import { Language } from "prism-react-renderer";
-
 import * as defaultValues from "../../defaults";
 import { CodeBlock } from "../utils/CodeBlock";
 import { Container } from "../utils/Container";
@@ -20,8 +19,8 @@ export function GettingStarted() {
                 >
                   npm package
                 </a>
-                . Once installed, ensure you import the GQLPT client into your
-                project.
+                . Once installed, ensure you import the GQLPT client and the
+                OpenAI adapter into your project.
               </p>
               <p>
                 Before constructing your GQLPT client, you'll need to obtain an
@@ -30,7 +29,8 @@ export function GettingStarted() {
                   OpenAI's official website
                 </a>
                 . With the API key at hand and your type definitions (typeDefs),
-                you can then instantiate a new GQLPT client instance.
+                you can then instantiate a new GQLPT client instance with the
+                OpenAI adapter.
               </p>
               <p>
                 Once everything is set up, utilize the 'generate' method on your
@@ -42,7 +42,7 @@ export function GettingStarted() {
               <CodeBlock
                 title="index.ts"
                 code={defaultValues.gettingStarted}
-                language={"javascript" as Language}
+                language={"typescript" as Language}
               />
             </div>
           </div>

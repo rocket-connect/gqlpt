@@ -17,44 +17,50 @@
 https://www.npmjs.com/package/gqlpt
 
 ```bash
-npm install gqlpt
+npm install gqlpt @gqlpt/adapter-openai
 ```
 
 ## Usage
 
 ```ts
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
 import { GQLPTClient } from "gqlpt";
 
-const typeDefs = `
-    type User {
-        id: ID!
-        name: String!
-        email: String!
-    }
+const typeDefs = /* GraphQL */ `
+  type User {
+    id: ID!
+    name: String!
+  }
 
-    type Query {
-        users(name: String): [User!]!
-    }
+  type Query {
+    user(id: ID!): User
+  }
 `;
 
-const gqlpt = new GQLPTClient({
-  apiKey: "chatgpt-api-key",
+const client = new GQLPTClient({
   typeDefs,
+  adapter: new AdapterOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  }),
 });
 
-await gqlpt.connect();
+async function main() {
+  await client.connect();
 
-const response = await gqlpt.generate("Get all users where name is dan");
+  const query = "Find users by id 1";
 
-/*
-    query {
-        users(name: "dan") {
-            id
-            name
-            email
-        }
+  const response = await client.generate(query);
+
+  console.log(response);
+  /*
+    {
+        query: 'query ($id: ID!) {\n  user(id: $id) {\n    id\n    name\n  }\n}',
+        variables: { id: '1' }
     }
-*/
+  */
+}
+
+main();
 ```
 
 ## FAQs

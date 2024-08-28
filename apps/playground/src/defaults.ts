@@ -54,24 +54,29 @@ export const args = JSON.stringify({
   },
 });
 
-export const gettingStarted = `import { GQLPTClient } from "gqlpt";
+export const gettingStarted = `import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+import { GQLPTClient } from "gqlpt";
 
-const typeDefs = \`
+const typeDefs = /* GraphQL */ \`
   type User {
+    id: ID!
     name: String!
-    email: String!
   }
 
   type Query {
-    users(name: String): [User!]!
+    user(id: ID!): User
   }
 \`;
 
-const gqlpt = new GQLPTClient({
-  apiKey: "chatgpt-api-key",
+const client = new GQLPTClient({
   typeDefs,
+  adapter: new AdapterOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  }),
 });
 
-const response = await gqlpt.generate(
-  "Get all users with name dan"
-);`;
+const response = await client.generate(
+  "Find users by id 1"
+);
+// query ($id: ID!) {user(id: $id) { id name } }
+`;
