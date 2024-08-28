@@ -1,13 +1,18 @@
-import dotenv from "dotenv";
-dotenv.config();
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
 
 import { describe, expect, test } from "@jest/globals";
+import dotenv from "dotenv";
 import { parse, print } from "graphql";
 
 import { GQLPTClient } from "../src";
 
+dotenv.config();
 
 const TEST_API_KEY = process.env.TEST_API_KEY as string;
+
+const adapter = new AdapterOpenAI({
+  apiKey: TEST_API_KEY,
+});
 
 function parsePrint(query: string) {
   const parsed = parse(query, { noLocation: true });
@@ -24,7 +29,7 @@ describe("GQLPTClient", () => {
   test("should throw cannot parse typeDefs", async () => {
     expect(() => {
       new GQLPTClient({
-        apiKey: TEST_API_KEY,
+        adapter,
         typeDefs: "INVALID",
       });
     }).toThrow("Cannot parse typeDefs");
@@ -43,7 +48,7 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
     await gqlpt.connect();
   });
@@ -72,7 +77,7 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
     await gqlpt.connect();
     const { query, variables } = await gqlpt.generate(
@@ -124,7 +129,7 @@ describe("GQLPTClient", () => {
       }
     `;
 
-    const gqlpt = new GQLPTClient({ apiKey: TEST_API_KEY, typeDefs });
+    const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
     await gqlpt.connect();
     const { variables } = await gqlpt.generate(

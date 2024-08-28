@@ -22,7 +22,8 @@
     "cors": "2.8.5",
     "express": "4.18.2",
     "express-static-gzip": "2.1.7",
-    "gqlpt": "workspace:^"
+    "gqlpt": "workspace:^",
+    "@gqlpt/adapter-openai": "workspace:^"
   },
   "devDependencies": {
     "@types/cors": "2.8.17",

@@ -1,5 +1,5 @@
 {
-  "name": "gqlpt",
+  "name": "@gqlpt/adapter-openai",
   "version": "0.0.0-alpha.5",
   "description": "Leverage AI to generate GraphQL queries from plain text.",
   "main": "./build/index.js",
@@ -22,13 +22,9 @@
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
   "homepage": "https://github.com/rocket-connect/gqlpt#readme",
-  "peerDependencies": {
-    "graphql": "^16.0.0 || ^17.0.0"
-  },
+  "peerDependencies": {},
   "dependencies": {
+    "openai": "4.20.1",
     "@gqlpt/adapter-base": "workspace:^"
-  },
-  "devDependencies": {
-    "@gqlpt/adapter-openai": "workspace:^"
   }
 }
