@@ -19,4 +19,4 @@ jobs:
         env:
           VERSION: ${{github.ref_name}}
       - run: cd ./packages/gqlpt && pnpm publish --no-git-checks
-      - run: pnpm publish -r --no-git-checks
+      - run: pnpm publish -r --filter '!@gqlpt/backend' --filter '!@gqlpt/playground' --no-git-checks
