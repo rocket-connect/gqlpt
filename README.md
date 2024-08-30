@@ -24,6 +24,7 @@ npm install gqlpt @gqlpt/adapter-openai
 
 ```ts
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
 import { GQLPTClient } from "gqlpt";
 
 const typeDefs = /* GraphQL */ `
@@ -49,7 +50,7 @@ async function main() {
 
   const query = "Find users by id 1";
 
-  const response = await client.generate(query);
+  const response = await client.generateQueryAndVariables(query);
 
   console.log(response);
   /*

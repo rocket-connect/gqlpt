@@ -75,8 +75,9 @@ const client = new GQLPTClient({
   }),
 });
 
-const response = await client.generate(
+const response = await client.generateQueryAndVariables(
   "Find users by id 1"
 );
 // query ($id: ID!) {user(id: $id) { id name } }
+// { id: "1" }
 `;

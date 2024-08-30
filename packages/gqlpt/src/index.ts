@@ -28,7 +28,7 @@ export class GQLPTClient {
     await this.options.adapter.connect();
   }
 
-  async generate(plainText: string): Promise<{
+  async generateQueryAndVariables(plainText: string): Promise<{
     query: string;
     variables?: Record<string, unknown>;
   }> {

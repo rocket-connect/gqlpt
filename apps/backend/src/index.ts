@@ -32,7 +32,7 @@ app.post("/generate", async (req, res) => {
       typeDefs,
     });
 
-    const result = await client.generate(query);
+    const result = await client.generateQueryAndVariables(query);
 
     res.json(result);
   } catch (error) {

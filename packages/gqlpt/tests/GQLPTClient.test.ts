@@ -80,7 +80,7 @@ describe("GQLPTClient", () => {
     const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
     await gqlpt.connect();
-    const { query, variables } = await gqlpt.generate(
+    const { query, variables } = await gqlpt.generateQueryAndVariables(
       "find users and there posts where name is dan",
     );
 
@@ -132,7 +132,7 @@ describe("GQLPTClient", () => {
     const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
     await gqlpt.connect();
-    const { variables } = await gqlpt.generate(
+    const { variables } = await gqlpt.generateQueryAndVariables(
       "create user with name dan and his friends bob and alice",
     );
 
