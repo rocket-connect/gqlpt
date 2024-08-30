@@ -21,6 +21,15 @@
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
   "homepage": "https://github.com/rocket-connect/gqlpt#readme",
-  "peerDependencies": {},
-  "dependencies": {}
+  "peerDependencies": {
+    "graphql": "^16.0.0 || ^17.0.0"
+  },
+  "dependencies": {
+    "@graphql-tools/schema": "^10.0.6",
+    "graphql-yoga": "^5.7.0",
+    "node-fetch": "3.3.2"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "2.6.11"
+  }
 }

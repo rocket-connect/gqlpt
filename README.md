@@ -39,7 +39,8 @@ const typeDefs = /* GraphQL */ `
 `;
 
 const client = new GQLPTClient({
-  typeDefs,
+  typeDefs, // Specify your GraphQL schema
+  url: "http://localhost:4000/graphql", // or specify your GraphQL endpoint
   adapter: new AdapterOpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   }),

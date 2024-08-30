@@ -36,7 +36,8 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
-    "@gqlpt/adapter-base": "workspace:^"
+    "@gqlpt/adapter-base": "workspace:^",
+    "@gqlpt/utils": "workspace:^"
   },
   "devDependencies": {
     "@gqlpt/adapter-openai": "workspace:^"
