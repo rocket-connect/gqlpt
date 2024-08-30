@@ -15,7 +15,17 @@
     "type": "git",
     "url": "git+https://github.com/rocket-connect/gqlpt.git"
   },
-  "keywords": [],
+  "keywords": [
+    "graphql",
+    "ai",
+    "nlp",
+    "query",
+    "generation",
+    "text",
+    "plain",
+    "translate",
+    "natural"
+  ],
   "author": "rconnect.tech",
   "license": "MIT",
   "bugs": {
