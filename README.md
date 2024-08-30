@@ -1,6 +1,6 @@
 <div align="center" style="text-align: center;">
 
-<img src="./apps/playground/public/logo.svg" width="20%" alt="GQLPT">
+<img src="https://github.com/rocket-connect/gqlpt/raw/main/apps/playground/public/logo.svg" width="20%" alt="GQLPT">
 
 <h1>GQLPT</h1>
 
@@ -8,7 +8,7 @@
 
 [![npm version](https://badge.fury.io/js/gqlpt.svg)](https://badge.fury.io/js/gqlpt) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![](./docs/screenshot.png)](https://www.gqlpt.dev/)
+[![](https://github.com/rocket-connect/gqlpt/raw/main/docs/screenshot.png)](https://www.gqlpt.dev/)
 
 </div>
 

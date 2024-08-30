@@ -11,12 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-project
-      - run: cd ./packages/gqlpt && pnpm pack
+      - run: cp ./README.md ./packages/gqlpt/README.md
       - run: pnpm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
         env:
           NPM_TOKEN: ${{secrets.npm_token}}
       - run: START_PATH="." node ./packages/utils/build/bump-versions.js
         env:
           VERSION: ${{github.ref_name}}
-      - run: cd ./packages/gqlpt && pnpm publish --no-git-checks
       - run: pnpm publish -r --filter '!@gqlpt/backend' --filter '!@gqlpt/playground' --filter '!@gqlpt/monorepo' --no-git-checks
