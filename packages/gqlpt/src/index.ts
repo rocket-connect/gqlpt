@@ -1,9 +1,12 @@
 import { Adapter } from "@gqlpt/adapter-base";
+import { introspection } from "@gqlpt/utils";
 
-import { parse, print } from "graphql";
+import { buildClientSchema, parse, print, printSchema } from "graphql";
 
 export interface GQLPTClientOptions {
-  typeDefs: string;
+  url?: string;
+  headers?: Record<string, string>;
+  typeDefs?: string;
   adapter: Adapter;
 }
 
@@ -17,21 +20,46 @@ export class GQLPTClient {
       throw new Error("Missing adapter");
     }
 
-    try {
-      parse(options.typeDefs);
-    } catch (error) {
-      throw new Error(`Cannot parse typeDefs ${error}`);
+    if (!options.typeDefs && !options.url) {
+      throw new Error("Missing typeDefs or url");
     }
+
+    if (options.typeDefs) {
+      try {
+        parse(options.typeDefs);
+      } catch (error) {
+        throw new Error(`Cannot parse typeDefs ${error}`);
+      }
+    }
+  }
+
+  public getTypeDefs() {
+    return this.options.typeDefs;
   }
 
   async connect() {
     await this.options.adapter.connect();
+
+    if (this.options.url) {
+      const response = await introspection({
+        url: this.options.url,
+        headers: this.options.headers,
+      });
+
+      const schema = buildClientSchema(response.data);
+
+      this.options.typeDefs = printSchema(schema);
+    }
   }
 
   async generateQueryAndVariables(plainText: string): Promise<{
     query: string;
     variables?: Record<string, unknown>;
   }> {
+    if (!this.options.typeDefs) {
+      throw new Error("Missing typeDefs");
+    }
+
     const query = `
       With this graphql schema: '${this.options.typeDefs}',
       and this question: '${plainText}',  

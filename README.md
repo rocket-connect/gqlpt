@@ -39,7 +39,8 @@ const typeDefs = /* GraphQL */ `
 `;
 
 const client = new GQLPTClient({
-  typeDefs,
+  typeDefs, // Specify your GraphQL schema
+  url: "http://localhost:4000/graphql", // or specify your GraphQL endpoint
   adapter: new AdapterOpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   }),
@@ -62,6 +63,26 @@ async function main() {
 }
 
 main();
+```
+
+## From Introspection
+
+You can specify a URL and headers in the options to perform introspection on the `.connect` command. This allows you to fetch the GraphQL schema directly from your endpoint.
+
+> **Note:** When specifying a URL for initial introspection, you **must** call the `connect` method.
+
+```ts
+const client = new GQLPTClient({
+  url: "http://localhost:4000/graphql", // Your GraphQL endpoint
+  headers: {
+    Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+  },
+  adapter: new AdapterOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  }),
+});
+
+await client.connect(); // Performs introspection using the URL
 ```
 
 ## FAQs

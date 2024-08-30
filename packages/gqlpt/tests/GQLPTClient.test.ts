@@ -35,6 +35,14 @@ describe("GQLPTClient", () => {
     }).toThrow("Cannot parse typeDefs");
   });
 
+  test("should missing typeDefs or url", async () => {
+    expect(() => {
+      new GQLPTClient({
+        adapter,
+      });
+    }).toThrow("Missing typeDefs or url");
+  });
+
   test("should connect to the server", async () => {
     const typeDefs = `
       type User {
