@@ -29,6 +29,19 @@ describe("Remote Schema", () => {
     server.close();
   });
 
+  test("should throw when calling generateQueryAndVariables without connecting", async () => {
+    const gqlpt = new GQLPTClient({
+      adapter,
+      url: "http://localhost:4000/graphql",
+    });
+
+    // gqlpt.connect() is not called
+
+    await expect(
+      gqlpt.generateQueryAndVariables("Find users by id 1"),
+    ).rejects.toThrow("Missing typeDefs");
+  });
+
   test("should connect to the server", async () => {
     const gqlpt = new GQLPTClient({
       adapter,

@@ -56,6 +56,10 @@ export class GQLPTClient {
     query: string;
     variables?: Record<string, unknown>;
   }> {
+    if (!this.options.typeDefs) {
+      throw new Error("Missing typeDefs");
+    }
+
     const query = `
       With this graphql schema: '${this.options.typeDefs}',
       and this question: '${plainText}',  
