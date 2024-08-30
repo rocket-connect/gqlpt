@@ -1,7 +1,7 @@
 {
   "name": "@gqlpt/adapter-base",
   "version": "0.0.0-alpha.9",
-  "description": "Leverage AI to generate GraphQL queries from plain text.",
+  "description": "Base adapter for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -15,7 +15,19 @@
     "type": "git",
     "url": "git+https://github.com/rocket-connect/gqlpt.git"
   },
-  "keywords": [],
+  "keywords": [
+    "graphql",
+    "ai",
+    "nlp",
+    "query",
+    "generation",
+    "text",
+    "plain",
+    "translate",
+    "natural",
+    "adapter",
+    "custom"
+  ],
   "author": "rconnect.tech",
   "license": "MIT",
   "bugs": {

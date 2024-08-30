@@ -1,7 +1,7 @@
 {
   "name": "@gqlpt/utils",
   "version": "0.0.0-alpha.9",
-  "description": "Leverage AI to generate GraphQL queries from plain text.",
+  "description": "Utilities for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -14,7 +14,18 @@
     "type": "git",
     "url": "git+https://github.com/rocket-connect/gqlpt.git"
   },
-  "keywords": [],
+  "keywords": [
+    "graphql",
+    "ai",
+    "nlp",
+    "query",
+    "generation",
+    "text",
+    "plain",
+    "translate",
+    "natural",
+    "utils"
+  ],
   "author": "rconnect.tech",
   "license": "MIT",
   "bugs": {
