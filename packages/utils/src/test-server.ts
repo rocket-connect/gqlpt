@@ -1,8 +1,8 @@
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { createYoga } from "graphql-yoga";
-import { createServer } from "http";
+import { Server, createServer } from "http";
 
-const typeDefs = /* GraphQL */ `
+export const typeDefs = /* GraphQL */ `
   type User {
     id: ID!
     name: String!
@@ -13,12 +13,12 @@ const typeDefs = /* GraphQL */ `
   }
 `;
 
-const resolvers = {
+export const resolvers = {
   Query: {
     user: (_: any, args: any) => {
       return {
         id: args.id,
-        name: "dan",
+        name: "gqlpt",
       };
     },
   },
@@ -31,10 +31,18 @@ const schema = makeExecutableSchema({
 
 const yoga = createYoga({ schema });
 
-// Pass it into a server to hook into request handlers.
-const server = createServer(yoga);
+export function startServer({ port }: { port: number }): Promise<Server> {
+  return new Promise((resolve, reject) => {
+    const server = createServer(yoga);
 
-// Start the server and you're done!
-server.listen(4000, () => {
-  console.info("Server is running on http://localhost:4000/graphql");
-});
+    server.on("error", (err) => {
+      console.error(err);
+      reject(err);
+    });
+
+    server.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+      resolve(server);
+    });
+  });
+}

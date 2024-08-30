@@ -33,6 +33,10 @@ export class GQLPTClient {
     }
   }
 
+  public getTypeDefs() {
+    return this.options.typeDefs;
+  }
+
   async connect() {
     await this.options.adapter.connect();
 
@@ -42,7 +46,7 @@ export class GQLPTClient {
         headers: this.options.headers,
       });
 
-      const schema = buildClientSchema(response);
+      const schema = buildClientSchema(response.data);
 
       this.options.typeDefs = printSchema(schema);
     }

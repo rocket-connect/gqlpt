@@ -1,8 +1,10 @@
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+import { startServer, typeDefs } from "@gqlpt/utils";
 
 import { describe, test } from "@jest/globals";
 import dotenv from "dotenv";
 import { parse, print } from "graphql";
+import { Server } from "http";
 
 import { GQLPTClient } from "../src";
 
@@ -14,36 +16,29 @@ const adapter = new AdapterOpenAI({
   apiKey: TEST_API_KEY,
 });
 
-function parsePrint(query: string) {
-  const parsed = parse(query, { noLocation: true });
+describe("Remote Schema", () => {
+  let server: Server;
 
-  // delete the name of the query, makes it easier to test as the name is random
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  parsed.definitions[0].name = undefined;
+  beforeAll(async () => {
+    server = await startServer({
+      port: 4000,
+    });
+  });
 
-  return print(parsed);
-}
+  afterAll(() => {
+    server.close();
+  });
 
-describe("GQLPTClient", () => {
   test("should connect to the server", async () => {
-    const typeDefs = `
-      type User {
-        id: ID!
-        name: String!
-        email: String!
-      }
-      
-      type Query {
-        users(name: String): [User!]!
-      }
-    `;
-
     const gqlpt = new GQLPTClient({
       adapter,
       url: "http://localhost:4000/graphql",
     });
 
     await gqlpt.connect();
+
+    const generatedTypeDefs = gqlpt.getTypeDefs() as string;
+
+    expect(print(parse(generatedTypeDefs))).toEqual(print(parse(typeDefs)));
   });
 });
