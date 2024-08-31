@@ -36,7 +36,7 @@
   "homepage": "https://github.com/rocket-connect/gqlpt#readme",
   "peerDependencies": {},
   "dependencies": {
-    "openai": "4.20.1",
+    "openai": "4.57.0",
     "@gqlpt/adapter-base": "workspace:^"
   }
 }
