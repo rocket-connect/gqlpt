@@ -1,7 +1,7 @@
 {
-  "name": "gqlpt",
+  "name": "@gqlpt/adapter-anthropic",
   "version": "0.0.0-alpha.11",
-  "description": "Leverage AI to generate GraphQL queries from plain text.",
+  "description": "Anthropic ai adapter for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -24,7 +24,9 @@
     "text",
     "plain",
     "translate",
-    "natural"
+    "natural",
+    "anthropic",
+    "adapter"
   ],
   "author": "rconnect.tech",
   "license": "MIT",
@@ -32,15 +34,8 @@
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
   "homepage": "https://github.com/rocket-connect/gqlpt#readme",
-  "peerDependencies": {
-    "graphql": "^16.0.0 || ^17.0.0"
-  },
   "dependencies": {
-    "@gqlpt/adapter-base": "workspace:^",
-    "@gqlpt/utils": "workspace:^"
-  },
-  "devDependencies": {
-    "@gqlpt/adapter-openai": "workspace:^",
-    "@gqlpt/adapter-anthropic": "workspace:^"
+    "@anthropic-ai/sdk": "^0.27.1",
+    "@gqlpt/adapter-base": "workspace:^"
   }
 }

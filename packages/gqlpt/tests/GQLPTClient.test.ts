@@ -1,3 +1,4 @@
+import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
 
 import { describe, expect, test } from "@jest/globals";
@@ -8,92 +9,92 @@ import { GQLPTClient } from "../src";
 
 dotenv.config();
 
-const TEST_API_KEY = process.env.TEST_API_KEY as string;
-
-const adapter = new AdapterOpenAI({
-  apiKey: TEST_API_KEY,
-});
+const TEST_OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
+const TEST_ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
 function parsePrint(query: string) {
   const parsed = parse(query, { noLocation: true });
-
-  // delete the name of the query, makes it easier to test as the name is random
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   parsed.definitions[0].name = undefined;
-
   return print(parsed);
 }
 
-describe("GQLPTClient", () => {
-  test("should throw cannot parse typeDefs", async () => {
-    expect(() => {
-      new GQLPTClient({
-        adapter,
-        typeDefs: "INVALID",
-      });
-    }).toThrow("Cannot parse typeDefs");
-  });
+const adapters = [
+  {
+    name: "OpenAI",
+    adapter: new AdapterOpenAI({ apiKey: TEST_OPENAI_API_KEY }),
+  },
+  {
+    name: "Anthropic",
+    adapter: new AdapterAnthropic({ apiKey: TEST_ANTHROPIC_API_KEY }),
+  },
+];
 
-  test("should missing typeDefs or url", async () => {
-    expect(() => {
-      new GQLPTClient({
-        adapter,
-      });
-    }).toThrow("Missing typeDefs or url");
-  });
+adapters.forEach(({ name, adapter }) => {
+  describe(`GQLPTClient with ${name} Adapter`, () => {
+    test("should throw cannot parse typeDefs", () => {
+      expect(() => {
+        new GQLPTClient({ adapter, typeDefs: "INVALID" });
+      }).toThrow("Cannot parse typeDefs");
+    });
 
-  test("should connect to the server", async () => {
-    const typeDefs = `
-      type User {
-        id: ID!
-        name: String!
-        email: String!
-      }
-      
-      type Query {
-        users(name: String): [User!]!
-      }
-    `;
+    test("should throw missing typeDefs or url", () => {
+      expect(() => {
+        new GQLPTClient({ adapter });
+      }).toThrow("Missing typeDefs or url");
+    });
 
-    const gqlpt = new GQLPTClient({ adapter, typeDefs });
+    test("should connect to the server", async () => {
+      const typeDefs = `
+        type User {
+          id: ID!
+          name: String!
+          email: String!
+        }
+        
+        type Query {
+          users(name: String): [User!]!
+        }
+      `;
 
-    await gqlpt.connect();
-  });
+      const gqlpt = new GQLPTClient({ adapter, typeDefs });
+      await gqlpt.connect();
+    });
 
-  test("should return complex graphql query", async () => {
-    const typeDefs = `
-      type User {
-        id: ID!
-        name: String!
-        email: String!
-        posts: [Post!]!
-      }
+    test("should return complex graphql query", async () => {
+      const typeDefs = `
+        type User {
+          id: ID!
+          name: String!
+          email: String!
+          posts: [Post!]!
+        }
 
-      type Post {
-        id: ID!
-        title: String!
-        body: String!
-      }
-      
-      input UserWhereInput {
-        name: String
-      }
+        type Post {
+          id: ID!
+          title: String!
+          body: String!
+        }
+        
+        input UserWhereInput {
+          name: String
+        }
 
-      type Query {
-        users(where: UserWhereInput): [User!]!
-      }
-    `;
+        type Query {
+          users(where: UserWhereInput): [User!]!
+        }
+      `;
 
-    const gqlpt = new GQLPTClient({ adapter, typeDefs });
+      const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
-    await gqlpt.connect();
-    const { query, variables } = await gqlpt.generateQueryAndVariables(
-      "find users and there posts where name is dan",
-    );
+      await gqlpt.connect();
+      const { query, variables } = await gqlpt.generateQueryAndVariables(
+        "find users and their posts where name is dan",
+      );
 
-    expect(parsePrint(query)).toEqual(
-      parsePrint(`
+      expect(parsePrint(query)).toEqual(
+        parsePrint(`
           query ($name: String) {
             users(where: {name: $name}) {
               id
@@ -107,55 +108,49 @@ describe("GQLPTClient", () => {
             }
           }
         `),
-    );
+      );
 
-    expect(variables).toMatchObject({
-      name: "dan",
-    });
-  });
-
-  test("should generate mutation", async () => {
-    const typeDefs = `
-      type User {
-        id: ID!
-        name: String!
-        email: String!
-      }
-      
-      input CreateUserInput {
-        name: String!
-        friends: [CreateUserInput]
-      }
-
-      type CreateUserResponse {
-        success: Boolean!
-        user: User
-      }
-
-      type Mutation {
-        createUser(input: CreateUserInput): [User!]!
-      }
-    `;
-
-    const gqlpt = new GQLPTClient({ adapter, typeDefs });
-
-    await gqlpt.connect();
-    const { variables } = await gqlpt.generateQueryAndVariables(
-      "create user with name dan and his friends bob and alice",
-    );
-
-    expect(variables).toMatchObject({
-      input: {
+      expect(variables).toMatchObject({
         name: "dan",
-        friends: [
-          {
-            name: "bob",
-          },
-          {
-            name: "alice",
-          },
-        ],
-      },
+      });
+    });
+
+    test("should generate mutation", async () => {
+      const typeDefs = `
+        type User {
+          id: ID!
+          name: String!
+          email: String!
+        }
+        
+        input CreateUserInput {
+          name: String!
+          friends: [CreateUserInput]
+        }
+
+        type CreateUserResponse {
+          success: Boolean!
+          user: User
+        }
+
+        type Mutation {
+          createUser(input: CreateUserInput): [User!]!
+        }
+      `;
+
+      const gqlpt = new GQLPTClient({ adapter, typeDefs });
+
+      await gqlpt.connect();
+      const { variables } = await gqlpt.generateQueryAndVariables(
+        "create user with name dan and his friends bob and alice",
+      );
+
+      expect(variables).toMatchObject({
+        input: {
+          name: "dan",
+          friends: [{ name: "bob" }, { name: "alice" }],
+        },
+      });
     });
   });
 });
