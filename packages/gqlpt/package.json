@@ -24,7 +24,9 @@
     "text",
     "plain",
     "translate",
-    "natural"
+    "natural",
+    "openai",
+    "anthropic"
   ],
   "author": "rconnect.tech",
   "license": "MIT",

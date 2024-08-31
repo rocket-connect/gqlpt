@@ -16,8 +16,8 @@ Image showing the online playground for [gqlpt.dev](https://www.gqlpt.dev/). GQL
 
 ## Quick View
 
-- [Installation](#installation)
 - [Adapters](#adapters)
+- [Installation](#installation)
 - [Usage](#usage)
 - [From Introspection](#from-introspection)
 - [Generate and Send](#generate-and-send)
