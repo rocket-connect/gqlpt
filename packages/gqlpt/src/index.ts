@@ -65,6 +65,8 @@ export class GQLPTClient {
       and this question: '${plainText}',  
       generate a JSON object, where 'query' is a GraphQL query
       and 'variables' is a object containing all the variables. 
+      Make sure you declare all the graphql variables in the query.
+      Only traverse nested objects if they are explicitly requested.
       Dont add any more text or formating to your response, I will JSON parse the text.
     `;
 

@@ -10,7 +10,28 @@
 
 [![](https://github.com/rocket-connect/gqlpt/raw/main/docs/screenshot.png)](https://www.gqlpt.dev/)
 
+Image showing the online playground for [gqlpt.dev](https://www.gqlpt.dev/). GQLPT is a npm package that allows you to generate GraphQL queries from plain text using AI.
+
 </div>
+
+## Quick View
+
+- [Installation](#installation)
+- [Adapters](#adapters)
+- [Usage](#usage)
+- [From Introspection](#from-introspection)
+- [Generate and Send](#generate-and-send)
+- [FAQs](#faqs)
+- [License](#license)
+
+## Adapters
+
+Adapters are used to swap out the underlying AI service used to generate GraphQL queries. The following adapters are available:
+
+- [Anthropic](https://www.npmjs.com/package/@gqlpt/adapter-anthropic)
+  - `@gqlpt/adapter-anthropic`
+- [OpenAI](https://www.npmjs.com/package/@gqlpt/adapter-openai)
+  - `@gqlpt/adapter-openai`
 
 ## Installation
 

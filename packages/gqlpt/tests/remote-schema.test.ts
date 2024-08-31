@@ -1,3 +1,4 @@
+import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
 import { resolvers, startServer, typeDefs } from "@gqlpt/utils";
 
@@ -10,10 +11,15 @@ import { GQLPTClient } from "../src";
 
 dotenv.config();
 
-const TEST_API_KEY = process.env.TEST_API_KEY as string;
+const TEST_OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
+const TEST_ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
-const adapter = new AdapterOpenAI({
-  apiKey: TEST_API_KEY,
+const openAiAdapter = new AdapterOpenAI({
+  apiKey: TEST_OPENAI_API_KEY,
+});
+
+const anthropicAdapter = new AdapterAnthropic({
+  apiKey: TEST_ANTHROPIC_API_KEY,
 });
 
 describe("Remote Schema", () => {
@@ -31,7 +37,7 @@ describe("Remote Schema", () => {
 
   test("should throw when calling generateQueryAndVariables without connecting", async () => {
     const gqlpt = new GQLPTClient({
-      adapter,
+      adapter: openAiAdapter,
       url: "http://localhost:4000/graphql",
     });
 
@@ -44,7 +50,7 @@ describe("Remote Schema", () => {
 
   test("should connect to the server", async () => {
     const gqlpt = new GQLPTClient({
-      adapter,
+      adapter: openAiAdapter,
       url: "http://localhost:4000/graphql",
     });
 
@@ -57,7 +63,7 @@ describe("Remote Schema", () => {
 
   test("should generateAndSend", async () => {
     const gqlpt = new GQLPTClient({
-      adapter,
+      adapter: openAiAdapter,
       url: "http://localhost:4000/graphql",
     });
 
