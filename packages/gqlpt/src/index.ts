@@ -1,5 +1,5 @@
 import { Adapter } from "@gqlpt/adapter-base";
-import { introspection } from "@gqlpt/utils";
+import { introspection, postGeneratedQuery } from "@gqlpt/utils";
 
 import { buildClientSchema, parse, print, printSchema } from "graphql";
 
@@ -81,5 +81,32 @@ export class GQLPTClient {
       query: printedQuery,
       variables: result.variables,
     };
+  }
+
+  async generateAndSend(
+    plainText: string,
+    {
+      urlOverride,
+      headersOverride,
+    }: {
+      urlOverride?: string;
+      headersOverride?: Record<string, string>;
+    } = {},
+  ): Promise<any> {
+    if (!this.options.url && !urlOverride) {
+      throw new Error("Missing url");
+    }
+
+    const { query, variables } =
+      await this.generateQueryAndVariables(plainText);
+
+    const response = await postGeneratedQuery({
+      query,
+      variables,
+      url: (urlOverride || this.options.url) as string,
+      headers: headersOverride || this.options.headers,
+    });
+
+    return response;
   }
 }

@@ -1,5 +1,5 @@
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
-import { startServer, typeDefs } from "@gqlpt/utils";
+import { resolvers, startServer, typeDefs } from "@gqlpt/utils";
 
 import { describe, test } from "@jest/globals";
 import dotenv from "dotenv";
@@ -53,5 +53,23 @@ describe("Remote Schema", () => {
     const generatedTypeDefs = gqlpt.getTypeDefs() as string;
 
     expect(print(parse(generatedTypeDefs))).toEqual(print(parse(typeDefs)));
+  });
+
+  test("should generateAndSend", async () => {
+    const gqlpt = new GQLPTClient({
+      adapter,
+      url: "http://localhost:4000/graphql",
+    });
+
+    await gqlpt.connect();
+
+    const resonse = await gqlpt.generateAndSend("Find users by id 1");
+
+    expect(resonse).toEqual({
+      errors: undefined,
+      data: {
+        user: resolvers.Query.user(undefined, { id: "1" }),
+      },
+    });
   });
 });
