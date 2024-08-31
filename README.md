@@ -6,6 +6,8 @@
 
 <p>Leverage AI to generate GraphQL queries from plain text.</p>
 
+Read more about GQLPT on our blog [rconnect.tech/blog/gqlpt](https://www.rconnect.tech/blog/gqlpt)
+
 [![npm version](https://badge.fury.io/js/gqlpt.svg)](https://badge.fury.io/js/gqlpt) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![](https://github.com/rocket-connect/gqlpt/raw/main/docs/screenshot.png)](https://www.gqlpt.dev/)
