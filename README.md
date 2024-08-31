@@ -39,8 +39,7 @@ const typeDefs = /* GraphQL */ `
 `;
 
 const client = new GQLPTClient({
-  typeDefs, // Specify your GraphQL schema
-  url: "http://localhost:4000/graphql", // or specify your GraphQL endpoint
+  typeDefs,
   adapter: new AdapterOpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   }),
@@ -83,6 +82,61 @@ const client = new GQLPTClient({
 });
 
 await client.connect(); // Performs introspection using the URL
+```
+
+## Generate and Send
+
+The `GQLPTClient` class includes a `generateAndSend` method that simplifies generating a GraphQL query from plain text and sending it directly to a specified endpoint. This method leverages the `generateQueryAndVariables` function and then posts the generated query to the endpoint.
+
+### Example
+
+```ts
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
+
+const client = new GQLPTClient({
+  url: "http://localhost:4000/graphql",
+  adapter: new AdapterOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  }),
+});
+
+async function main() {
+  await client.connect();
+
+  const response = await client.generateAndSend("Find users by id 1");
+
+  console.log(response); // Logs the server's response to the query
+
+  /*
+    Example response structure:
+    {
+      "data": {
+        "user": {
+          "id": "1",
+          "name": "John Doe"
+        }
+      },
+      "errors": []
+    }
+  */
+}
+
+main();
+```
+
+### Advanced Usage
+
+You can override the URL or headers when calling `generateAndSend`:
+
+```ts
+const response = await client.generateAndSend("Find users by id 1", {
+  urlOverride: "http://another-server.com/graphql",
+  headersOverride: {
+    Authorization: "Bearer custom-token",
+  },
+});
 ```
 
 ## FAQs
