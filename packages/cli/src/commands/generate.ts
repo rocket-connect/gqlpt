@@ -26,6 +26,7 @@ generate
     "Path to type definitions file",
     "./schema.gql",
   )
+  .option("-u --url <url>", "GraphQL server URL")
   .action(async (source, options) => {
     let adapter: Adapter;
 
@@ -60,12 +61,17 @@ generate
       );
     }
 
-    const typeDefs = await fs.readFile(options.typeDefs, "utf-8");
+    let typeDefs: string = "";
+    if (options.typeDefs) {
+      typeDefs = await fs.readFile(options.typeDefs, "utf-8");
+    }
 
     const client = new GQLPTClient({
       adapter,
       typeDefs,
+      url: options.url,
     });
+    await client.connect();
 
     const srcDir = path.resolve(process.cwd(), source);
 
