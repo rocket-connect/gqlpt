@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/adapter-openai",
-  "version": "0.0.0-alpha.13",
+  "version": "0.0.0-alpha.14",
   "description": "Open AI adapter for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
