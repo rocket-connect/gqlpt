@@ -4,6 +4,7 @@
   "description": "Leverage AI to generate GraphQL queries from plain text.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
+  "bin": "./build/index.js",
   "files": [
     "build"
   ],

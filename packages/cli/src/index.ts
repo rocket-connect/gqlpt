@@ -6,7 +6,7 @@ import { generate } from "./commands/generate";
 const program = new Command();
 
 program
-  .name("@gqlpt/cli")
+  .name("gqlpt")
   .description("CLI to generate type definitions for GQLPT")
   .version("1.0.0");
 
