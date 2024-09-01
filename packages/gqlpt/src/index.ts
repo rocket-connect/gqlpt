@@ -65,7 +65,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     }
 
     const query = `
-      With this graphql schema: '${this.options.typeDefs}',
+      With this graphql schema: '${this.compressTypeDefs(this.options.typeDefs)}',
       and this question: '${plainText}',  
       generate a JSON object, where 'query' is a GraphQL query
       and 'variables' is a object containing all the variables. 
@@ -126,7 +126,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     const query = `
       Given the following GraphQL schema:
       
-      ${this.options.typeDefs}
+      ${this.compressTypeDefs(this.options.typeDefs)}
 
       And these plain text queries:
       ${plainTextStrings.map((q, i) => `${i + 1}. ${q}`).join("\n")}
@@ -160,5 +160,15 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     >;
 
     return result;
+  }
+
+  private compressTypeDefs(typeDefs: string): string {
+    return typeDefs
+      .replace(/[\s\t]+/g, " ") // Replace multiple whitespaces and tabs with a single space
+      .replace(/"\s+/g, '"') // Remove spaces after quotes
+      .replace(/\s+"/g, '"') // Remove spaces before quotes
+      .replace(/\\n/g, "") // Remove newline characters
+      .replace(/\s*#.*$/gm, "") // Remove comments
+      .trim(); // Trim leading and trailing whitespace
   }
 }
