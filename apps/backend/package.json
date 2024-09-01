@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/backend",
-  "version": "0.0.0-alpha.19",
+  "version": "0.0.0-alpha.20",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
