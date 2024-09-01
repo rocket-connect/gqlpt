@@ -14,68 +14,73 @@ dotenv.config();
 const TEST_OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
 const TEST_ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
-const openAiAdapter = new AdapterOpenAI({
-  apiKey: TEST_OPENAI_API_KEY,
-});
+const adapters = [
+  {
+    name: "OpenAI",
+    adapter: new AdapterOpenAI({ apiKey: TEST_OPENAI_API_KEY }),
+  },
+  {
+    name: "Anthropic",
+    adapter: new AdapterAnthropic({ apiKey: TEST_ANTHROPIC_API_KEY }),
+  },
+];
 
-const anthropicAdapter = new AdapterAnthropic({
-  apiKey: TEST_ANTHROPIC_API_KEY,
-});
+adapters.forEach(({ name, adapter }) => {
+  describe(`Remote Schema with ${name} Adapter`, () => {
+    let server: Server;
 
-describe("Remote Schema", () => {
-  let server: Server;
-
-  beforeAll(async () => {
-    server = await startServer({
-      port: 4000,
-    });
-  });
-
-  afterAll(() => {
-    server.close();
-  });
-
-  test("should throw when calling generateQueryAndVariables without connecting", async () => {
-    const gqlpt = new GQLPTClient({
-      adapter: openAiAdapter,
-      url: "http://localhost:4000/graphql",
+    beforeAll(async () => {
+      server = await startServer({
+        port: 4000,
+      });
     });
 
-    // gqlpt.connect() is not called
-
-    await expect(
-      gqlpt.generateQueryAndVariables("Find users by id 1"),
-    ).rejects.toThrow("Missing typeDefs");
-  });
-
-  test("should connect to the server", async () => {
-    const gqlpt = new GQLPTClient({
-      adapter: openAiAdapter,
-      url: "http://localhost:4000/graphql",
+    afterAll(() => {
+      server.close();
     });
 
-    await gqlpt.connect();
+    test("should throw when calling generateQueryAndVariables without connecting", async () => {
+      const gqlpt = new GQLPTClient({
+        adapter,
+        url: "http://localhost:4000/graphql",
+      });
 
-    const generatedTypeDefs = gqlpt.getTypeDefs() as string;
+      // gqlpt.connect() is not called
 
-    expect(print(parse(generatedTypeDefs))).toEqual(print(parse(typeDefs)));
-  });
-
-  test("should generateAndSend", async () => {
-    const gqlpt = new GQLPTClient({
-      adapter: openAiAdapter,
-      url: "http://localhost:4000/graphql",
+      await expect(
+        gqlpt.generateQueryAndVariables("Find users by id 1"),
+      ).rejects.toThrow("Missing typeDefs");
     });
 
-    await gqlpt.connect();
+    test("should connect to the server", async () => {
+      const gqlpt = new GQLPTClient({
+        adapter,
+        url: "http://localhost:4000/graphql",
+      });
 
-    const resonse = await gqlpt.generateAndSend("Find users by id 1");
+      await gqlpt.connect();
 
-    expect(resonse).toEqual({
-      errors: undefined,
-      data: {
-        user: resolvers.Query.user(undefined, { id: "1" }),
-      },
+      const generatedTypeDefs = gqlpt.getTypeDefs() as string;
+
+      expect(print(parse(generatedTypeDefs))).toEqual(print(parse(typeDefs)));
+    });
+
+    test("should generateAndSend", async () => {
+      const gqlpt = new GQLPTClient({
+        adapter,
+        url: "http://localhost:4000/graphql",
+      });
+
+      await gqlpt.connect();
+
+      const resonse = await gqlpt.generateAndSend("Find users by id 1");
+
+      expect(resonse).toEqual({
+        errors: undefined,
+        data: {
+          user: resolvers.Query.user(undefined, { id: "1" }),
+        },
+      });
     });
   });
 });
