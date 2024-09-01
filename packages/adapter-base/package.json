@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/adapter-base",
-  "version": "0.0.0-alpha.14",
+  "version": "0.0.0-alpha.15",
   "description": "Base adapter for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
