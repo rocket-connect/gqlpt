@@ -1,31 +1,48 @@
+import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import dotenv from "dotenv";
+
 import { generate } from "../src/commands/generate";
 
-describe("generate", () => {
-  const consoleErrorSpy = jest
-    .spyOn(console, "error")
-    .mockImplementation(() => {});
+dotenv.config();
 
-  const processExitSpy = jest
-    .spyOn(process, "exit")
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    .mockImplementation(() => {});
+const TEST_OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
+const TEST_ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
-  afterEach(() => {
-    consoleErrorSpy.mockClear();
-    processExitSpy.mockClear();
-  });
+const adapters = [
+  {
+    name: "openai",
+    apiKeyEnvKey: "OPENAI_API_KEY",
+    adapter: new AdapterOpenAI({ apiKey: TEST_OPENAI_API_KEY }),
+  },
+  {
+    name: "anthropic",
+    apiKeyEnvKey: "ANTHROPIC_API_KEY",
+    adapter: new AdapterAnthropic({ apiKey: TEST_ANTHROPIC_API_KEY }),
+  },
+];
 
-  test("should throw missing OPENAI_AI_KEY ", async () => {
-    const oldEnv = process.env.OPENAI_AI_KEY;
+adapters.forEach(({ name, apiKeyEnvKey }) => {
+  describe(`generate with ${name} Adapter`, () => {
+    test(`should throw missing ${apiKeyEnvKey}`, async () => {
+      let oldEnv: string | undefined = undefined;
+      oldEnv = process.env[apiKeyEnvKey];
 
-    try {
-      delete process.env.OPENAI_AI_KEY;
-      await expect(async () => {
-        await generate.parseAsync(["generate"]);
-      }).rejects.toThrow("process.env.OPENAI_API_KEY is required");
-    } finally {
-      process.env.OPENAI_AI_KEY = oldEnv;
-    }
+      try {
+        delete process.env.OPENAI_API_KEY;
+        await expect(async () => {
+          await generate.parseAsync([
+            "generate",
+            "--source",
+            "test",
+            "--adapter",
+            name,
+          ]);
+        }).rejects.toThrow(`process.env.${apiKeyEnvKey} is required`);
+      } finally {
+        process.env[apiKeyEnvKey] = oldEnv;
+      }
+    });
   });
 });
