@@ -9,8 +9,8 @@ import { generate } from "../src/commands/generate";
 
 dotenv.config();
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY as string;
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY as string;
+const OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
+const ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
 const adapters = [
   {
