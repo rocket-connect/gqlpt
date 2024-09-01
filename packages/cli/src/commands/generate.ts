@@ -21,11 +21,7 @@ generate
     "openai",
   )
   .option("-o, --output <path>", "Output path for generated types")
-  .option(
-    "-t --typeDefs <typeDefs>",
-    "Path to type definitions file",
-    "./schema.gql",
-  )
+  .option("-t --typeDefs <typeDefs>", "Path to type definitions file")
   .option("-u --url <url>", "GraphQL server URL")
   .option("-h --headers <headers>", "Headers to send to the server")
   .action(async (source, options) => {
