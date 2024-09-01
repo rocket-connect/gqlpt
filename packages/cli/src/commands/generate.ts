@@ -27,6 +27,7 @@ generate
     "./schema.gql",
   )
   .option("-u --url <url>", "GraphQL server URL")
+  .option("-h --headers <headers>", "Headers to send to the server")
   .action(async (source, options) => {
     let adapter: Adapter;
 
@@ -66,10 +67,16 @@ generate
       typeDefs = await fs.readFile(options.typeDefs, "utf-8");
     }
 
+    let headers: undefined | Record<string, string> = undefined;
+    if (options.headers) {
+      headers = JSON.parse(options.headers);
+    }
+
     const client = new GQLPTClient({
       adapter,
       typeDefs,
       url: options.url,
+      headers,
     });
     await client.connect();
 
