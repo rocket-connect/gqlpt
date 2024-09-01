@@ -3,6 +3,8 @@ import { introspection, postGeneratedQuery } from "@gqlpt/utils";
 
 import { buildClientSchema, parse, print, printSchema } from "graphql";
 
+import { DefaultTypeMap, GeneratedTypeMap } from "./types";
+
 export interface GQLPTClientOptions {
   url?: string;
   headers?: Record<string, string>;
@@ -10,7 +12,9 @@ export interface GQLPTClientOptions {
   adapter: Adapter;
 }
 
-export class GQLPTClient {
+type MergedTypeMap = GeneratedTypeMap & DefaultTypeMap;
+
+export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   private options: GQLPTClientOptions;
 
   constructor(options: GQLPTClientOptions) {
@@ -85,8 +89,8 @@ export class GQLPTClient {
     };
   }
 
-  async generateAndSend(
-    plainText: string,
+  async generateAndSend<Q extends string>(
+    plainText: Q,
     {
       urlOverride,
       headersOverride,
@@ -94,7 +98,7 @@ export class GQLPTClient {
       urlOverride?: string;
       headersOverride?: Record<string, string>;
     } = {},
-  ): Promise<any> {
+  ): Promise<Q extends keyof T ? T[Q] : any> {
     if (!this.options.url && !urlOverride) {
       throw new Error("Missing url");
     }
@@ -109,6 +113,6 @@ export class GQLPTClient {
       headers: headersOverride || this.options.headers,
     });
 
-    return response;
+    return response as Q extends keyof T ? T[Q] : any;
   }
 }
