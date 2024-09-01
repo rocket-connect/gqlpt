@@ -75,10 +75,12 @@ generate
 
     console.log("Parsing files for GQLPT usage...");
     const queries = await parseFiles(files);
-    console.log(`Found ${queries.length} unique GQLPT queries`);
 
     console.log("Generating type definitions...");
-    const typesContent = await generateTypes({ queries, client });
+    const typesContent = await generateTypes({
+      queries: queries.map((x) => x.query),
+      client,
+    });
 
     console.log(`Writing type definitions to ${outputPath}`);
     await fs.writeFile(outputPath, typesContent);

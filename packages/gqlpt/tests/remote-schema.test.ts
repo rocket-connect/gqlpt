@@ -65,7 +65,7 @@ adapters.forEach(({ name, adapter }) => {
       expect(print(parse(generatedTypeDefs))).toEqual(print(parse(typeDefs)));
     });
 
-    test("should generateAndSend", async () => {
+    test("should generateAndSend with inline", async () => {
       const gqlpt = new GQLPTClient({
         adapter,
         url: "http://localhost:4000/graphql",
@@ -73,9 +73,9 @@ adapters.forEach(({ name, adapter }) => {
 
       await gqlpt.connect();
 
-      const resonse = await gqlpt.generateAndSend("Find users by id 1");
+      const response = await gqlpt.generateAndSend("Find users by id 1");
 
-      expect(resonse).toEqual({
+      expect(response).toEqual({
         errors: undefined,
         data: {
           user: resolvers.Query.user(undefined, { id: "1" }),
