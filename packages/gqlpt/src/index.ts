@@ -115,4 +115,50 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
 
     return response as Q extends keyof T ? T[Q] : any;
   }
+
+  async generateTypeMap(
+    plainTextStrings: string[],
+  ): Promise<Record<string, string>> {
+    if (!this.options.typeDefs) {
+      throw new Error("Missing typeDefs");
+    }
+
+    const query = `
+      Given the following GraphQL schema:
+      
+      ${this.options.typeDefs}
+
+      And these plain text queries:
+      ${plainTextStrings.map((q, i) => `${i + 1}. ${q}`).join("\n")}
+
+      Generate a JSON object where:
+      - Each key is the original plain text query
+      - Each value is a TypeScript type definition that represents the expected structure of the query result
+
+      Rules for generating type definitions:
+      1. Use TypeScript syntax
+      2. Nest types inline (don't use separate interface declarations)
+      3. Use specific types (string, number, boolean) where appropriate
+      4. Use arrays ([]); when a field can return multiple items
+      5. Make properties optional (?) if they might not always be present
+      6. Use 'any' only as a last resort for unknown types
+
+      Example output format:
+      {
+        "find users with name and email": "{ users: { name: string; email: string; }[] }",
+        "get user by id": "{ user: { id: string; name: string; email?: string; } | null }"
+      }
+
+      Provide only the JSON object in your response, with no additional text or formatting.
+    `;
+
+    const response = await this.options.adapter.sendText(query);
+
+    const result = JSON.parse((response || "").replace(/`/g, "")) as Record<
+      string,
+      string
+    >;
+
+    return result;
+  }
 }

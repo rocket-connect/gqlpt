@@ -1,6 +1,11 @@
 #!/usr/bin/env node
+import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
+import { Adapter } from "@gqlpt/adapter-base";
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
 import { Command } from "commander";
 import fs from "fs/promises";
+import { GQLPTClient } from "gqlpt";
 import path from "path";
 
 import { generateTypes } from "./generator";
@@ -18,14 +23,59 @@ program
   .description("Generate type definitions for GQLPT")
   .argument("<source>", "Source directory to scan for GQLPT usage")
   .option(
-    "-o, --output <path>",
-    "Output path for generated types",
-    "../gqlpt/src/types.ts",
+    "-a, --adapter <adapter>",
+    "The type of adapter to use either OpenAI or Anthropic",
+    "openai",
+  )
+  .option("-o, --output <path>", "Output path for generated types")
+  .option(
+    "-t --typeDefs <typeDefs>",
+    "Path to type definitions file",
+    "./schema.gql",
   )
   .action(async (source, options) => {
     try {
+      let adapter: Adapter;
+
+      switch (options.adapter) {
+        case "openai":
+          if (!process.env.OPENAI_API_KEY) {
+            throw new Error("process.env.OPENAI_API_KEY is required");
+          }
+          adapter = new AdapterOpenAI({
+            apiKey: process.env.OPENAI_API_KEY,
+          });
+          break;
+        case "anthropic":
+          if (!process.env.ANTHROPIC_API_KEY) {
+            throw new Error("process.env.ANTHROPIC_API_KEY is required");
+          }
+          adapter = new AdapterAnthropic({
+            apiKey: process.env.ANTHROPIC_API_KEY,
+          });
+          break;
+        default:
+          throw new Error("Invalid adapter");
+      }
+
+      let outputPath: string;
+      if (options.output) {
+        outputPath = path.resolve(process.cwd(), options.output);
+      } else {
+        outputPath = path.resolve(
+          process.cwd(),
+          "node_modules/gqlpt/build/types.d.ts",
+        );
+      }
+
+      const typeDefs = await fs.readFile(options.typeDefs, "utf-8");
+
+      const client = new GQLPTClient({
+        adapter,
+        typeDefs,
+      });
+
       const srcDir = path.resolve(process.cwd(), source);
-      const outputPath = path.resolve(process.cwd(), options.output);
 
       console.log(`Scanning directory: ${srcDir}`);
       const files = await getTypeScriptFiles(srcDir);
@@ -36,7 +86,7 @@ program
       console.log(`Found ${queries.length} unique GQLPT queries`);
 
       console.log("Generating type definitions...");
-      const typesContent = await generateTypes(queries);
+      const typesContent = await generateTypes({ queries, client });
 
       console.log(`Writing type definitions to ${outputPath}`);
       await fs.writeFile(outputPath, typesContent);
