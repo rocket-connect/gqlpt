@@ -1,0 +1,50 @@
+{
+  "name": "@gqlpt/cli",
+  "version": "0.0.0-alpha.12",
+  "description": "Leverage AI to generate GraphQL queries from plain text.",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rocket-connect/gqlpt.git"
+  },
+  "keywords": [
+    "graphql",
+    "ai",
+    "nlp",
+    "query",
+    "generation",
+    "text",
+    "plain",
+    "translate",
+    "natural",
+    "openai",
+    "anthropic",
+    "cli"
+  ],
+  "author": "rconnect.tech",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rocket-connect/gqlpt/issues"
+  },
+  "homepage": "https://github.com/rocket-connect/gqlpt#readme",
+  "peerDependencies": {
+    "graphql": "^16.0.0 || ^17.0.0"
+  },
+  "dependencies": {
+    "@gqlpt/adapter-anthropic": "workspace:^",
+    "@gqlpt/adapter-base": "workspace:^",
+    "@gqlpt/adapter-openai": "workspace:^",
+    "@gqlpt/utils": "workspace:^",
+    "@typescript-eslint/typescript-estree": "^8.3.0",
+    "commander": "12.1.0",
+    "gqlpt": "workspace:^"
+  }
+}

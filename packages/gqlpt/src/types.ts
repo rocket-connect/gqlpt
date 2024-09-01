@@ -1,3 +1,4 @@
+// This file is auto-generated. Do not edit manually.
 // This will be populated by the CLI if used
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface GeneratedTypeMap {}
