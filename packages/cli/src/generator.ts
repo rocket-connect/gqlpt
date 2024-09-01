@@ -7,7 +7,16 @@ export async function generateTypes({
   queries: string[];
   client: GQLPTClient;
 }): Promise<string> {
-  const map = await client.generateTypeMap(queries);
+  const map: Record<string, string> = {};
+
+  await Promise.all(
+    queries.map(async (query) => {
+      const { typeDefinition } =
+        await client.generateQueryAndTypeForBuild(query);
+
+      map[query] = typeDefinition;
+    }),
+  );
 
   const content = `
 // This file is auto-generated. Do not edit manually.

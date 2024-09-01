@@ -14,6 +14,50 @@ export interface GQLPTClientOptions {
 
 type MergedTypeMap = GeneratedTypeMap & DefaultTypeMap;
 
+const QUERY_GENERATION_RULES = `
+  Rules for generating the GraphQL query:
+  - Declare all GraphQL variables in the query.
+  - Only traverse nested objects if they are explicitly requested.
+`;
+
+const TYPE_GENERATION_RULES = `
+  Rules for generating the TypeScript type definition:
+  1. Use TypeScript syntax
+  2. Nest types inline (don't use separate interface declarations)
+  3. Use specific types (string, number, boolean) where appropriate
+  4. Use arrays ([]) when a field can return multiple items
+  5. Make properties optional (?) if they might not always be present
+  6. Use 'any' only as a last resort for unknown types
+  7. Include an optional 'errors' array of type 'any[]'
+  8. Wrap the main query result in a 'data' property
+  9. Do not include 'type QueryResponse =' or any other type alias in your response
+  10. Provide the type definition as a plain object type
+`;
+
+const JSON_RESPONSE_FORMAT = `
+  Provide your response in the following JSON format:
+  {
+    "query": "The generated GraphQL query",
+    "variables": { "key": "value" },
+    "typeDefinition": "The TypeScript type definition as a plain object type"
+  }
+
+  Example of the expected format for typeDefinition:
+  "typeDefinition": "{ errors?: any[]; data: { user: { id: string; name: string; } } }"
+
+  Do not include any additional text or formatting outside of this JSON object.
+`;
+
+const QUERY_JSON_RESPONSE_FORMAT = `
+  Provide your response in the following JSON format:
+  {
+    "query": "The generated GraphQL query",
+    "variables": { "key": "value" }
+  }
+
+  Do not include any additional text or formatting outside of this JSON object.
+`;
+
 export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   private options: GQLPTClientOptions;
 
@@ -65,13 +109,21 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     }
 
     const query = `
-      With this graphql schema: '${this.compressTypeDefs(this.options.typeDefs)}',
-      and this question: '${plainText}',  
-      generate a JSON object, where 'query' is a GraphQL query
-      and 'variables' is a object containing all the variables. 
-      Make sure you declare all the graphql variables in the query.
-      Only traverse nested objects if they are explicitly requested.
-      Dont add any more text or formating to your response, I will JSON parse the text.
+      Given the following GraphQL schema:
+      
+      ${this.compressTypeDefs(this.options.typeDefs)}
+
+      And this plain text query:
+      "${plainText}"
+
+      Please perform the following tasks:
+
+      1. Generate a GraphQL query that answers the plain text query.
+      2. Provide any necessary variables for the query.
+
+      ${QUERY_GENERATION_RULES}
+
+      ${QUERY_JSON_RESPONSE_FORMAT}
     `;
 
     const response = await this.options.adapter.sendText(query);
@@ -116,9 +168,11 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     return response as Q extends keyof T ? T[Q] : any;
   }
 
-  async generateTypeMap(
-    plainTextStrings: string[],
-  ): Promise<Record<string, string>> {
+  async generateQueryAndTypeForBuild(plainText: string): Promise<{
+    query: string;
+    variables?: Record<string, unknown>;
+    typeDefinition: string;
+  }> {
     if (!this.options.typeDefs) {
       throw new Error("Missing typeDefs");
     }
@@ -128,38 +182,38 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       
       ${this.compressTypeDefs(this.options.typeDefs)}
 
-      And these plain text queries:
-      ${plainTextStrings.map((q, i) => `${i + 1}. ${q}`).join("\n")}
+      And this plain text query:
+      "${plainText}"
 
-      Generate a JSON object where:
-      - Each key is the original plain text query
-      - Each value is a TypeScript type definition that represents the expected structure of the query result
+      Please perform the following tasks:
 
-      Rules for generating type definitions:
-      1. Use TypeScript syntax
-      2. Nest types inline (don't use separate interface declarations)
-      3. Use specific types (string, number, boolean) where appropriate
-      4. Use arrays ([]); when a field can return multiple items
-      5. Make properties optional (?) if they might not always be present
-      6. Use 'any' only as a last resort for unknown types
+      1. Generate a GraphQL query that answers the plain text query.
+      2. Provide any necessary variables for the query.
+      3. Based on the generated query, create a TypeScript type definition that represents the expected structure of the query result.
 
-      Example output format:
-      {
-        "find users with name and email": "{ users: { name: string; email: string; }[] }",
-        "get user by id": "{ user: { id: string; name: string; email?: string; } | null }"
-      }
+      ${QUERY_GENERATION_RULES}
 
-      Provide only the JSON object in your response, with no additional text or formatting.
+      ${TYPE_GENERATION_RULES}
+
+      ${JSON_RESPONSE_FORMAT}
     `;
 
     const response = await this.options.adapter.sendText(query);
 
-    const result = JSON.parse((response || "").replace(/`/g, "")) as Record<
-      string,
-      string
-    >;
+    const result = JSON.parse(response) as {
+      query: string;
+      variables?: Record<string, unknown>;
+      typeDefinition: string;
+    };
 
-    return result;
+    const queryAst = parse(result.query, { noLocation: true });
+    const printedQuery = print(queryAst);
+
+    return {
+      query: printedQuery,
+      variables: result.variables,
+      typeDefinition: result.typeDefinition,
+    };
   }
 
   private compressTypeDefs(typeDefs: string): string {
