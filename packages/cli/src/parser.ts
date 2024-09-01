@@ -14,7 +14,6 @@ export async function parseFiles(files: string[]): Promise<QueryInfo[]> {
   const queries: QueryInfo[] = [];
 
   for (const file of files) {
-    console.log(`Parsing file: ${file}`);
     const content = await fs.readFile(file, "utf-8");
     const ast = parse(content, { jsx: true, loc: true });
 
@@ -53,12 +52,6 @@ export async function parseFiles(files: string[]): Promise<QueryInfo[]> {
     });
   }
 
-  console.log(`Total queries found: ${queries.length}`);
-  queries.forEach((q) =>
-    console.log(
-      `Query: "${q.query}" at line ${q.location.line}, column ${q.location.column}`,
-    ),
-  );
   return queries;
 }
 

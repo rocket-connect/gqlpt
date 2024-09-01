@@ -24,6 +24,7 @@ generate
   .option("-t --typeDefs <typeDefs>", "Path to type definitions file")
   .option("-u --url <url>", "GraphQL server URL")
   .option("-h --headers <headers>", "Headers to send to the server")
+  .option("-r --raw", "Raw type definitions to stdout")
   .action(async (source, options) => {
     let adapter: Adapter;
 
@@ -78,23 +79,21 @@ generate
 
     const srcDir = path.resolve(process.cwd(), source);
 
-    console.log(`Scanning directory: ${srcDir}`);
     const files = await getTypeScriptFiles(srcDir);
-    console.log(`Found ${files.length} TypeScript files`);
 
-    console.log("Parsing files for GQLPT usage...");
     const queries = await parseFiles(files);
 
-    console.log("Generating type definitions...");
     const typesContent = await generateTypes({
       queries: queries.map((x) => x.query),
       client,
     });
 
-    console.log(`Writing type definitions to ${outputPath}`);
-    await fs.writeFile(outputPath, typesContent);
-
-    console.log("Type generation complete!");
+    if (options.raw) {
+      process.stdout.write(typesContent);
+    } else {
+      await fs.writeFile(outputPath, typesContent);
+      console.log("Type generation complete!");
+    }
   });
 
 async function getTypeScriptFiles(dir: string): Promise<string[]> {
