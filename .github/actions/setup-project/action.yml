@@ -34,6 +34,3 @@ runs:
     - name: Build project
       run: pnpm build --force
       shell: bash
-    - name: Set environment variables
-      run: echo "${{ inputs.envs-test }}" >> ./packages/gqlpt/.env
-      shell: bash
