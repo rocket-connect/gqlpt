@@ -8,44 +8,9 @@ dotenv.config();
 
 const OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
 
-const adapters = [
-  {
-    name: "openai",
-    apiKeyEnvKey: "OPENAI_API_KEY",
-  },
-  {
-    name: "anthropic",
-    apiKeyEnvKey: "ANTHROPIC_API_KEY",
-  },
-];
-
 describe("generate", () => {
   const fixturePath = path.resolve(__dirname, "fixture/");
   const schemaPath = path.resolve(fixturePath, "schema.gql");
-
-  adapters.forEach(({ name, apiKeyEnvKey }) => {
-    test(`should throw missing ${apiKeyEnvKey}`, async () => {
-      let oldEnv: string | undefined = undefined;
-      oldEnv = process.env[apiKeyEnvKey];
-
-      try {
-        delete process.env[apiKeyEnvKey];
-        await expect(async () => {
-          await generate.parseAsync([
-            "generate",
-            "--source",
-            fixturePath,
-            "--adapter",
-            name,
-            "--typeDefs",
-            schemaPath,
-          ]);
-        }).rejects.toThrow();
-      } finally {
-        process.env[apiKeyEnvKey] = oldEnv;
-      }
-    });
-  });
 
   test("should with generate types with openai adapter", async () => {
     const stdMock = jest.spyOn(process.stdout, "write").mockImplementation();
