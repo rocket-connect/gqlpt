@@ -23,6 +23,7 @@ Image showing the online playground for [gqlpt.dev](https://www.gqlpt.dev/). GQL
 - [Usage](#usage)
 - [From Introspection](#from-introspection)
 - [Generate and Send](#generate-and-send)
+- [Type Generation](#type-generation)
 - [FAQs](#faqs)
 - [License](#license)
 
@@ -161,6 +162,75 @@ const response = await client.generateAndSend("Find users by id 1", {
   },
 });
 ```
+
+## Type Generation
+
+GQLPT offers seamless type generation without requiring changes to your existing code. The CLI tool automatically analyzes your codebase, generates appropriate types based on your usage patterns, and updates the type definitions in your `node_modules`.
+
+### Installation
+
+```bash
+npm install -g @gqlpt/cli
+```
+
+### Usage
+
+Run the following command in your project root:
+
+```bash
+npx @gqlpt/cli generate ./src
+```
+
+This command will:
+
+1. Scan your `./src` directory for GQLPT usage
+2. Generate TypeScript types based on your plain text queries
+3. Update the types in `node_modules/gqlpt/build/types.d.ts`
+
+You don't need to manually import or reference these types in your code. GQLPT will automatically use them to provide type safety.
+
+### Example: Querying GitHub API with Automatic Type Safety
+
+Here's an example of how to use GQLPT with the GitHub GraphQL API, leveraging automatically generated types:
+
+```typescript
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
+
+const client = new GQLPTClient({
+  url: "https://api.github.com/graphql",
+  headers: {
+    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+  },
+  adapter: new AdapterOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  }),
+});
+
+async function searchGitHubRepos() {
+  await client.connect();
+
+  const query = "Find repositories with the name gqlpt";
+
+  const response = await client.generateAndSend(query);
+  // response will be typed based on the generated types
+}
+```
+
+In this example:
+
+1. We create a `GQLPTClient` instance, specifying the GitHub GraphQL API endpoint and including an authorization header with a GitHub token.
+
+2. We don't need to explicitly import or specify any type information. The types are automatically applied based on the generated definitions.
+
+3. After connecting to the client (which performs introspection on the GitHub API), we use a natural language query to search for repositories with "gqlpt" in the name.
+
+4. The `generateAndSend` method generates the appropriate GraphQL query, sends it to the GitHub API, and returns the result with full type information.
+
+5. TypeScript provides full type safety and autocompletion when working with the response, based on the automatically generated types.
+
+This seamless integration of type generation allows you to leverage the power of TypeScript's type system without any additional overhead in your development process. Just run the CLI tool whenever you update your GraphQL schema or change your GQLPT usage patterns, and enjoy automatic type safety in your code.
 
 ## FAQs
 
