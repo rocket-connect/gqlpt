@@ -18,7 +18,7 @@ Image showing the online playground for [gqlpt.dev](https://www.gqlpt.dev/). GQL
 
 ## Quick View
 
-- [Adapters](#adapters)
+- [EcoSystem](#ecosystem)
 - [Installation](#installation)
 - [Usage](#usage)
 - [From Introspection](#from-introspection)
@@ -27,14 +27,31 @@ Image showing the online playground for [gqlpt.dev](https://www.gqlpt.dev/). GQL
 - [FAQs](#faqs)
 - [License](#license)
 
-## Adapters
+## EcoSystem
 
-Adapters are used to swap out the underlying AI service used to generate GraphQL queries. The following adapters are available:
+### gqlpt
 
-- [Anthropic](https://www.npmjs.com/package/@gqlpt/adapter-anthropic)
-  - `@gqlpt/adapter-anthropic`
-- [OpenAI](https://www.npmjs.com/package/@gqlpt/adapter-openai)
-  - `@gqlpt/adapter-openai`
+[![npm version](https://badge.fury.io/js/gqlpt.svg)](https://www.npmjs.com/package/gqlpt)
+
+- Core library for generating GraphQL queries from plain text. [GitHub](https://github.com/rocket-connect/gqlpt)
+
+### @gqlpt/cli
+
+[![npm version](https://badge.fury.io/js/%40gqlpt%2Fcli.svg)](https://www.npmjs.com/package/@gqlpt/cli)
+
+- TypeScript type generation for GQLPT. [GitHub](https://github.com/rocket-connect/gqlpt/tree/main/packages/cli)
+
+### @gqlpt/adapter-anthropic
+
+[![npm version](https://badge.fury.io/js/%40gqlpt%2Fadapter-anthropic.svg)](https://www.npmjs.com/package/@gqlpt/adapter-anthropic)
+
+- Adapter for Anthropic AI. [GitHub](https://github.com/rocket-connect/gqlpt/tree/main/packages/adapter-anthropic)
+
+### @gqlpt/adapter-openai
+
+[![npm version](https://badge.fury.io/js/%40gqlpt%2Fadapter-openai.svg)](https://www.npmjs.com/package/@gqlpt/adapter-openai)
+
+- Adapter for OpenAI GPT-3. [GitHub](https://github.com/rocket-connect/gqlpt/tree/main/packages/adapter-openai)
 
 ## Installation
 
