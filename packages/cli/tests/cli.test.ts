@@ -1,6 +1,3 @@
-import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
-import { AdapterOpenAI } from "@gqlpt/adapter-openai";
-
 import dotenv from "dotenv";
 import { GQLPTClient } from "gqlpt";
 import path from "path";
@@ -10,18 +7,15 @@ import { generate } from "../src/commands/generate";
 dotenv.config();
 
 const OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
-const ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
 const adapters = [
   {
     name: "openai",
     apiKeyEnvKey: "OPENAI_API_KEY",
-    adapter: new AdapterOpenAI({ apiKey: OPENAI_API_KEY }),
   },
   {
     name: "anthropic",
     apiKeyEnvKey: "ANTHROPIC_API_KEY",
-    adapter: new AdapterAnthropic({ apiKey: ANTHROPIC_API_KEY }),
   },
 ];
 
