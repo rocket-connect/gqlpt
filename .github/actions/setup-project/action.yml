@@ -38,5 +38,5 @@ runs:
       run: echo "${{ inputs.envs-test }}" >> ./packages/gqlpt/.env
       shell: bash
     - name: Set environment variables @gqlpt/cli
-      run: echo "${{ inputs.envs-test }}" >> ./packages/@gqlpt/cli/.env
+      run: echo "${{ inputs.envs-test }}" >> ./packages/cli/.env
       shell: bash
