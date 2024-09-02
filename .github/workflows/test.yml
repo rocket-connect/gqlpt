@@ -16,3 +16,6 @@ jobs:
           envs-test: ${{ secrets.ENVS_TEST }}
       - name: Test
         run: pnpm test
+        env:
+          TEST_OPENAI_API_KEY: ${{ secrets.TEST_OPENAI_API_KEY }}
+          TEST_ANTHROPIC_API_KEY: ${{ secrets.TEST_ANTHROPIC_API_KEY }}
