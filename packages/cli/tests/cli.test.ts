@@ -46,7 +46,7 @@ describe("generate", () => {
             "--typeDefs",
             schemaPath,
           ]);
-        }).rejects.toThrow(`process.env.${apiKeyEnvKey} is required`);
+        }).rejects.toThrow();
       } finally {
         process.env[apiKeyEnvKey] = oldEnv;
       }
@@ -60,8 +60,6 @@ describe("generate", () => {
       .spyOn(GQLPTClient.prototype, "connect")
       .mockImplementation(async () => {});
 
-    process.env.OPENAI_API_KEY = OPENAI_API_KEY;
-
     try {
       await generate.parseAsync([
         "generate",
@@ -71,6 +69,8 @@ describe("generate", () => {
         schemaPath,
         "--adapter",
         "openai",
+        "--key",
+        OPENAI_API_KEY,
         "--raw",
       ]);
 

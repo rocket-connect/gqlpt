@@ -20,7 +20,8 @@ generate
     "The type of adapter to use either OpenAI or Anthropic",
     "openai",
   )
-  .option("-o, --output <path>", "Output path for generated types")
+  .option("-k --key <key>", "API key for the adapter")
+  .option("-o --output <path>", "Output path for generated types")
   .option("-t --typeDefs <typeDefs>", "Path to type definitions file")
   .option("-u --url <url>", "GraphQL server URL")
   .option("-h --headers <headers>", "Headers to send to the server")
@@ -30,19 +31,13 @@ generate
 
     switch (options.adapter) {
       case "openai":
-        if (!process.env.OPENAI_API_KEY) {
-          throw new Error("process.env.OPENAI_API_KEY is required");
-        }
         adapter = new AdapterOpenAI({
-          apiKey: process.env.OPENAI_API_KEY,
+          apiKey: options.key || process.env.OPENAI_API_KEY,
         });
         break;
       case "anthropic":
-        if (!process.env.ANTHROPIC_API_KEY) {
-          throw new Error("process.env.ANTHROPIC_API_KEY is required");
-        }
         adapter = new AdapterAnthropic({
-          apiKey: process.env.ANTHROPIC_API_KEY,
+          apiKey: options.key || process.env.ANTHROPIC_API_KEY,
         });
         break;
       default:
