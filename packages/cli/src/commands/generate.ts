@@ -18,18 +18,32 @@ generate
   .option(
     "-a, --adapter <adapter>",
     "The type of adapter to use either OpenAI or Anthropic",
-    "openai",
+    process.env.GQLPT_ADAPTER || "openai",
   )
-  .option("-k --key <key>", "API key for the adapter")
-  .option("-o --output <path>", "Output path for generated types")
-  .option("-t --typeDefs <typeDefs>", "Path to type definitions file")
-  .option("-u --url <url>", "GraphQL server URL")
-  .option("-h --headers <headers>", "Headers to send to the server")
-  .option("-r --raw", "Raw type definitions to stdout")
+  .option(
+    "-k --key <key>",
+    "API key for the adapter or set env OPENAI_API_KEY or ANTHROPIC_API_KEY",
+  )
+  .option(
+    "-o --output <path>",
+    "Output path for generated types or set env GQLPT_OUTPUT_PATH",
+  )
+  .option(
+    "-t --typeDefs <typeDefs>",
+    "Path to type definitions file to use or set env GQLPT_TYPE_DEFS",
+  )
+  .option("-u --url <url>", "GraphQL server URL or set env GQLPT_URL")
+  .option(
+    "-h --headers <headers>",
+    "Headers to send to the server or set env GQLPT_HEADERS",
+  )
+  .option("-r --raw", "Raw type definitions to stdout or set env GQLPT_RAW")
   .action(async (source, options) => {
     let adapter: Adapter;
 
-    switch (options.adapter) {
+    const adapterType =
+      options.adapter || process.env.GQLPT_ADAPTER || "openai";
+    switch (adapterType.toLowerCase()) {
       case "openai":
         adapter = new AdapterOpenAI({
           apiKey: options.key || process.env.OPENAI_API_KEY,
@@ -45,8 +59,11 @@ generate
     }
 
     let outputPath: string;
-    if (options.output) {
-      outputPath = path.resolve(process.cwd(), options.output);
+    if (options.output || process.env.GQLPT_OUTPUT_PATH) {
+      outputPath = path.resolve(
+        process.cwd(),
+        options.output || process.env.GQLPT_OUTPUT_PATH,
+      );
     } else {
       outputPath = path.resolve(
         process.cwd(),
@@ -55,19 +72,22 @@ generate
     }
 
     let typeDefs: string = "";
-    if (options.typeDefs) {
-      typeDefs = await fs.readFile(options.typeDefs, "utf-8");
+    if (options.typeDefs || process.env.GQLPT_TYPE_DEFS) {
+      typeDefs = await fs.readFile(
+        options.typeDefs || process.env.GQLPT_TYPE_DEFS,
+        "utf-8",
+      );
     }
 
     let headers: undefined | Record<string, string> = undefined;
-    if (options.headers) {
-      headers = JSON.parse(options.headers);
+    if (options.headers || process.env.GQLPT_HEADERS) {
+      headers = JSON.parse(options.headers || process.env.GQLPT_HEADERS);
     }
 
     const client = new GQLPTClient({
       adapter,
       typeDefs,
-      url: options.url,
+      url: options.url || process.env.GQLPT_URL,
       headers,
     });
     await client.connect();
@@ -83,7 +103,7 @@ generate
       client,
     });
 
-    if (options.raw) {
+    if (options.raw || process.env.GQLPT_RAW) {
       process.stdout.write(typesContent);
     } else {
       await fs.writeFile(outputPath, typesContent);

@@ -46,6 +46,7 @@
     "@gqlpt/utils": "workspace:^",
     "@typescript-eslint/typescript-estree": "^8.3.0",
     "commander": "12.1.0",
+    "dotenv": "16.4.5",
     "gqlpt": "workspace:^"
   }
 }

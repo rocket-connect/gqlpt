@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import dotenv from "dotenv";
 
 import { generate } from "./commands/generate";
+
+dotenv.config();
 
 const program = new Command();
 
