@@ -46,7 +46,7 @@ const config: Config = {
   themeConfig: {
     metadata: [
       { name: "robots", content: "index, follow" },
-      { name: "author", content: "GQLPT" },
+      { name: "author", content: "rconnect.tech" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "https://gqlpt.dev/" },
       { name: "twitter:image", content: "https://gqlpt.dev/img/banner.png" },
