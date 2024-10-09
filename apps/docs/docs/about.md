@@ -12,7 +12,7 @@ keywords:
     natural language processing,
   ]
 sidebar_label: "About GQLPT"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # About GQLPT

@@ -4,7 +4,7 @@ description: "Learn how to use GraphQL introspection with GQLPT to create fully 
 keywords:
   [GQLPT, GraphQL, introspection, type-safe, TypeScript, client SDK, CLI]
 sidebar_label: "GraphQL Introspection"
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # GraphQL Introspection

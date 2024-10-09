@@ -4,7 +4,7 @@
 
 /* Global styles */
 :root {
-  --ifm-background-color: #2d3648;
+  --ifm-background-color: #202a3b;
   --ifm-background-surface-color: #b7c2d7;
   --ifm-color-primary: #202a3b;
   --ifm-code-font-size: 95%;
@@ -180,4 +180,19 @@ button:hover {
 .footer__copyright {
   color: var(--ifm-background-surface-color);
   font-weight: bold;
+}
+
+blockquote > p {
+  color: var(--ifm-color-primary);
+  background-color: var(--ifm-background-surface-color);
+  padding-left: 6px;
+}
+
+blockquote > p > a {
+  color: var(--ifm-color-primary);
+}
+
+blockquote > p > a:hover {
+  text-decoration: underline;
+  color: var(--ifm-color-primary);
 }

@@ -15,7 +15,7 @@ keywords:
     AI-powered type generation,
   ]
 sidebar_label: "CLI"
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # CLI

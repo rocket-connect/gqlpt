@@ -12,7 +12,7 @@ keywords:
     developer experience,
   ]
 sidebar_label: "Type Generation"
-sidebar_position: 8
+sidebar_position: 9
 ---
 
 # Type Generation

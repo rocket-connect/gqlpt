@@ -15,7 +15,7 @@ keywords:
     remote schema introspection,
   ]
 sidebar_label: "Client SDK"
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Client SDK
