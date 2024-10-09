@@ -111,3 +111,5 @@ settings.json
 build
 dist
 .turbo/
+
+.docusaurus/
