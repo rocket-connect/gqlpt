@@ -12,51 +12,29 @@ const config: Config = {
   title: "GQLPT",
   tagline: "Leverage AI to generate GraphQL queries from plain text",
   favicon: "img/favicon.svg",
-
-  // Set the production url of your site here
   url: "https://www.gqlpt.dev",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: "rocket-connect", // Usually your GitHub org/user name.
-  projectName: "gqlpt", // Usually your repo name.
-
+  organizationName: "rocket-connect",
+  projectName: "gqlpt",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
   },
-
   customFields: {
     API_URL: process.env.API_URL || "",
   },
-
   plugins: [tailwindPlugin],
-
   presets: [
     [
       "classic",
       {
+        gtag: {
+          trackingID: "G-WFF8SCPT93",
+        },
         docs: {
           sidebarPath: "./sidebars.ts",
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ["rss", "atom"],
-            xslt: true,
-          },
-          onInlineTags: "warn",
-          onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
         },
         theme: {
           customCss: "./src/css/custom.css",
