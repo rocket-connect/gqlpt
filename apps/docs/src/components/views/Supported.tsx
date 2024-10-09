@@ -1,6 +1,7 @@
 import GraphQLIcon from "@site/static/img/graphql-icon.svg";
 import OpenAIIcon from "@site/static/img/openai-icon.svg";
 import TypeScriptIcon from "@site/static/img/typescript-icon.svg";
+import AnthropicIcon from "@site/static/img/anthropic-icon.svg";
 
 import { Container } from "../utils/Container";
 
@@ -16,6 +17,10 @@ function TypeScript() {
   return <TypeScriptIcon />;
 }
 
+function Anthropic() {
+  return < AnthropicIcon />;
+}
+
 const supported = [
   {
     name: "OpenAI",
@@ -26,7 +31,7 @@ const supported = [
   {
     name: "anthropic",
     content: "Adapters for Anthropic API.",
-    Component: OpenAI,
+    Component: Anthropic,
     link: "https://www.anthropic.com/api",
   },
   {
