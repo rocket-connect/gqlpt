@@ -6,7 +6,7 @@
     "test": "turbo test",
     "dev": "cross-env turbo dev --filter \"@gqlpt/backend\"",
     "build": "turbo build",
-    "clean": "find . -type d \\( -name \"node_modules\" -o -name \"build\" -o -name \".turbo\" -o -name \"dist\" \\) -exec rm -rf {} +",
+    "clean": "find . -type d \\( -name \"node_modules\" -o -name \"build\" -o -name \".turbo\" -o -name \"dist\" -o -name \".docusaurus\" \\) -exec rm -rf {} +",
     "lint": "eslint .",
     "format": "prettier --write .",
     "release": "node ./packages/utils/build/release.js"

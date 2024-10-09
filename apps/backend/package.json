@@ -18,7 +18,7 @@
     "dev": "cross-env NODE_ENV=development ts-node ./src/index.ts"
   },
   "dependencies": {
-    "@gqlpt/playground": "workspace:^",
+    "@gqlpt/docs": "workspace:^",
     "cors": "2.8.5",
     "express": "4.18.2",
     "express-static-gzip": "2.1.7",
