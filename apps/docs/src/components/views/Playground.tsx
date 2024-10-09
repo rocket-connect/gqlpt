@@ -1,12 +1,11 @@
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import * as prettier from "prettier/standalone";
 import { useCallback, useEffect, useState } from "react";
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-import * as defaultValues from "../../defaults";
+import * as defaultValues from "../../../defaults";
 import { CodeBlock } from "../utils/CodeBlock";
 import { Container } from "../utils/Container";
 import { Spinner } from "../utils/Spinner";
-
 
 export function Playground() {
   const { siteConfig } = useDocusaurusContext();

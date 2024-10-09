@@ -73,8 +73,9 @@ After running the command, GQLPT will automatically generate and place the type 
 Once you've generated the types, GQLPT will automatically use them to provide type safety in your queries. Here's an example:
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   url: "https://api.example.com/graphql",
@@ -87,7 +88,7 @@ async function main() {
   await client.connect();
 
   const result = await client.generateAndSend(
-    "Get user with id 1 and their recent posts"
+    "Get user with id 1 and their recent posts",
   );
 
   // 'result' is now fully typed based on your GraphQL schema

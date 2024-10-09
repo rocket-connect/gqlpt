@@ -47,9 +47,10 @@ app.get("/users", async (req, res) => {
 After GQLPT:
 
 ```javascript
+import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
 import express from "express";
 import { GQLPTClient } from "gqlpt";
-import { AdapterOpenAI } from "@gqlpt/adapter-openai";
 
 const app = express();
 
@@ -60,7 +61,7 @@ const client = new GQLPTClient({
 
 app.get("/users", async (req, res) => {
   const result = await client.generateAndSend(
-    "Get all users with their id, name, and email"
+    "Get all users with their id, name, and email",
   );
   res.json(result.data);
 });
@@ -80,8 +81,9 @@ Here's a quick example of how GQLPT works:
 ## Quick Example
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   typeDefs: `
@@ -100,7 +102,7 @@ const client = new GQLPTClient({
 await client.connect();
 
 const { query, variables } = await client.generateQueryAndVariables(
-  "Find user with id 1"
+  "Find user with id 1",
 );
 
 console.log(query);

@@ -30,8 +30,9 @@ npm install gqlpt @gqlpt/adapter-openai
 Create a new file, e.g., `gqlptClient.ts`, and add the following code:
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   url: "https://api.example.com/graphql", // Replace with your GraphQL API URL
@@ -57,7 +58,7 @@ async function main() {
   const client = await initializeClient();
 
   const { query, variables } = await client.generateQueryAndVariables(
-    "Get user with id 1 and their recent posts"
+    "Get user with id 1 and their recent posts",
   );
 
   console.log(query);
@@ -96,8 +97,9 @@ This command will generate the types and automatically place them in the correct
 After running the CLI command, you can use the GQLPT client as usual. The types will be automatically applied:
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   url: "https://api.example.com/graphql",
@@ -110,7 +112,7 @@ async function main() {
   await client.connect();
 
   const result = await client.generateAndSend(
-    "Get user with id 1 and their recent posts"
+    "Get user with id 1 and their recent posts",
   );
 
   // result is now fully typed based on your GraphQL schema

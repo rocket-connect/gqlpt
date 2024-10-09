@@ -38,8 +38,9 @@ To use the Anthropic Adapter, you'll need an API key from Anthropic. You can obt
 Here's how to set up and use the Anthropic Adapter with GQLPT:
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   typeDefs: `your GraphQL schema here`,
@@ -52,7 +53,7 @@ const client = new GQLPTClient({
 await client.connect();
 
 const { query, variables } = await client.generateQueryAndVariables(
-  "Find users named John"
+  "Find users named John",
 );
 
 console.log(query, variables);

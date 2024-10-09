@@ -47,8 +47,9 @@ npm install gqlpt @gqlpt/adapter-anthropic
 Here's a basic example of how to use the GQLPT Client SDK:
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   typeDefs: `     
@@ -68,7 +69,7 @@ const client = new GQLPTClient({
 await client.connect();
 
 const { query, variables } = await client.generateQueryAndVariables(
-  "Find users named John"
+  "Find users named John",
 );
 
 console.log(query, variables);

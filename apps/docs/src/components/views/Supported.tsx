@@ -1,26 +1,20 @@
-import { Container } from "../utils/Container";
 import GraphQLIcon from "@site/static/img/graphql-icon.svg";
 import OpenAIIcon from "@site/static/img/openai-icon.svg";
 import TypeScriptIcon from "@site/static/img/typescript-icon.svg";
 
-function OpenAI(){
-  return (
-    <OpenAIIcon />
-  )
+import { Container } from "../utils/Container";
+
+function OpenAI() {
+  return <OpenAIIcon />;
 }
 
-function GraphQL(){
-  return (
-    <GraphQLIcon />
-  )
+function GraphQL() {
+  return <GraphQLIcon />;
 }
 
-function TypeScript(){
-  return (
-    <TypeScriptIcon />
-  )
+function TypeScript() {
+  return <TypeScriptIcon />;
 }
-
 
 const supported = [
   {

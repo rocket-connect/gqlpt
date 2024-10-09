@@ -87,6 +87,7 @@ Create a new file (e.g., `index.js`) and add the following code:
 
 ```javascript
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
 import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
@@ -120,6 +121,7 @@ main();
 
 ```javascript
 import { AdapterAnthropic } from "@gqlpt/adapter-anthropic";
+
 import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({

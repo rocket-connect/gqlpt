@@ -25,8 +25,9 @@ The GQLPT Client SDK is designed to be easy to use while providing powerful func
 First, import the necessary modules and create a new `GQLPTClient` instance:
 
 ```typescript
-import { GQLPTClient } from "gqlpt";
 import { AdapterOpenAI } from "@gqlpt/adapter-openai";
+
+import { GQLPTClient } from "gqlpt";
 
 const client = new GQLPTClient({
   typeDefs: `your GraphQL schema here`,
@@ -42,7 +43,7 @@ To generate a GraphQL query and variables from a plain text description:
 
 ```typescript
 const { query, variables } = await client.generateQueryAndVariables(
-  "Find users named John and their posts"
+  "Find users named John and their posts",
 );
 
 console.log(query);
