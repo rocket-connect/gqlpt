@@ -1,0 +1,38 @@
+{
+  "id": "about",
+  "title": "About GQLPT: AI-Powered GraphQL Query Generation",
+  "description": "GQLPT simplifies GraphQL development by converting natural language to GraphQL queries using AI. Learn how it works and get started quickly.",
+  "source": "@site/docs/about.md",
+  "sourceDirName": ".",
+  "slug": "/about",
+  "permalink": "/docs/about",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "About GQLPT: AI-Powered GraphQL Query Generation",
+    "description": "GQLPT simplifies GraphQL development by converting natural language to GraphQL queries using AI. Learn how it works and get started quickly.",
+    "keywords": [
+      "GQLPT",
+      "GraphQL",
+      "AI",
+      "OpenAI",
+      "Anthropic",
+      "query generation",
+      "natural language processing"
+    ],
+    "sidebar_label": "About GQLPT",
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Getting Started",
+    "permalink": "/docs/getting-started"
+  },
+  "next": {
+    "title": "Client SDK",
+    "permalink": "/docs/client-sdk/"
+  }
+}

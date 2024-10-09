@@ -1,0 +1,34 @@
+{
+  "id": "introspection",
+  "title": "GraphQL Introspection with GQLPT: Creating Type-Safe Clients",
+  "description": "Learn how to use GraphQL introspection with GQLPT to create fully type-safe clients. This guide covers both client SDK and CLI approaches for seamless integration with your GraphQL API.",
+  "source": "@site/docs/introspection.md",
+  "sourceDirName": ".",
+  "slug": "/introspection",
+  "permalink": "/docs/introspection",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 9,
+  "frontMatter": {
+    "title": "GraphQL Introspection with GQLPT: Creating Type-Safe Clients",
+    "description": "Learn how to use GraphQL introspection with GQLPT to create fully type-safe clients. This guide covers both client SDK and CLI approaches for seamless integration with your GraphQL API.",
+    "keywords": [
+      "GQLPT",
+      "GraphQL",
+      "introspection",
+      "type-safe",
+      "TypeScript",
+      "client SDK",
+      "CLI"
+    ],
+    "sidebar_label": "GraphQL Introspection",
+    "sidebar_position": 9
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Type Generation",
+    "permalink": "/docs/type-generation"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "cli/cli",
+  "title": "GQLPT CLI: TypeScript Type Generation for GraphQL Queries",
+  "description": "Explore the GQLPT Command Line Interface (CLI) tool for generating TypeScript type definitions from GQLPT queries. Learn about its key features, installation process, and how it works to enhance your GraphQL development workflow.",
+  "source": "@site/docs/cli/cli.md",
+  "sourceDirName": "cli",
+  "slug": "/cli/",
+  "permalink": "/docs/cli/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "GQLPT CLI: TypeScript Type Generation for GraphQL Queries",
+    "description": "Explore the GQLPT Command Line Interface (CLI) tool for generating TypeScript type definitions from GQLPT queries. Learn about its key features, installation process, and how it works to enhance your GraphQL development workflow.",
+    "keywords": [
+      "GQLPT",
+      "CLI",
+      "Command Line Interface",
+      "GraphQL",
+      "TypeScript",
+      "type generation",
+      "project scanning",
+      "schema acquisition",
+      "query extraction",
+      "AI-powered type generation"
+    ],
+    "sidebar_label": "CLI",
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "API Reference",
+    "permalink": "/docs/client-sdk/api"
+  },
+  "next": {
+    "title": "CLI Usage",
+    "permalink": "/docs/cli/usage"
+  }
+}

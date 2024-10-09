@@ -1,0 +1,40 @@
+{
+  "id": "adapters/anthropic",
+  "title": "GQLPT Anthropic Adapter: Integrating Anthropic AI for GraphQL Query Generation",
+  "description": "Learn how to use the Anthropic Adapter with GQLPT to generate GraphQL queries using Anthropic's AI models. This guide covers installation, configuration, usage, best practices, and troubleshooting tips.",
+  "source": "@site/docs/adapters/anthropic.md",
+  "sourceDirName": "adapters",
+  "slug": "/adapters/anthropic",
+  "permalink": "/docs/adapters/anthropic",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "GQLPT Anthropic Adapter: Integrating Anthropic AI for GraphQL Query Generation",
+    "description": "Learn how to use the Anthropic Adapter with GQLPT to generate GraphQL queries using Anthropic's AI models. This guide covers installation, configuration, usage, best practices, and troubleshooting tips.",
+    "keywords": [
+      "GQLPT",
+      "Anthropic Adapter",
+      "GraphQL",
+      "AI integration",
+      "query generation",
+      "Claude",
+      "natural language processing",
+      "API configuration",
+      "best practices"
+    ],
+    "sidebar_label": "Anthropic Adapter",
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "OpenAI Adapter",
+    "permalink": "/docs/adapters/openai"
+  },
+  "next": {
+    "title": "Ecosystem",
+    "permalink": "/docs/eco-system"
+  }
+}

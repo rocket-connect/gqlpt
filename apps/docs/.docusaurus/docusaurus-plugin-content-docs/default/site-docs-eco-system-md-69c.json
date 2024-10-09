@@ -1,0 +1,40 @@
+{
+  "id": "eco-system",
+  "title": "GQLPT Ecosystem: Core Library, CLI, and AI Adapters",
+  "description": "Explore the GQLPT ecosystem, including the core library, CLI tool, and AI adapters for OpenAI and Anthropic. Learn about each component's purpose, use cases, and how to get started.",
+  "source": "@site/docs/eco-system.md",
+  "sourceDirName": ".",
+  "slug": "/eco-system",
+  "permalink": "/docs/eco-system",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "GQLPT Ecosystem: Core Library, CLI, and AI Adapters",
+    "description": "Explore the GQLPT ecosystem, including the core library, CLI tool, and AI adapters for OpenAI and Anthropic. Learn about each component's purpose, use cases, and how to get started.",
+    "keywords": [
+      "GQLPT",
+      "ecosystem",
+      "GraphQL",
+      "CLI",
+      "OpenAI adapter",
+      "Anthropic adapter",
+      "TypeScript",
+      "type generation",
+      "AI integration"
+    ],
+    "sidebar_label": "Ecosystem",
+    "sidebar_position": 7
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Anthropic Adapter",
+    "permalink": "/docs/adapters/anthropic"
+  },
+  "next": {
+    "title": "Type Generation",
+    "permalink": "/docs/type-generation"
+  }
+}

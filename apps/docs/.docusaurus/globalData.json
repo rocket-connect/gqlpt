@@ -1,0 +1,98 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "getting-started",
+          "docs": [
+            {
+              "id": "about",
+              "path": "/docs/about",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "adapters/adapters",
+              "path": "/docs/adapters/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "adapters/anthropic",
+              "path": "/docs/adapters/anthropic",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "adapters/openai",
+              "path": "/docs/adapters/openai",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "cli/api",
+              "path": "/docs/cli/api",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "cli/cli",
+              "path": "/docs/cli/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "cli/usage",
+              "path": "/docs/cli/usage",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "client-sdk/api",
+              "path": "/docs/client-sdk/api",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "client-sdk/client-sdk",
+              "path": "/docs/client-sdk/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "client-sdk/usage",
+              "path": "/docs/client-sdk/usage",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "eco-system",
+              "path": "/docs/eco-system",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "getting-started",
+              "path": "/docs/getting-started",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "introspection",
+              "path": "/docs/introspection",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "type-generation",
+              "path": "/docs/type-generation",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/getting-started",
+                "label": "Getting Started"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

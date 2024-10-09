@@ -1,0 +1,41 @@
+{
+  "id": "client-sdk/api",
+  "title": "GQLPT Client SDK API Reference",
+  "description": "Comprehensive API reference for the GQLPT Client SDK. Learn about the GQLPTClient class, its constructor options, and available methods for generating and executing GraphQL queries.",
+  "source": "@site/docs/client-sdk/api.md",
+  "sourceDirName": "client-sdk",
+  "slug": "/client-sdk/api",
+  "permalink": "/docs/client-sdk/api",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "GQLPT Client SDK API Reference",
+    "description": "Comprehensive API reference for the GQLPT Client SDK. Learn about the GQLPTClient class, its constructor options, and available methods for generating and executing GraphQL queries.",
+    "keywords": [
+      "GQLPT",
+      "API Reference",
+      "Client SDK",
+      "GraphQL",
+      "query generation",
+      "TypeScript",
+      "GQLPTClient",
+      "connect",
+      "generateQueryAndVariables",
+      "generateAndSend"
+    ],
+    "sidebar_label": "API Reference",
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Usage",
+    "permalink": "/docs/client-sdk/usage"
+  },
+  "next": {
+    "title": "CLI",
+    "permalink": "/docs/cli/"
+  }
+}

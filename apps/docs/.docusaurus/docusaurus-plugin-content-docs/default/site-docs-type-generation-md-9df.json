@@ -1,0 +1,38 @@
+{
+  "id": "type-generation",
+  "title": "Type Generation for GQLPT: Enhancing TypeScript Integration",
+  "description": "Learn how to generate and use TypeScript types for your GQLPT projects. This guide covers the benefits of type generation, step-by-step instructions, best practices, and troubleshooting tips.",
+  "source": "@site/docs/type-generation.md",
+  "sourceDirName": ".",
+  "slug": "/type-generation",
+  "permalink": "/docs/type-generation",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Type Generation for GQLPT: Enhancing TypeScript Integration",
+    "description": "Learn how to generate and use TypeScript types for your GQLPT projects. This guide covers the benefits of type generation, step-by-step instructions, best practices, and troubleshooting tips.",
+    "keywords": [
+      "GQLPT",
+      "TypeScript",
+      "type generation",
+      "GraphQL",
+      "type safety",
+      "CLI",
+      "developer experience"
+    ],
+    "sidebar_label": "Type Generation",
+    "sidebar_position": 8
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Ecosystem",
+    "permalink": "/docs/eco-system"
+  },
+  "next": {
+    "title": "GraphQL Introspection",
+    "permalink": "/docs/introspection"
+  }
+}

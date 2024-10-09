@@ -10,7 +10,7 @@ import path from "path";
 dotenv.config({ path: "./.env" });
 
 const config = {
-  STATIC_FOLDER: path.join(__dirname, "../../playground/build"),
+  STATIC_FOLDER: path.join(__dirname, "../../docs/build"),
   HTTP_PORT: 5000,
 };
 
