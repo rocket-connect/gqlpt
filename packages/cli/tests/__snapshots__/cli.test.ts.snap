@@ -6,7 +6,7 @@ exports[`generate should with generate types with openai adapter 1`] = `
 // This will be populated by the CLI if used
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface GeneratedTypeMap {
-  "find posts by user id 2": { errors?: any[]; data: { posts: [{ id: string; title: string; body: string; }] } };
+  "find posts by user id 2": { errors?: any[]; data: { posts: { id: string; title: string; body: string; }[] } };
   "Find users by id 1": { errors?: any[]; data: { user?: { id: string; name: string; } } };
 }
 

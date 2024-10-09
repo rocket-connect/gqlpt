@@ -25,7 +25,7 @@ const TYPE_GENERATION_RULES = `
   1. Use TypeScript syntax
   2. Nest types inline (don't use separate interface declarations)
   3. Use specific types (string, number, boolean) where appropriate
-  4. Use arrays ([]) when a field can return multiple items
+  4. Use arrays ([]) when a field can return multiple items, ensure the format is Type[] 'field: { id: string; name: string; }[]'
   5. Make properties optional (?) if they might not always be present
   6. Use 'any' only as a last resort for unknown types
   7. Include an optional 'errors' array of type 'any[]'
