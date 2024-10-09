@@ -1,7 +1,7 @@
+import AnthropicIcon from "@site/static/img/anthropic-icon.svg";
 import GraphQLIcon from "@site/static/img/graphql-icon.svg";
 import OpenAIIcon from "@site/static/img/openai-icon.svg";
 import TypeScriptIcon from "@site/static/img/typescript-icon.svg";
-import AnthropicIcon from "@site/static/img/anthropic-icon.svg";
 
 import { Container } from "../utils/Container";
 
@@ -18,7 +18,7 @@ function TypeScript() {
 }
 
 function Anthropic() {
-  return < AnthropicIcon />;
+  return <AnthropicIcon />;
 }
 
 const supported = [
