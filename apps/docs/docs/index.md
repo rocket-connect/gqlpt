@@ -63,7 +63,7 @@ Discover the available adapters for GQLPT and how to use them.
 - [Anthropic Adapter](/docs/adapters/anthropic)
   - Explore the Anthropic adapter and its features.
 
-### [Ecosystem](/docs/ecosystem)
+### [Ecosystem](/docs/eco-system)
 
 Learn about the GQLPT ecosystem and how it can enhance your development workflow.
 
