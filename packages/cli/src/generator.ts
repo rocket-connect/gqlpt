@@ -10,11 +10,11 @@ export async function generateTypes({
   const map: Record<string, string> = {};
 
   await Promise.all(
-    queries.map(async (query) => {
+    queries.map(async (plainText) => {
       const { typeDefinition } =
-        await client.generateQueryAndTypeForBuild(query);
+        await client.generateQueryAndTypeForBuild(plainText);
 
-      map[query] = typeDefinition;
+      map[plainText] = typeDefinition;
     }),
   );
 

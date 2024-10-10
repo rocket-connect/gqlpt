@@ -1,5 +1,9 @@
 import { Adapter } from "@gqlpt/adapter-base";
-import { introspection, postGeneratedQuery } from "@gqlpt/utils";
+import {
+  compressTypeDefs,
+  introspection,
+  postGeneratedQuery,
+} from "@gqlpt/utils";
 
 import { buildClientSchema, parse, print, printSchema } from "graphql";
 
@@ -111,7 +115,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     const query = `
       Given the following GraphQL schema:
       
-      ${this.compressTypeDefs(this.options.typeDefs)}
+      ${compressTypeDefs(this.options.typeDefs)}
 
       And this plain text query:
       "${plainText}"
@@ -180,7 +184,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     const query = `
       Given the following GraphQL schema:
       
-      ${this.compressTypeDefs(this.options.typeDefs)}
+      ${compressTypeDefs(this.options.typeDefs)}
 
       And this plain text query:
       "${plainText}"
@@ -214,15 +218,5 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       variables: result.variables,
       typeDefinition: result.typeDefinition,
     };
-  }
-
-  private compressTypeDefs(typeDefs: string): string {
-    return typeDefs
-      .replace(/[\s\t]+/g, " ") // Replace multiple whitespaces and tabs with a single space
-      .replace(/"\s+/g, '"') // Remove spaces after quotes
-      .replace(/\s+"/g, '"') // Remove spaces before quotes
-      .replace(/\\n/g, "") // Remove newline characters
-      .replace(/\s*#.*$/gm, "") // Remove comments
-      .trim(); // Trim leading and trailing whitespace
   }
 }
