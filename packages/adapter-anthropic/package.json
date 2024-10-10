@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
-  "homepage": "https://github.com/rocket-connect/gqlpt#readme",
+  "homepage": "https://www.gqlpt.dev/docs/adapters/anthropic",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.1",
     "@gqlpt/adapter-base": "workspace:^"

@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
-  "homepage": "https://github.com/rocket-connect/gqlpt#readme",
+  "homepage": "https://www.gqlpt.dev/docs",
   "peerDependencies": {
     "graphql": "^16.0.0 || ^17.0.0"
   },

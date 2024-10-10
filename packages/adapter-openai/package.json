@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
-  "homepage": "https://github.com/rocket-connect/gqlpt#readme",
+  "homepage": "https://www.gqlpt.dev/docs/adapters/openai",
   "peerDependencies": {},
   "dependencies": {
     "openai": "4.57.0",
