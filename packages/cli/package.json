@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/cli",
-  "version": "0.0.0-alpha.22",
+  "version": "0.0.0-alpha.23",
   "description": "Leverage AI to generate GraphQL queries from plain text.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
