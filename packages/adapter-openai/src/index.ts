@@ -5,7 +5,7 @@ import OpenAI, { ClientOptions } from "openai";
 export type AdapterOpenAIOptions = ClientOptions;
 
 export class AdapterOpenAI extends Adapter {
-  private openai: OpenAI;
+  openai: OpenAI;
 
   constructor(options: AdapterOpenAIOptions) {
     super();

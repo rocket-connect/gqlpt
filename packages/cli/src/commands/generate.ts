@@ -7,7 +7,7 @@ import fs from "fs/promises";
 import { GQLPTClient } from "gqlpt";
 import path from "path";
 
-import { generateTypes } from "../generator";
+import { generateTypesAndQueries } from "../generator";
 import { parseFiles } from "../parser";
 
 export const generate = new Command("generate");
@@ -29,6 +29,10 @@ generate
     "Output path for generated types or set env GQLPT_OUTPUT_PATH",
   )
   .option(
+    "-g --generated <path>",
+    "Output path for generated queries or set env GQLPT_GENERATED_PATH",
+  )
+  .option(
     "-t --typeDefs <typeDefs>",
     "Path to type definitions file to use or set env GQLPT_TYPE_DEFS",
   )
@@ -38,6 +42,10 @@ generate
     "Headers to send to the server or set env GQLPT_HEADERS",
   )
   .option("-r --raw", "Raw type definitions to stdout or set env GQLPT_RAW")
+  .option(
+    "-rg --rawgen",
+    "Raw generated queries to stdout or set env GQLPT_RAW_GENERATED",
+  )
   .action(async (source, options) => {
     let adapter: Adapter;
 
@@ -71,6 +79,19 @@ generate
       );
     }
 
+    let generatedPath: string;
+    if (options.generated || process.env.GQLPT_GENERATED_PATH) {
+      generatedPath = path.resolve(
+        process.cwd(),
+        options.generated || process.env.GQLPT_GENERATED_PATH,
+      );
+    } else {
+      generatedPath = path.resolve(
+        process.cwd(),
+        "node_modules/gqlpt/build/generated.json",
+      );
+    }
+
     let typeDefs: string = "";
     if (options.typeDefs || process.env.GQLPT_TYPE_DEFS) {
       typeDefs = await fs.readFile(
@@ -97,17 +118,22 @@ generate
     const files = await getTypeScriptFiles(srcDir);
 
     const queries = await parseFiles(files);
-
-    const typesContent = await generateTypes({
+    const { typesContent, queriesContent } = await generateTypesAndQueries({
       queries: queries.map((x) => x.query),
       client,
+      schemaHash: client.schemaHash as string,
     });
 
     if (options.raw || process.env.GQLPT_RAW) {
       process.stdout.write(typesContent);
     } else {
       await fs.writeFile(outputPath, typesContent);
-      console.log("Type generation complete!");
+    }
+
+    if (options.rawgen || process.env.GQLPT_RAW_GENERATED) {
+      process.stdout.write(queriesContent);
+    } else {
+      await fs.writeFile(generatedPath, queriesContent);
     }
   });
 

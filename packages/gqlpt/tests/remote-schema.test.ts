@@ -4,7 +4,13 @@ import { resolvers, startServer, typeDefs } from "@gqlpt/utils";
 
 import { describe, test } from "@jest/globals";
 import dotenv from "dotenv";
-import { parse, print } from "graphql";
+import {
+  buildSchema,
+  lexicographicSortSchema,
+  parse,
+  print,
+  printSchema,
+} from "graphql";
 import { Server } from "http";
 
 import { GQLPTClient } from "../src";
@@ -61,8 +67,10 @@ adapters.forEach(({ name, adapter }) => {
       await gqlpt.connect();
 
       const generatedTypeDefs = gqlpt.getTypeDefs() as string;
+      const ast = buildSchema(typeDefs);
+      const sorted = lexicographicSortSchema(ast);
 
-      expect(print(parse(generatedTypeDefs))).toEqual(print(parse(typeDefs)));
+      expect(print(parse(generatedTypeDefs))).toEqual(printSchema(sorted));
     });
 
     test("should generateAndSend with inline", async () => {

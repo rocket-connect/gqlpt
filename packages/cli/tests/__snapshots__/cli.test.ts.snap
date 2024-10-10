@@ -1,17 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generate should with generate types with openai adapter 1`] = `
+exports[`generate should generate types and queries with openai adapter: First call output 1`] = `
 "
 // This file is auto-generated. Do not edit manually.
 // This will be populated by the CLI if used
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface GeneratedTypeMap {
-  "find posts by user id 2": { errors?: any[]; data: { posts: { id: string; title: string; body: string; }[] } };
-  "Find users by id 1": { errors?: any[]; data: { user?: { id: string; name: string; } } };
+  "find posts by user id 2, return id and title, and body": { data: { posts: { id: string; title: string; body: string; }[] }; errors?: any[]; };
+  "Find users by id 1, return the name and id": { data: { user: { id: string; name: string; } }; errors?: any[]; };
 }
 
 // Default type map for when CLI is not used or for fallback
 export type DefaultTypeMap = Record<string, any>;
 //# sourceMappingURL=types.d.ts.map
 "
+`;
+
+exports[`generate should generate types and queries with openai adapter: Second call output 1`] = `
+"{
+  "39ee1aceb0ce9b806da116e1c7758115436d186ac73c0b343f516fa7ab947cdf": {
+    "find posts by user id 2, return id and title, and body": {
+      "query": "query ($userId: ID!) {\\n  posts(userId: $userId) {\\n    id\\n    title\\n    body\\n  }\\n}",
+      "variables": {
+        "userId": "2"
+      }
+    },
+    "Find users by id 1, return the name and id": {
+      "query": "query ($id: ID!) {\\n  user(id: $id) {\\n    id\\n    name\\n  }\\n}",
+      "variables": {
+        "id": "1"
+      }
+    }
+  }
+}"
 `;
