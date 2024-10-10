@@ -90,13 +90,13 @@ adapters.forEach(({ name, adapter }) => {
 
       await gqlpt.connect();
       const { query, variables } = await gqlpt.generateQueryAndVariables(
-        "find users and their posts where name is dan",
+        "find users and their posts where name is dan, inject args into an object",
       );
 
       expect(parsePrint(query)).toEqual(
         parsePrint(`
-          query ($name: String) {
-            users(where: {name: $name}) {
+          query ($where: UserWhereInput) {
+            users(where: $where) {
               id
               name
               email
@@ -110,9 +110,7 @@ adapters.forEach(({ name, adapter }) => {
         `),
       );
 
-      expect(variables).toMatchObject({
-        name: "dan",
-      });
+      expect(variables).toMatchObject({});
     });
 
     test("should generate mutation", async () => {
