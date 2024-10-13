@@ -196,3 +196,23 @@ blockquote > p > a:hover {
   text-decoration: underline;
   color: var(--ifm-color-primary);
 }
+
+button.navbar__toggle.clean-btn svg {
+  color: var(--ifm-color-primary);
+}
+
+.menu__list-item > .menu__link {
+  color: var(--ifm-color-primary);
+}
+
+.navbar-sidebar__back {
+  color: var(--ifm-color-primary);
+}
+
+.menu__link--sublist {
+  color: var(--ifm-color-primary);
+}
+
+.menu__link--sublist:hover {
+  color: var(--ifm-background-color);
+}
