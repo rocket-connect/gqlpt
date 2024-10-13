@@ -77,6 +77,14 @@ Generate TypeScript types for your GQLPT queries to ensure type safety and impro
 
 Understand how schema introspection works in GQLPT and its benefits.
 
+### [Query Caching](/docs/query-caching)
+
+Explore query caching in GQLPT and how it can improve performance.
+
+### [Building a Vector RAG System with GQLPT](/docs/rag)
+
+Learn how to build a Vector RAG system for GQLPT using Neo4j and OpenAI.
+
 ---
 
 > **Next Steps**: Ready to get started? Head over to the [Getting Started](/docs/getting-started) guide to begin your GQLPT journey!
