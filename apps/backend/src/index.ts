@@ -31,6 +31,7 @@ app.post("/generate", async (req, res) => {
       adapter,
       typeDefs,
     });
+    await client.connect();
 
     const result = await client.generateQueryAndVariables(query);
 
