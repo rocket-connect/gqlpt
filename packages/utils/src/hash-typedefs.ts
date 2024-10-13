@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 export function hashTypeDefs(typeDefs: string) {
   const encoder = new TextEncoder();
   const data = encoder.encode(typeDefs);
