@@ -35,6 +35,8 @@ const config: Config = {
         },
         docs: {
           sidebarPath: "./sidebars.ts",
+          editUrl:
+            "https://github.com/rocket-connect/gqlpt/edit/main/apps/docs/",
         },
         theme: {
           customCss: "./src/css/custom.css",
