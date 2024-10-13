@@ -32,6 +32,19 @@ const adapters = [
 
 adapters.forEach(({ name, adapter }) => {
   describe(`Local Schema with ${name} Adapter`, () => {
+    test("should throw have you called connect", async () => {
+      const client = new GQLPTClient({
+        adapter,
+        schema,
+      });
+
+      await expect(() =>
+        client.generateQueryAndVariables("query"),
+      ).rejects.toThrow(
+        "Missing typeDefs, url or schema - have you called connect?",
+      );
+    });
+
     test("should connect to the server", async () => {
       const gqlpt = new GQLPTClient({
         adapter,

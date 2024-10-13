@@ -251,7 +251,9 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   }> {
     const typeDefs = this.getTypeDefs();
     if (!typeDefs) {
-      throw new Error("Missing typeDefs, url or schema");
+      throw new Error(
+        "Missing typeDefs, url or schema - have you called connect?",
+      );
     }
 
     const generated = this.queryMap[plainText];
