@@ -201,18 +201,18 @@ button.navbar__toggle.clean-btn svg {
   color: var(--ifm-color-primary);
 }
 
-.menu__list-item > .menu__link {
+.navbar-sidebar > * .menu__list-item > .menu__link {
   color: var(--ifm-color-primary);
 }
 
-.navbar-sidebar__back {
+.navbar-sidebar > * .navbar-sidebar__back {
   color: var(--ifm-color-primary);
 }
 
-.menu__link--sublist {
+.navbar-sidebar > * .menu__link--sublist {
   color: var(--ifm-color-primary);
 }
 
-.menu__link--sublist:hover {
+.navbar-sidebar > * .menu__link--sublist:hover {
   color: var(--ifm-background-color);
 }
