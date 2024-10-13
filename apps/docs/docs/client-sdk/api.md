@@ -36,6 +36,7 @@ constructor(options: GQLPTClientOptions)
 
 - `typeDefs`: string (optional) - GraphQL schema as a string
 - `url`: string (optional) - URL of a GraphQL endpoint
+- `schema`: GraphQLSchema (optional) - A GraphQL schema object
 - `headers`: Record string (optional) - Headers to send with GraphQL requests
 - `adapter`: Adapter - An instance of an AI adapter (e.g., AdapterOpenAI, AdapterAnthropic)
 

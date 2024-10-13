@@ -39,10 +39,10 @@ adapters.forEach(({ name, adapter }) => {
       }).toThrow("Cannot parse typeDefs");
     });
 
-    test("should throw missing typeDefs or url", () => {
+    test("should throw Missing typeDefs, url or schema", () => {
       expect(() => {
         new GQLPTClient({ adapter });
-      }).toThrow("Missing typeDefs or url");
+      }).toThrow("Missing typeDefs, url or schema");
     });
 
     test("should connect to the server", async () => {

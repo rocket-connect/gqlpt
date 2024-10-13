@@ -24,7 +24,7 @@ export const resolvers = {
   },
 };
 
-const schema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });

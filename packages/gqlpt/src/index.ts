@@ -12,6 +12,7 @@ import {
   GraphQLSchema,
   buildClientSchema,
   buildSchema,
+  graphql,
   lexicographicSortSchema,
   parse,
   print,
@@ -25,6 +26,7 @@ export interface GQLPTClientOptions {
   url?: string;
   headers?: Record<string, string>;
   typeDefs?: string;
+  schema?: GraphQLSchema;
   adapter: Adapter;
   generatedPath?: string;
 }
@@ -149,7 +151,9 @@ Do not include any additional text or formatting outside of this JSON object.
 export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   options: GQLPTClientOptions;
   schema?: GraphQLSchema;
+  typeDefs?: string;
   schemaHash?: string;
+
   private queryMap: Record<
     string,
     {
@@ -165,8 +169,8 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       throw new Error("Missing adapter");
     }
 
-    if (!options.typeDefs && !options.url) {
-      throw new Error("Missing typeDefs or url");
+    if (!options.typeDefs && !options.url && !options.schema) {
+      throw new Error("Missing typeDefs, url or schema");
     }
 
     if (options.typeDefs) {
@@ -183,7 +187,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   }
 
   public getTypeDefs() {
-    return this.options.typeDefs;
+    return this.typeDefs;
   }
 
   async connect() {
@@ -191,6 +195,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
 
     if (this.options.typeDefs) {
       const schema = buildSchema(this.options.typeDefs);
+      this.typeDefs = printSchema(schema);
       this.schema = lexicographicSortSchema(schema);
       this.schemaHash = await hashTypeDefs(this.options.typeDefs);
     } else if (this.options.url) {
@@ -201,8 +206,12 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
 
       const schema = buildClientSchema(response.data);
       this.schema = lexicographicSortSchema(schema);
-      this.options.typeDefs = printSchema(this.schema);
-      this.schemaHash = await hashTypeDefs(this.options.typeDefs);
+      this.typeDefs = printSchema(this.schema);
+      this.schemaHash = await hashTypeDefs(this.typeDefs);
+    } else if (this.options.schema) {
+      this.schema = lexicographicSortSchema(this.options.schema);
+      this.typeDefs = printSchema(this.schema);
+      this.schemaHash = await hashTypeDefs(this.typeDefs);
     }
 
     const generatedPath =
@@ -240,8 +249,9 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     query: string;
     variables?: Record<string, unknown>;
   }> {
-    if (!this.options.typeDefs) {
-      throw new Error("Missing typeDefs");
+    const typeDefs = this.getTypeDefs();
+    if (!typeDefs) {
+      throw new Error("Missing typeDefs, url or schema");
     }
 
     const generated = this.queryMap[plainText];
@@ -255,7 +265,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     const query = `
       Given the following GraphQL schema:
       
-      ${compressTypeDefs(this.options.typeDefs)}
+      ${compressTypeDefs(typeDefs)}
 
       And this plain text query:
       "${plainText}"
@@ -296,19 +306,34 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       headersOverride?: Record<string, string>;
     } = {},
   ): Promise<Q extends keyof T ? T[Q] : any> {
-    if (!this.options.url && !urlOverride) {
-      throw new Error("Missing url");
+    if (!this.options.url && !urlOverride && !this.options.schema) {
+      throw new Error("Missing url or schema to query");
     }
 
     const { query, variables } =
       await this.generateQueryAndVariables(plainText);
 
-    const response = await postGeneratedQuery({
-      query,
-      variables,
-      url: (urlOverride || this.options.url) as string,
-      headers: headersOverride || this.options.headers,
-    });
+    let response: any;
+
+    if (this.options.schema && this.schema) {
+      const gqlResponse = await graphql({
+        schema: this.schema as GraphQLSchema,
+        source: query,
+        variableValues: variables,
+      });
+
+      response = {
+        data: gqlResponse.data,
+        errors: gqlResponse.errors,
+      };
+    } else {
+      response = await postGeneratedQuery({
+        query,
+        variables,
+        url: (urlOverride || this.options.url) as string,
+        headers: headersOverride || this.options.headers,
+      });
+    }
 
     return response as Q extends keyof T ? T[Q] : any;
   }
