@@ -5,6 +5,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 
 import { Playground } from "../components/views/Playground";
 import { Supported } from "../components/views/Supported";
@@ -37,6 +38,16 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+  const [isWideScreen, setIsWideScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    setIsWideScreen(mediaQuery.matches);
+
+    const handler = (e) => setIsWideScreen(e.matches);
+    mediaQuery.addListener(handler);
+    return () => mediaQuery.removeListener(handler);
+  }, []);
 
   return (
     <Layout
@@ -59,7 +70,7 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         <section className={styles.features}>
-          <BrowserOnly>{() => <Playground />}</BrowserOnly>
+          <BrowserOnly>{() => isWideScreen && <Playground />}</BrowserOnly>
           <BrowserOnly>{() => <Supported />}</BrowserOnly>
         </section>
       </main>
