@@ -345,14 +345,18 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     variables?: Record<string, unknown>;
     typeDefinition: string;
   }> {
-    if (!this.options.typeDefs) {
-      throw new Error("Missing typeDefs");
+    const typeDefs = this.getTypeDefs();
+
+    if (!typeDefs) {
+      throw new Error(
+        "Missing typeDefs, url or schema - have you called connect?",
+      );
     }
 
     const query = `
       Given the following GraphQL schema:
       
-      ${compressTypeDefs(this.options.typeDefs)}
+      ${compressTypeDefs(typeDefs)}
 
       And this plain text query:
       "${plainText}"
