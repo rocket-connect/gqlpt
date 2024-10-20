@@ -1,5 +1,10 @@
 export abstract class Adapter {
-  abstract connect(): Promise<void>;
+  public didPrime = false;
+
+  abstract connect(args: {
+    typeDefs?: string;
+    shouldSkipPrime?: boolean;
+  }): Promise<void>;
 
   abstract sendText(text: string): Promise<string>;
 }
