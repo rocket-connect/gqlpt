@@ -1,7 +1,7 @@
 {
-  "name": "gqlpt",
+  "name": "@gqlpt/adapter-ollama",
   "version": "0.0.0-alpha.27",
-  "description": "Leverage AI to generate GraphQL queries from plain text.",
+  "description": "Ollama ai adapter for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -25,25 +25,17 @@
     "plain",
     "translate",
     "natural",
-    "openai",
-    "anthropic"
+    "ollama",
+    "llama"
   ],
   "author": "rconnect.tech",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rocket-connect/gqlpt/issues"
   },
-  "homepage": "https://gqlpt.dev/docs/",
-  "peerDependencies": {
-    "graphql": "^16.0.0 || ^17.0.0"
-  },
+  "homepage": "https://www.gqlpt.dev/docs/adapters/anthropic",
   "dependencies": {
     "@gqlpt/adapter-base": "workspace:^",
-    "@gqlpt/utils": "workspace:^"
-  },
-  "devDependencies": {
-    "@gqlpt/adapter-openai": "workspace:^",
-    "@gqlpt/adapter-anthropic": "workspace:^",
-    "@gqlpt/adapter-ollama": "workspace:^"
+    "ollama": "^0.5.9"
   }
 }

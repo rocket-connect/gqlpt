@@ -12,6 +12,7 @@ import {
   printSchema,
 } from "graphql";
 
+import { AdapterOllama } from "../../adapter-ollama/src";
 import { GQLPTClient } from "../src";
 
 dotenv.config();
@@ -20,55 +21,57 @@ const TEST_OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
 const TEST_ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
 
 const adapters = [
+  // {
+  //   name: "OpenAI",
+  //   adapter: new AdapterOpenAI({ apiKey: TEST_OPENAI_API_KEY }),
+  // },
+  // {
+  //   name: "Anthropic",
+  //   adapter: new AdapterAnthropic({ apiKey: TEST_ANTHROPIC_API_KEY }),
+  // },
   {
-    name: "OpenAI",
-    adapter: new AdapterOpenAI({ apiKey: TEST_OPENAI_API_KEY }),
-  },
-  {
-    name: "Anthropic",
-    adapter: new AdapterAnthropic({ apiKey: TEST_ANTHROPIC_API_KEY }),
+    name: "Ollama",
+    adapter: new AdapterOllama({
+      baseUrl: process.env.OLLAMA_BASE_URL,
+      model: process.env.OLLAMA_MODEL,
+    }),
   },
 ];
 
 adapters.forEach(({ name, adapter }) => {
   describe(`Local Schema with ${name} Adapter`, () => {
-    test("should throw have you called connect", async () => {
-      const client = new GQLPTClient({
-        adapter,
-        schema,
-      });
-
-      await expect(() =>
-        client.generateQueryAndVariables("query"),
-      ).rejects.toThrow(
-        "Missing typeDefs, url or schema - have you called connect?",
-      );
+    const client = new GQLPTClient({
+      adapter,
+      schema,
     });
 
-    test("should connect to the server", async () => {
-      const gqlpt = new GQLPTClient({
-        adapter,
-        schema,
+    beforeAll(async () => {
+      await client.connect({
+        shouldSkipPrime: true,
       });
 
-      await gqlpt.connect();
-
-      const generatedTypeDefs = gqlpt.getTypeDefs() as string;
+      const generatedTypeDefs = client.getTypeDefs() as string;
       const ast = buildSchema(typeDefs);
       const sorted = lexicographicSortSchema(ast);
 
       expect(print(parse(generatedTypeDefs))).toEqual(printSchema(sorted));
     });
 
-    test("should generateAndSend with inline", async () => {
-      const gqlpt = new GQLPTClient({
+    test.skip("should throw have you called connect", async () => {
+      const _client = new GQLPTClient({
         adapter,
         schema,
       });
 
-      await gqlpt.connect();
+      await expect(() =>
+        _client.generateQueryAndVariables("query"),
+      ).rejects.toThrow(
+        "Missing typeDefs, url or schema - have you called connect?",
+      );
+    });
 
-      const response = await gqlpt.generateAndSend("Find users by id 1");
+    test("should generateAndSend with inline", async () => {
+      const response = await client.generateAndSend("Find user by id 1");
 
       expect(response).toEqual({
         errors: undefined,

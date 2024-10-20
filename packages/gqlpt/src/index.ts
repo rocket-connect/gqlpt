@@ -190,8 +190,12 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     return this.typeDefs;
   }
 
-  async connect() {
-    await this.getAdapter().connect();
+  async connect({
+    shouldSkipPrime,
+  }: { shouldSkipPrime?: boolean } = {}): Promise<void> {
+    await this.getAdapter().connect({
+      shouldSkipPrime,
+    });
 
     if (this.options.typeDefs) {
       const schema = buildSchema(this.options.typeDefs);
@@ -264,10 +268,12 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       };
     }
 
+    const primedPrompt = this.getAdapter().didPrime
+      ? `With the schema I gave you earlier`
+      : `Given the following GraphQL schema: ${compressTypeDefs(typeDefs)}`;
+
     const query = `
-      Given the following GraphQL schema:
-      
-      ${compressTypeDefs(typeDefs)}
+      ${primedPrompt}
 
       And this plain text query:
       "${plainText}"
@@ -282,6 +288,7 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       ${QUERY_JSON_RESPONSE_FORMAT}
     `;
 
+    console.log("Sending query to adapter", query);
     const response = await this.getAdapter().sendText(query);
 
     const result = JSON.parse((response || "").replace(/`/g, "")) as {
