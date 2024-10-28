@@ -39,10 +39,16 @@ Rules for generating the GraphQL query:
    - Start with the operation type (query, mutation, or subscription).
    - Do not include an operation name.
    - Declare all GraphQL variables at the top of the query.
+   - If the schema has subgraphs (e.g., swapi_subgraph), include them as the first level field.
 
 2. Fields:
    - Only include fields that are explicitly requested or necessary for the query.
    - For nested objects, only traverse if specifically asked or crucial for the query.
+   - When accessing subgraph fields, navigate through the subgraph type first.
+   - For connection types (e.g., SpeciesConnection), always include the field that contains the actual data array.
+   - Examples:
+     - With subgraph: { swapi_subgraph { allSpecies { species { name } } } }
+     - Without subgraph: { users { name } }
 
 3. Arguments and Input Types:
    - Always check if there's a defined input type for arguments.
@@ -54,21 +60,33 @@ Rules for generating the GraphQL query:
        Use: query($where: UserWhereInput) { users(where: $where) { ... } }
      - If no input type is defined: user(id: ID!): User
        Use: query($id: ID!) { user(id: $id) { ... } }
+     - If within subgraph: allSpecies(first: Int): SpeciesConnection
+       Use: query($first: Int) { swapi_subgraph { allSpecies(first: $first) { species { ... } } } }
 
 4. Variables:
    - Define all variables used in the query with their correct types.
    - For input types, declare the variable as the input type, not as an inline object.
+   - Variables should work consistently across subgraph boundaries.
 
 5. Formatting:
    - Use consistent indentation (2 spaces) for nested fields.
    - Place each field and argument on a new line.
+   - Keep subgraph and connection type nesting clear and consistent.
 
 6. Fragments:
    - Only use fragments if explicitly requested or if it significantly improves query readability.
+   - Fragments can span across subgraph boundaries if needed.
 
-7. Always prefer input types when available:
-- Correct:   query($where: UserWhereInput) { users(where: $where) { id name } }
-- Incorrect: query($name: String) { users(where: { name: $name }) { id name } }
+7. Subgraph and Connection Patterns:
+   - Always check if fields belong to a subgraph and include the subgraph field when needed.
+   - For connection types, traverse to the actual data array (e.g., 'species' field in SpeciesConnection).
+   - Example:
+     Correct:   query($first: Int) { swapi_subgraph { allSpecies(first: $first) { species { name } } } }
+     Incorrect: query($first: Int) { allSpecies(first: $first) { edges { node { name } } } }
+
+8. Always prefer input types when available:
+   - Correct:   query($where: UserWhereInput) { users(where: $where) { id name } }
+   - Incorrect: query($name: String) { users(where: { name: $name }) { id name } }
 `;
 
 const TYPE_GENERATION_RULES = `
