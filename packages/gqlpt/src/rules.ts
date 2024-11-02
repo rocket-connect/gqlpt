@@ -79,10 +79,6 @@ Rules for generating the TypeScript type definition:
 8. Do not include:
    - Type aliases (e.g., 'type QueryResponse =').
    - Separate interface declarations.
-9. Syntax:
-   - always end with a semicolon.
-      - Correct: { data: { user: { id: string; name: string; } }; errors?: any[]; }
-      - Incorrect: { data: { user: { id: string; name: string } } errors?: any[] }
 `;
 
 export const JSON_RESPONSE_FORMAT = `
