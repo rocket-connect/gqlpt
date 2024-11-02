@@ -38,11 +38,12 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
+    "@apollo/utils.sortast": "3.0.0",
     "@gqlpt/adapter-base": "workspace:^",
     "@gqlpt/utils": "workspace:^"
   },
   "devDependencies": {
-    "@gqlpt/adapter-openai": "workspace:^",
-    "@gqlpt/adapter-anthropic": "workspace:^"
+    "@gqlpt/adapter-anthropic": "workspace:^",
+    "@gqlpt/adapter-openai": "workspace:^"
   }
 }

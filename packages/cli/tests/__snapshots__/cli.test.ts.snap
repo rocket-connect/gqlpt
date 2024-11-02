@@ -20,7 +20,7 @@ exports[`generate should generate types and queries with openai adapter: Second 
 "{
   "39ee1aceb0ce9b806da116e1c7758115436d186ac73c0b343f516fa7ab947cdf": {
     "find posts by user id 2, return id and title, and body": {
-      "query": "query ($userId: ID!) {\\n  posts(userId: $userId) {\\n    id\\n    title\\n    body\\n  }\\n}",
+      "query": "query ($userId: ID!) {\\n  posts(userId: $userId) {\\n    body\\n    id\\n    title\\n  }\\n}",
       "variables": {
         "userId": "2"
       }
