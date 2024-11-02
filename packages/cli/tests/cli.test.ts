@@ -23,6 +23,7 @@ describe("generate", () => {
     const connectionSpy = jest
       .spyOn(GQLPTClient.prototype, "getAdapter")
       .mockReturnValue({
+        messageHistory: new Map(),
         openai: adapter.openai,
         connect: jest.fn(),
         sendText: adapter.sendText,

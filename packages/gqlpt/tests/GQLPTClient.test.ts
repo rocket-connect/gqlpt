@@ -133,6 +133,10 @@ adapters.forEach(({ name, adapter }) => {
         type Mutation {
           createUser(input: CreateUserInput!): [User!]!
         }
+
+        type Query {
+          users: [User!]!
+        }
       `;
 
       const gqlpt = new GQLPTClient({ adapter, typeDefs });
