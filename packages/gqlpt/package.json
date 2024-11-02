@@ -38,7 +38,7 @@
     "graphql": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
-    "@apollo/utils.sortast": "^3.0.0",
+    "@apollo/utils.sortast": "3.0.0",
     "@gqlpt/adapter-base": "workspace:^",
     "@gqlpt/utils": "workspace:^"
   },
