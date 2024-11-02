@@ -987,6 +987,23 @@ adapters.forEach(({ name, adapter }) => {
             }
           `,
         },
+        {
+          query: /* GraphQL */ `
+            {
+              music_subgraph {
+                allAlbums(first: 10) {
+                  albums {
+                    artist {
+                      id
+                      name
+                    }
+                    title
+                  }
+                }
+              }
+            }
+          `,
+        },
       ]);
     });
   });
