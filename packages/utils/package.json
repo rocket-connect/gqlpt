@@ -37,6 +37,8 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "10.0.6",
+    "@types/debug": "4.1.12",
+    "debug": "4.3.7",
     "graphql-yoga": "5.7.0",
     "node-fetch": "3.3.2"
   },

@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"No tests\"",
-    "dev": "cross-env NODE_ENV=development ts-node ./src/index.ts"
+    "dev": "cross-env NODE_ENV=development DEBUG=@gqlpt/* ts-node ./src/index.ts"
   },
   "dependencies": {
     "@gqlpt/docs": "workspace:^",
