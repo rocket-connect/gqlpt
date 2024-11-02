@@ -41,7 +41,6 @@ export function startServer({ port }: { port: number }): Promise<Server> {
     });
 
     server.listen(port, () => {
-      console.log(`Server listening on port ${port}`);
       resolve(server);
     });
   });

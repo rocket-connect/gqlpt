@@ -285,6 +285,9 @@ importers:
 
   packages/gqlpt:
     dependencies:
+      '@apollo/utils.sortast':
+        specifier: ^3.0.0
+        version: 3.0.0(graphql@16.9.0)
       '@gqlpt/adapter-base':
         specifier: workspace:^
         version: link:../adapter-base
@@ -459,6 +462,12 @@ packages:
 
   '@anthropic-ai/sdk@0.27.1':
     resolution: {integrity: sha512-AKFd/E8HO26+DOVPiZpEked3Pm2feA5d4gcX2FcJXr9veDkXbKO90hr2C7N2TL7mPIMwm040ldXlsIZQ416dHg==}
+
+  '@apollo/utils.sortast@3.0.0':
+    resolution: {integrity: sha512-qZG5L95wnvYD8Nsh+kKvtTDomn76wOC8H1KJGsxMTifXyY5M+PdKeAJVfPkyw11Pkq7sGVg96vk2BZ6pdFP/QA==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      graphql: 14.x || 15.x || 16.x
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -4672,6 +4681,9 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  lodash.sortby@4.7.0:
+    resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
+
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
 
@@ -7265,6 +7277,11 @@ snapshots:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
+
+  '@apollo/utils.sortast@3.0.0(graphql@16.9.0)':
+    dependencies:
+      graphql: 16.9.0
+      lodash.sortby: 4.7.0
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -13028,6 +13045,8 @@ snapshots:
   lodash.memoize@4.1.2: {}
 
   lodash.merge@4.6.2: {}
+
+  lodash.sortby@4.7.0: {}
 
   lodash.uniq@4.5.0: {}
 

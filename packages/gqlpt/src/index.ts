@@ -7,6 +7,7 @@ import {
   postGeneratedQuery,
 } from "@gqlpt/utils";
 
+import { sortAST } from "@apollo/utils.sortast";
 import { promises } from "fs";
 import {
   GraphQLSchema,
@@ -41,7 +42,7 @@ Rules for generating the GraphQL query:
    - Declare all GraphQL variables at the top of the query.
 
 2. Fields:
-   - Only include fields that are explicitly requested or necessary for the query.
+   - Only include fields that are explicitly requested or necessary for the query, however, if a 'id' field is available, it should be included.
    - For nested objects, only traverse if specifically asked or crucial for the query.
 
 3. Arguments and Input Types:
@@ -69,6 +70,7 @@ Rules for generating the GraphQL query:
 7. Always prefer input types when available:
 - Correct:   query($where: UserWhereInput) { users(where: $where) { id name } }
 - Incorrect: query($name: String) { users(where: { name: $name }) { id name } }
+- Ensure that if the input type is required in the schema, it is also required in the query.
 `;
 
 const TYPE_GENERATION_RULES = `
@@ -384,7 +386,8 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
 
     const queryAst = parse(result.query, { noLocation: true });
     const newAst = clearOperationNames(queryAst);
-    const printedQuery = print(newAst);
+    const sortedAst = sortAST(newAst);
+    const printedQuery = print(sortedAst);
 
     return {
       query: printedQuery,
