@@ -23,7 +23,7 @@ const config: Config = {
     locales: ["en"],
   },
   customFields: {
-    API_URL: process.env.API_URL || "http://localhost:5000",
+    API_URL: process.env.API_URL,
   },
   plugins: [tailwindPlugin],
   presets: [
