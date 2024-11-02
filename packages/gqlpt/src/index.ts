@@ -292,7 +292,8 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     };
     const queryAst = parse(result.query, { noLocation: true });
     const newAst = clearOperationNames(queryAst);
-    const printedQuery = print(newAst);
+    const sortedAst = sortAST(newAst);
+    const printedQuery = print(sortedAst);
 
     return {
       query: printedQuery,

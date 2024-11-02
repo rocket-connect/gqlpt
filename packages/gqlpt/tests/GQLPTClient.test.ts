@@ -90,13 +90,13 @@ adapters.forEach(({ name, adapter }) => {
           query: `
             query ($where: UserWhereInput) {
               users(where: $where) {
+                email
                 id
                 name
-                email
                 posts {
+                  body
                   id
                   title
-                  body
                 }
               }
             }
@@ -147,9 +147,9 @@ adapters.forEach(({ name, adapter }) => {
           query: `
             mutation ($input: CreateUserInput!) {
               createUser(input: $input) {
+                email
                 id
                 name
-                email
               }
             }
           `,
