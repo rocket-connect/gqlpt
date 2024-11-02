@@ -3,22 +3,14 @@ import { AdapterOpenAI } from "@gqlpt/adapter-openai";
 
 import { describe, expect, test } from "@jest/globals";
 import dotenv from "dotenv";
-import { parse, print } from "graphql";
 
 import { GQLPTClient } from "../src";
+import { assertMatchesVariation, parsePrint } from "./utils";
 
 dotenv.config();
 
 const TEST_OPENAI_API_KEY = process.env.TEST_OPENAI_API_KEY as string;
 const TEST_ANTHROPIC_API_KEY = process.env.TEST_ANTHROPIC_API_KEY as string;
-
-function parsePrint(query: string) {
-  const parsed = parse(query, { noLocation: true });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  parsed.definitions[0].name = undefined;
-  return print(parsed);
-}
 
 const adapters = [
   {
@@ -89,28 +81,31 @@ adapters.forEach(({ name, adapter }) => {
       const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
       await gqlpt.connect();
-      const { query, variables } = await gqlpt.generateQueryAndVariables(
+      const result = await gqlpt.generateQueryAndVariables(
         "find users and their posts where name is dan, inject args into an object",
       );
 
-      expect(parsePrint(query)).toEqual(
-        parsePrint(`
-          query ($where: UserWhereInput) {
-            users(where: $where) {
-              id
-              name
-              email
-              posts {
+      assertMatchesVariation(result, [
+        {
+          query: `
+            query ($where: UserWhereInput) {
+              users(where: $where) {
+                email
                 id
-                title
-                body
+                name
+                posts {
+                  body
+                  id
+                  title
+                }
               }
             }
-          }
-        `),
-      );
-
-      expect(variables).toMatchObject({});
+          `,
+          variables: {
+            where: { name: "dan" },
+          },
+        },
+      ]);
     });
 
     test("should generate mutation", async () => {
@@ -121,9 +116,13 @@ adapters.forEach(({ name, adapter }) => {
           email: String!
         }
         
+        input FriendInput {
+          name: String!
+        }
+
         input CreateUserInput {
           name: String!
-          friends: [CreateUserInput]
+          friends: [FriendInput!]
         }
 
         type CreateUserResponse {
@@ -132,23 +131,73 @@ adapters.forEach(({ name, adapter }) => {
         }
 
         type Mutation {
-          createUser(input: CreateUserInput): [User!]!
+          createUser(input: CreateUserInput!): [User!]!
         }
       `;
 
       const gqlpt = new GQLPTClient({ adapter, typeDefs });
 
       await gqlpt.connect();
-      const { variables } = await gqlpt.generateQueryAndVariables(
+      const result = await gqlpt.generateQueryAndVariables(
         "create user with name dan and his friends bob and alice",
       );
 
-      expect(variables).toMatchObject({
-        input: {
-          name: "dan",
-          friends: [{ name: "bob" }, { name: "alice" }],
+      assertMatchesVariation(result, [
+        {
+          query: `
+            mutation ($input: CreateUserInput!) {
+              createUser(input: $input) {
+                email
+                id
+                name
+              }
+            }
+          `,
+          variables: {
+            input: {
+              name: "dan",
+              friends: [{ name: "bob" }, { name: "alice" }],
+            },
+          },
         },
-      });
+      ]);
+    });
+
+    test("should return fields in alphabetical order", async () => {
+      const typeDefs = `
+        type User {
+          zebra: String!
+          apple: String!
+          monkey: String!
+          banana: String!
+          cat: String!
+        }
+        
+        type Query {
+          user: User!
+        }
+      `;
+
+      const gqlpt = new GQLPTClient({ adapter, typeDefs });
+
+      await gqlpt.connect();
+      const { query } = await gqlpt.generateQueryAndTypeForBuild(
+        "get all user fields",
+      );
+
+      expect(parsePrint(query)).toBe(
+        parsePrint(`
+          query {
+            user {
+              apple
+              banana
+              cat
+              monkey
+              zebra
+            }
+          }
+        `),
+      );
     });
   });
 });
