@@ -10,7 +10,9 @@ import {
 import { sortAST } from "@apollo/utils.sortast";
 import { promises } from "fs";
 import {
+  DocumentNode,
   GraphQLSchema,
+  SelectionNode,
   buildClientSchema,
   buildSchema,
   graphql,
@@ -38,6 +40,7 @@ export interface GQLPTClientOptions {
   adapter: Adapter;
   generatedPath?: string;
   maxRetries?: number;
+  excludedQueries?: string[];
 }
 
 type MergedTypeMap = GeneratedTypeMap & DefaultTypeMap;
@@ -273,13 +276,13 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       Failed with the following validation errors:
       ${this.validateQueryAgainstSchema(currentQuery!).join("\n")}
 
-      Please fix these validation errors and provide an updated query.
+      ${this.options.excludedQueries?.length ? `Note: The following queries cannot be used: ${this.options.excludedQueries.join(", ")}` : ""}
 
-      Respond with only a JSON object containing the corrected query and variables:
-      {
-        "query": "the corrected query",
-        "variables": { optional variables object }
-      }
+      Please fix these validation errors.
+
+      ${QUERY_GENERATION_RULES}
+
+      ${QUERY_JSON_RESPONSE_FORMAT}
     `
       : `
       Given the following GraphQL schema:
@@ -304,6 +307,24 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     };
 
     const queryAst = parse(result.query, { noLocation: true });
+    const excludedErrors = this.validateExcludedQuery(queryAst);
+
+    if (excludedErrors.length > 0) {
+      if (retryCount >= (this.options.maxRetries || 5)) {
+        throw new Error(
+          `Could not generate valid query after ${retryCount} attempts. Last errors: ${excludedErrors.join(", ")}`,
+        );
+      }
+
+      return this.generateQueryWithRetry(
+        plainText,
+        schema,
+        retryCount + 1,
+        response.conversationId,
+        result.query,
+      );
+    }
+
     const newAst = clearOperationNames(queryAst);
     const sortedAst = sortAST(newAst);
     const generatedQuery = print(sortedAst);
@@ -350,5 +371,53 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     } catch (error) {
       return [(error as Error).message];
     }
+  }
+
+  private validateSelectionSet(
+    selections: ReadonlyArray<SelectionNode>,
+    operationType: string,
+    errors: string[],
+  ): void {
+    for (const selection of selections) {
+      if (selection.kind === "Field") {
+        const fieldName = selection.name.value;
+        if (this.options.excludedQueries?.includes(fieldName)) {
+          errors.push(
+            `${operationType} contains excluded field '${fieldName}'. This field cannot be used.`,
+          );
+        }
+
+        if (selection.selectionSet?.selections) {
+          this.validateSelectionSet(
+            selection.selectionSet.selections,
+            operationType,
+            errors,
+          );
+        }
+      }
+    }
+  }
+
+  private validateExcludedQuery(queryDoc: DocumentNode): string[] {
+    if (!this.options.excludedQueries?.length) {
+      return [];
+    }
+
+    const errors: string[] = [];
+
+    for (const def of queryDoc.definitions) {
+      if (def.kind === "OperationDefinition") {
+        const operationType = def.operation;
+        if (def.selectionSet?.selections) {
+          this.validateSelectionSet(
+            def.selectionSet.selections,
+            operationType,
+            errors,
+          );
+        }
+      }
+    }
+
+    return errors;
   }
 }

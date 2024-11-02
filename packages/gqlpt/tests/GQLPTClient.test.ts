@@ -38,13 +38,13 @@ adapters.forEach(({ name, adapter }) => {
     });
 
     test("should connect to the server", async () => {
-      const typeDefs = `
+      const typeDefs = /* GraphQL */ `
         type User {
           id: ID!
           name: String!
           email: String!
         }
-        
+
         type Query {
           users(name: String): [User!]!
         }
@@ -55,7 +55,7 @@ adapters.forEach(({ name, adapter }) => {
     });
 
     test("should return complex graphql query", async () => {
-      const typeDefs = `
+      const typeDefs = /* GraphQL */ `
         type User {
           id: ID!
           name: String!
@@ -68,7 +68,7 @@ adapters.forEach(({ name, adapter }) => {
           title: String!
           body: String!
         }
-        
+
         input UserWhereInput {
           name: String
         }
@@ -87,7 +87,7 @@ adapters.forEach(({ name, adapter }) => {
 
       assertMatchesVariation(result, [
         {
-          query: `
+          query: /* GraphQL */ `
             query ($where: UserWhereInput) {
               users(where: $where) {
                 email
@@ -105,17 +105,56 @@ adapters.forEach(({ name, adapter }) => {
             where: { name: "dan" },
           },
         },
+        {
+          query: /* GraphQL */ `
+            query ($name: String) {
+              users(where: { name: $name }) {
+                email
+                id
+                name
+                posts {
+                  body
+                  id
+                  title
+                }
+              }
+            }
+          `,
+          variables: {
+            name: "dan",
+          },
+        },
+        {
+          query: /* GraphQL */ `
+            query ($where: UserWhereInput) {
+              users(where: $where) {
+                email
+                id
+                name
+                posts {
+                  id
+                  title
+                }
+              }
+            }
+          `,
+          variables: {
+            where: {
+              name: "dan",
+            },
+          },
+        },
       ]);
     });
 
     test("should generate mutation", async () => {
-      const typeDefs = `
+      const typeDefs = /* GraphQL */ `
         type User {
           id: ID!
           name: String!
           email: String!
         }
-        
+
         input FriendInput {
           name: String!
         }
@@ -148,7 +187,7 @@ adapters.forEach(({ name, adapter }) => {
 
       assertMatchesVariation(result, [
         {
-          query: `
+          query: /* GraphQL */ `
             mutation ($input: CreateUserInput!) {
               createUser(input: $input) {
                 email
@@ -168,7 +207,7 @@ adapters.forEach(({ name, adapter }) => {
     });
 
     test("should return fields in alphabetical order", async () => {
-      const typeDefs = `
+      const typeDefs = /* GraphQL */ `
         type User {
           zebra: String!
           apple: String!
@@ -176,7 +215,7 @@ adapters.forEach(({ name, adapter }) => {
           banana: String!
           cat: String!
         }
-        
+
         type Query {
           user: User!
         }
@@ -190,7 +229,7 @@ adapters.forEach(({ name, adapter }) => {
       );
 
       expect(parsePrint(query)).toBe(
-        parsePrint(`
+        parsePrint(/* GraphQL */ `
           query {
             user {
               apple

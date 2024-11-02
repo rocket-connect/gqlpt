@@ -7,13 +7,14 @@ Rules for generating the GraphQL query:
    - If the schema has subgraphs (e.g., swapi_subgraph), include them as the first level field.
 
 2. Fields:
-   - Only include fields that are explicitly requested or necessary for the query, however, if a 'id' field is available, it should be included.
+   - If the type has 'id' as a field, always include it.
+   - Only include non 'id' fields that are explicitly requested or necessary for the query.
    - For nested objects, only traverse if specifically asked or crucial for the query.
    - When accessing subgraph fields, navigate through the subgraph type first.
    - For connection types (e.g., SpeciesConnection), always include the field that contains the actual data array.
    - Examples:
-     - With subgraph: { swapi_subgraph { allSpecies { species { name } } } }
-     - Without subgraph: { users { name } }
+     - With subgraph: { swapi_subgraph { allSpecies { species { id name } } } }
+     - Without subgraph: { users { id name } }
 
 3. Arguments and Input Types:
    - Always check if there's a defined input type for arguments.
@@ -42,14 +43,14 @@ Rules for generating the GraphQL query:
 7. Always prefer input types when available:
    - Correct:   query($where: UserWhereInput) { users(where: $where) { id name } }
    - Incorrect: query($name: String) { users(where: { name: $name }) { id name } }
-   - Ensure that if the input type is required in the schema, it is also required in the query.
+   - Ensure that if the input type is required in the schema using !, it is also required in the query, else make it optional.
 
 8. Subgraph and Connection Patterns:
    - Always check if fields belong to a subgraph and include the subgraph field when needed.
    - For connection types, traverse to the actual data array (e.g., 'species' field in SpeciesConnection).
    - Example:
-     Correct:   query($first: Int) { swapi_subgraph { allSpecies(first: $first) { species { name } } } }
-     Incorrect: query($first: Int) { allSpecies(first: $first) { edges { node { name } } } }
+     Correct:   query($first: Int) { swapi_subgraph { allSpecies(first: $first) { species { id name } } } }
+     Incorrect: query($first: Int) { allSpecies(first: $first) { edges { node { id name } } } }
 `;
 
 export const TYPE_GENERATION_RULES = `
