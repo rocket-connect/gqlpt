@@ -24,6 +24,7 @@ import {
 } from "graphql";
 import path from "path";
 
+import { debug } from "./debug";
 import {
   JSON_RESPONSE_FORMAT,
   QUERY_GENERATION_RULES,
@@ -88,14 +89,22 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   }
 
   async connect() {
+    debug.info("Connecting to GQLPTClient");
+
     await this.getAdapter().connect();
 
+    debug.info("Connected to GQLPTClient");
+
     if (this.options.typeDefs) {
+      debug.info("Building schema from typeDefs");
+
       const schema = buildSchema(this.options.typeDefs);
       this.typeDefs = printSchema(schema);
       this.schema = lexicographicSortSchema(schema);
       this.schemaHash = await hashTypeDefs(this.options.typeDefs);
     } else if (this.options.url) {
+      debug.info("Fetching schema from URL");
+
       const response = await introspection({
         url: this.options.url,
         headers: this.options.headers,
@@ -106,16 +115,21 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       this.typeDefs = printSchema(this.schema);
       this.schemaHash = await hashTypeDefs(this.typeDefs);
     } else if (this.options.schema) {
+      debug.info("Building schema from provided schema");
       this.schema = lexicographicSortSchema(this.options.schema);
       this.typeDefs = printSchema(this.schema);
       this.schemaHash = await hashTypeDefs(this.typeDefs);
     }
+
+    debug.info("Schema built");
 
     const generatedPath =
       this.options.generatedPath || "node_modules/gqlpt/build/generated.json";
     const resolvedGeneratedPath = path.resolve(process.cwd(), generatedPath);
 
     if (generatedPath) {
+      debug.info(`Reading generated queries from ${resolvedGeneratedPath}`);
+
       try {
         const content = await promises.readFile(resolvedGeneratedPath, "utf-8");
         const jsonObj = JSON.parse(content);
@@ -136,8 +150,12 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
             };
           });
         }
-      } catch {
-        // Do nothing
+      } catch (error) {
+        debug.error(
+          `Error reading generated queries: ${(error as Error).message}`,
+        );
+      } finally {
+        debug.info("Read generated queries");
       }
     }
   }
@@ -146,6 +164,8 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     query: string;
     variables?: Record<string, unknown>;
   }> {
+    debug.info(`Generating query for: ${plainText}`);
+
     const typeDefs = this.getTypeDefs();
     if (!typeDefs) {
       throw new Error(
@@ -155,6 +175,8 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
 
     const generated = this.queryMap[plainText];
     if (generated) {
+      debug.info(`Using cached query for: ${plainText}`);
+
       return {
         query: generated.query,
         variables: generated.variables,
@@ -299,6 +321,10 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       ${QUERY_JSON_RESPONSE_FORMAT}
     `;
 
+    debug.info(`Sending prompt to adapter: ${prompt}`);
+    debug.info(`Conversation ID: ${conversationId}`);
+    debug.info(`Retry count: ${retryCount}`);
+
     const response = await this.getAdapter().sendText(prompt, conversationId);
 
     const result = JSON.parse((response.content || "").replace(/`/g, "")) as {
@@ -332,10 +358,15 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
     const validationErrors = this.validateQueryAgainstSchema(generatedQuery);
 
     if (validationErrors.length === 0) {
-      return {
+      const res = {
         query: generatedQuery,
         variables: result.variables,
       };
+
+      debug.info(`Generated query: ${result.query}`);
+      debug.info(`Variables: ${JSON.stringify(result.variables)}`);
+
+      return res;
     }
 
     if (retryCount >= (this.options.maxRetries || 5)) {
@@ -360,6 +391,8 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
   }
 
   private validateQueryAgainstSchema(queryString: string): string[] {
+    debug.info("Validating query against schema");
+
     if (!this.schema) {
       throw new Error("Schema not initialized");
     }
@@ -369,7 +402,11 @@ export class GQLPTClient<T extends MergedTypeMap = MergedTypeMap> {
       const errors = validate(this.schema, queryDoc);
       return errors.map((error) => error.message);
     } catch (error) {
+      debug.error(`Error validating query: ${(error as Error).message}`);
+
       return [(error as Error).message];
+    } finally {
+      debug.info("Query validated");
     }
   }
 

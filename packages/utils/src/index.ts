@@ -4,3 +4,4 @@ export { postGeneratedQuery } from "./post-generated-query";
 export { compressTypeDefs } from "./compress-typedefs";
 export { hashTypeDefs } from "./hash-typedefs";
 export { clearOperationNames } from "./clear-operation-names";
+export { createDebugger, Debugger } from "./debug";
