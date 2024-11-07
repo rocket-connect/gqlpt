@@ -27,6 +27,7 @@ const typeDefs = /* GraphQL */ `
   type Query {
     composabase: Composabase
     swapi_subgraph: swapi_subgraphQuery!
+    music_subgraph: music_subgraphQuery!
     hello(name: String, isImportant: Boolean): String!
     helloCustom(input: MyCustomInput): String!
     holiday(provider: AIProvider!, model: String!, type: HolidayType): String!
@@ -89,6 +90,218 @@ const typeDefs = /* GraphQL */ `
     starter: String!
     drink: String!
     dessert: String!
+  }
+
+  type music_subgraphQuery {
+    allArtists(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_ArtistsConnection
+    artist(id: ID): music_Artist
+    allAlbums(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_AlbumsConnection
+    album(id: ID): music_Album
+    allTracks(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_TracksConnection
+    track(id: ID): music_Track
+    allGenres(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_GenresConnection
+    genre(id: ID): music_Genre
+    searchMusic(query: String!): music_SearchResults!
+  }
+
+  interface music_Node {
+    id: ID!
+  }
+
+  type music_Artist implements music_Node {
+    id: ID!
+    name: String!
+    biography: String
+    formed: String
+    disbanded: String
+    genres: [music_Genre!]
+    albums(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_ArtistAlbumsConnection
+    tracks(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_ArtistTracksConnection
+    monthlyListeners: Int
+    created: String
+    edited: String
+  }
+
+  type music_Album implements music_Node {
+    id: ID!
+    title: String!
+    artist: music_Artist!
+    releaseDate: String
+    genres: [music_Genre!]
+    tracks(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_AlbumTracksConnection
+    duration: Int
+    created: String
+    edited: String
+  }
+
+  type music_Track implements music_Node {
+    id: ID!
+    title: String!
+    artist: music_Artist!
+    album: music_Album
+    duration: Int
+    genres: [music_Genre!]
+    featuredArtists: [music_Artist!]
+    lyrics: String
+    created: String
+    edited: String
+  }
+
+  type music_Genre implements music_Node {
+    id: ID!
+    name: String!
+    description: String
+    artists(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_GenreArtistsConnection
+    albums(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_GenreAlbumsConnection
+    tracks(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): music_GenreTracksConnection
+    created: String
+    edited: String
+  }
+
+  type music_SearchResults {
+    artists: [music_Artist!]!
+    albums: [music_Album!]!
+    tracks: [music_Track!]!
+  }
+
+  type music_ArtistsConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_ArtistsEdge]
+    totalCount: Int
+    artists: [music_Artist]
+  }
+
+  type music_ArtistsEdge {
+    node: music_Artist
+    cursor: String!
+  }
+
+  type music_AlbumsConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_AlbumsEdge]
+    totalCount: Int
+    albums: [music_Album]
+  }
+
+  type music_AlbumsEdge {
+    node: music_Album
+    cursor: String!
+  }
+
+  type music_TracksConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_TracksEdge]
+    totalCount: Int
+    tracks: [music_Track]
+  }
+
+  type music_TracksEdge {
+    node: music_Track
+    cursor: String!
+  }
+
+  type music_GenresConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_GenresEdge]
+    totalCount: Int
+    genres: [music_Genre]
+  }
+
+  type music_GenresEdge {
+    node: music_Genre
+    cursor: String!
+  }
+
+  type music_ArtistAlbumsConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_AlbumsEdge]
+    totalCount: Int
+    albums: [music_Album]
+  }
+
+  type music_ArtistTracksConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_TracksEdge]
+    totalCount: Int
+    tracks: [music_Track]
+  }
+
+  type music_AlbumTracksConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_TracksEdge]
+    totalCount: Int
+    tracks: [music_Track]
+  }
+
+  type music_GenreArtistsConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_ArtistsEdge]
+    totalCount: Int
+    artists: [music_Artist]
+  }
+
+  type music_GenreAlbumsConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_AlbumsEdge]
+    totalCount: Int
+    albums: [music_Album]
+  }
+
+  type music_GenreTracksConnection {
+    pageInfo: swapi_PageInfo!
+    edges: [music_TracksEdge]
+    totalCount: Int
+    tracks: [music_Track]
   }
 
   type swapi_Film implements swapi_Node {
@@ -682,6 +895,114 @@ adapters.forEach(({ name, adapter }) => {
             }
           `,
           variables: { first: 10 },
+        },
+      ]);
+    });
+
+    test("should generateQueryAndVariables with inline (find first 10 album and their artist)", async () => {
+      const gqlpt = new GQLPTClient({
+        adapter,
+        typeDefs,
+        excludedQueries: ["textToQuery"],
+      });
+
+      await gqlpt.connect();
+
+      const result = await gqlpt.generateQueryAndVariables(
+        "find first 10 album and their artist",
+      );
+
+      assertMatchesVariation(result, [
+        {
+          query: /* GraphQL */ `
+            query ($first: Int) {
+              music_subgraph {
+                allAlbums(first: $first) {
+                  albums {
+                    artist {
+                      id
+                      name
+                    }
+                    id
+                    title
+                  }
+                }
+              }
+            }
+          `,
+          variables: {
+            first: 10,
+          },
+        },
+        {
+          query: /* GraphQL */ `
+            {
+              music_subgraph {
+                allAlbums(first: 10) {
+                  albums {
+                    artist {
+                      id
+                      name
+                    }
+                    id
+                    title
+                  }
+                }
+              }
+            }
+          `,
+        },
+        {
+          query: /* GraphQL */ `
+            {
+              music_subgraph {
+                allAlbums(first: 10) {
+                  edges {
+                    node {
+                      artist {
+                        name
+                      }
+                      title
+                    }
+                  }
+                }
+              }
+            }
+          `,
+        },
+        {
+          query: /* GraphQL */ `
+            {
+              music_subgraph {
+                allAlbums(first: 10) {
+                  albums {
+                    artist {
+                      name
+                    }
+                    id
+                    title
+                  }
+                }
+              }
+            }
+          `,
+        },
+        {
+          query: /* GraphQL */ `
+            {
+              music_subgraph {
+                allAlbums(first: 10) {
+                  albums {
+                    artist {
+                      id
+                      name
+                    }
+                    title
+                  }
+                }
+              }
+            }
+          `,
         },
       ]);
     });
