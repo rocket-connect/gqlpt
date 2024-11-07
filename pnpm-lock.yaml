@@ -236,8 +236,8 @@ importers:
   packages/adapter-anthropic:
     dependencies:
       '@anthropic-ai/sdk':
-        specifier: 0.27.1
-        version: 0.27.1
+        specifier: 0.32.1
+        version: 0.32.1
       '@gqlpt/adapter-base':
         specifier: workspace:^
         version: link:../adapter-base
@@ -624,8 +624,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  /@anthropic-ai/sdk@0.27.1:
-    resolution: {integrity: sha512-AKFd/E8HO26+DOVPiZpEked3Pm2feA5d4gcX2FcJXr9veDkXbKO90hr2C7N2TL7mPIMwm040ldXlsIZQ416dHg==}
+  /@anthropic-ai/sdk@0.32.1:
+    resolution: {integrity: sha512-U9JwTrDvdQ9iWuABVsMLj8nJVwAyQz6QXvgLsVhryhCEPkLsbcP/MXxm+jYcAwLoV8ESbaTTjnD4kuAFa+Hyjg==}
     dependencies:
       '@types/node': 18.19.64
       '@types/node-fetch': 2.6.11
