@@ -250,8 +250,8 @@ importers:
         specifier: workspace:^
         version: link:../adapter-base
       openai:
-        specifier: 4.57.0
-        version: 4.57.0
+        specifier: 4.72.0
+        version: 4.72.0
 
   packages/cli:
     dependencies:
@@ -10814,8 +10814,8 @@ packages:
       is-wsl: 2.2.0
     dev: false
 
-  /openai@4.57.0:
-    resolution: {integrity: sha512-JnwBSIYqiZ3jYjB5f2in8hQ0PRA092c6m+/6dYB0MzK0BEbn+0dioxZsPLBm5idJbg9xzLNOiGVm2OSuhZ+BdQ==}
+  /openai@4.72.0:
+    resolution: {integrity: sha512-hFqG9BWCs7L7ifrhJXw7mJXmUBr7d9N6If3J9563o0jfwVA4wFANFDDaOIWFdgDdwgCXg5emf0Q+LoLCGszQYA==}
     hasBin: true
     peerDependencies:
       zod: ^3.23.8
@@ -10825,13 +10825,11 @@ packages:
     dependencies:
       '@types/node': 18.19.64
       '@types/node-fetch': 2.6.11
-      '@types/qs': 6.9.17
       abort-controller: 3.0.0
       agentkeepalive: 4.5.0
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
-      qs: 6.13.0
     transitivePeerDependencies:
       - encoding
     dev: false

@@ -36,7 +36,7 @@
   "homepage": "https://www.gqlpt.dev/docs/adapters/openai",
   "peerDependencies": {},
   "dependencies": {
-    "openai": "4.57.0",
+    "openai": "4.72.0",
     "@gqlpt/adapter-base": "workspace:^"
   }
 }
