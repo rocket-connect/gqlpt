@@ -174,8 +174,8 @@ importers:
         specifier: 4.21.1
         version: 4.21.1
       express-static-gzip:
-        specifier: 2.1.8
-        version: 2.1.8
+        specifier: 2.2.0
+        version: 2.2.0
       gqlpt:
         specifier: workspace:^
         version: link:../../packages/gqlpt
@@ -7595,9 +7595,10 @@ packages:
       jest-util: 29.7.0
     dev: true
 
-  /express-static-gzip@2.1.8:
-    resolution: {integrity: sha512-g8tiJuI9Y9Ffy59ehVXvqb0hhP83JwZiLxzanobPaMbkB5qBWA8nuVgd+rcd5qzH3GkgogTALlc0BaADYwnMbQ==}
+  /express-static-gzip@2.2.0:
+    resolution: {integrity: sha512-4ZQ0pHX0CAauxmzry2/8XFLM6aZA4NBvg9QezSlsEO1zLnl7vMFa48/WIcjzdfOiEUS4S1npPPKP2NHHYAp6qg==}
     dependencies:
+      parseurl: 1.3.3
       serve-static: 1.16.2
     transitivePeerDependencies:
       - supports-color

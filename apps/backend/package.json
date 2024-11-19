@@ -21,7 +21,7 @@
     "@gqlpt/docs": "workspace:^",
     "cors": "2.8.5",
     "express": "4.21.1",
-    "express-static-gzip": "2.1.8",
+    "express-static-gzip": "2.2.0",
     "gqlpt": "workspace:^",
     "@gqlpt/adapter-openai": "workspace:^"
   },
