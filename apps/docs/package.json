@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/docs",
-  "version": "0.0.0-alpha.30",
+  "version": "0.0.0-alpha.31",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
