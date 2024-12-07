@@ -6,8 +6,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended"
   ],
-
-  "ignorePatterns": ["build", ".eslintrc.cjs"],
+  "ignorePatterns": ["build", ".eslintrc.cjs", "pnpm-lock.yaml"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off"
