@@ -915,6 +915,23 @@ adapters.forEach(({ name, adapter }) => {
       assertMatchesVariation(result, [
         {
           query: /* GraphQL */ `
+            {
+              music_subgraph {
+                allAlbums(first: 10) {
+                  albums {
+                    artist {
+                      name
+                    }
+                    title
+                  }
+                }
+              }
+            }
+          `,
+          variables: {},
+        },
+        {
+          query: /* GraphQL */ `
             query ($first: Int) {
               music_subgraph {
                 allAlbums(first: $first) {
