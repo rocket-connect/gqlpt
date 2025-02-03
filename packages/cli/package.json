@@ -44,7 +44,7 @@
     "@gqlpt/adapter-base": "workspace:^",
     "@gqlpt/adapter-openai": "workspace:^",
     "@gqlpt/utils": "workspace:^",
-    "@typescript-eslint/typescript-estree": "8.13.0",
+    "@typescript-eslint/typescript-estree": "8.22.0",
     "commander": "12.1.0",
     "dotenv": "16.4.5",
     "gqlpt": "workspace:^"
