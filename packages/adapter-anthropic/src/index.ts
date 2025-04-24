@@ -1,10 +1,7 @@
 import { Adapter, AdapterResponse } from "@gqlpt/adapter-base";
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
 
-export type MessageParam = {
-  role: "user" | "assistant";
-  content: string;
-};
+export type MessageParam = Anthropic.MessageParam
 
 export const DEFAULT_MODEL = "claude-3-5-sonnet-20240620";
 
