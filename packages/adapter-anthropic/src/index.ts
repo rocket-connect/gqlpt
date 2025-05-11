@@ -1,19 +1,16 @@
 import { Adapter, AdapterResponse } from "@gqlpt/adapter-base";
+
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
 
-export type MessageParam = Anthropic.MessageParam
+export type MessageParam = Anthropic.MessageParam;
 
 export const DEFAULT_MODEL = "claude-3-5-sonnet-20240620";
 
 export interface AdapterAnthropicOptions extends ClientOptions {
-  /** The Anthropic model to use (defaults to Claude 3.5 Sonnet) */
   model?: string;
-
-  /** The system prompt to use */
   systemPrompt?: string;
-
-  /** The max tokens to use per message (defaults to 1024) */
   maxTokensPerMessage?: number;
+  temperature?: number;
 }
 
 export class AdapterAnthropic extends Adapter {
