@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/adapter-anthropic",
-  "version": "0.0.0-alpha.31",
+  "version": "0.0.0-alpha.32",
   "description": "Anthropic ai adapter for GQLPT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",

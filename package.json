@@ -1,6 +1,6 @@
 {
   "name": "@gqlpt/monorepo",
-  "version": "0.0.0-alpha.31",
+  "version": "0.0.0-alpha.32",
   "packageManager": "pnpm@8.6.3",
   "scripts": {
     "test": "turbo test",
