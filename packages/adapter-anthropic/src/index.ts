@@ -24,12 +24,15 @@ export class AdapterAnthropic extends Adapter {
 
   private messageHistory: Map<string, Array<MessageParam>> = new Map();
 
+  private temperature: number = 0.7;
+
   constructor(options: AdapterAnthropicOptions) {
     super();
     this.anthropic = new Anthropic(options);
     this.model = options.model || DEFAULT_MODEL;
     this.systemPrompt = options.systemPrompt;
     this.maxTokensPerMessage = options.maxTokensPerMessage || 1024;
+    this.temperature = options.temperature || 0.2;
   }
 
   async connect(): Promise<void> {
@@ -61,6 +64,7 @@ export class AdapterAnthropic extends Adapter {
       messages,
       model: this.model,
       max_tokens: this.maxTokensPerMessage,
+      temperature: this.temperature,
     });
 
     const content = (response.content[0] as any).text;
