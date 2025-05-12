@@ -3,16 +3,16 @@ import { Adapter, AdapterResponse } from "@gqlpt/adapter-base";
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
 
 export type MessageParam = Anthropic.MessageParam;
-
 export const DEFAULT_MODEL = "claude-3-5-sonnet-20240620";
-
 export interface AdapterAnthropicOptions extends ClientOptions {
   model?: string;
   systemPrompt?: string;
   maxTokensPerMessage?: number;
   temperature?: number;
+  cacheControl?: {
+    type?: string;
+  };
 }
-
 export class AdapterAnthropic extends Adapter {
   private anthropic: Anthropic;
 
@@ -26,6 +26,8 @@ export class AdapterAnthropic extends Adapter {
 
   private temperature: number = 0.7;
 
+  private cacheControl?: { type?: string };
+
   constructor(options: AdapterAnthropicOptions) {
     super();
     this.anthropic = new Anthropic(options);
@@ -33,6 +35,7 @@ export class AdapterAnthropic extends Adapter {
     this.systemPrompt = options.systemPrompt;
     this.maxTokensPerMessage = options.maxTokensPerMessage || 1024;
     this.temperature = options.temperature || 0.2;
+    this.cacheControl = options.cacheControl
   }
 
   async connect(): Promise<void> {
@@ -53,7 +56,42 @@ export class AdapterAnthropic extends Adapter {
     text: string,
     conversationId?: string,
   ): Promise<AdapterResponse> {
-    let messages: Array<MessageParam> = [{ role: "user", content: text }];
+    let beforeText: string | undefined;
+    const splitPhrase = "And this plain text query:";
+
+    let messages: Array<MessageParam>;
+
+    if (text.includes(splitPhrase)) {
+      const splitIndex = text.indexOf(splitPhrase);
+      beforeText = text.substring(0, splitIndex);
+      text = text.substring(splitIndex);
+
+      const beforeTextContent: any = {
+        type: "text",
+        text: beforeText,
+      };
+
+      if (this.cacheControl) {
+        beforeTextContent.cache_control = {
+          type: this.cacheControl.type || "ephemeral",
+        };
+      }
+
+      messages = [
+        {
+          role: "user",
+          content: [
+            beforeTextContent,
+            {
+              type: "text",
+              text: text,
+            },
+          ],
+        },
+      ];
+    } else {
+      messages = [{ role: "user", content: text }];
+    }
 
     if (conversationId && this.messageHistory.has(conversationId)) {
       messages = [...this.messageHistory.get(conversationId)!, ...messages];
