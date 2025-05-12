@@ -24,7 +24,7 @@ export class AdapterAnthropic extends Adapter {
 
   private messageHistory: Map<string, Array<MessageParam>> = new Map();
 
-  private temperature: number = 0.7;
+  private temperature: number;
 
   private cacheControl?: { type?: string };
 
