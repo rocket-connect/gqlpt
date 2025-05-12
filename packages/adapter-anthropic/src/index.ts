@@ -35,7 +35,7 @@ export class AdapterAnthropic extends Adapter {
     this.systemPrompt = options.systemPrompt;
     this.maxTokensPerMessage = options.maxTokensPerMessage || 1024;
     this.temperature = options.temperature || 0.2;
-    this.cacheControl = options.cacheControl
+    this.cacheControl = options.cacheControl;
   }
 
   async connect(): Promise<void> {
