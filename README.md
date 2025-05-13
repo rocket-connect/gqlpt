@@ -1,6 +1,6 @@
 <div align="center" style="text-align: center;">
 
-<img src="https://github.com/rocket-connect/gqlpt/raw/main/apps/docs/static/img/logo.svg" width="20%" alt="GQLPT">
+<img src="https://github.com/rocket-connect/gqlpt/raw/main/docs/gqlpt.svg" width="20%" alt="GQLPT">
 
 <h1>GQLPT</h1>
 
