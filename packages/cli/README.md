@@ -1,7 +1,7 @@
 # @gqlpt/cli
 
 <div align="center" style="text-align: center;">
-<img src="https://github.com/rocket-connect/gqlpt/raw/main/apps/docs/static/img/logo.svg" width="20%" alt="GQLPT">
+<img src="https://github.com/rocket-connect/gqlpt/raw/main/docs/gqlpt.svg" width="20%" alt="GQLPT">
 </div>
 
 GQLPT CLI is a powerful command-line tool for generating type definitions for GQLPT (GraphQL Plain Text) queries. It scans your project for GQLPT usage and generates corresponding TypeScript type definitions.
