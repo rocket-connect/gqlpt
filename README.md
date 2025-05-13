@@ -10,11 +10,31 @@
 
 [![npm version](https://badge.fury.io/js/gqlpt.svg)](https://badge.fury.io/js/gqlpt) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![](https://github.com/rocket-connect/gqlpt/raw/main/docs/screenshot.png)](https://www.gqlpt.dev/)
-
-Image showing the online playground for [gqlpt.dev](https://www.gqlpt.dev/). GQLPT is a npm package that allows you to generate GraphQL queries from plain text using AI.
-
 </div>
+
+## Features
+
+- 🚀 **TypeScript First** - Built from the ground up with full TypeScript support and type safety.
+
+- 🧠 **AI-Powered Generation** - Convert natural language into precise GraphQL queries automatically.
+
+- 🔄 **Multiple AI Adapters** - Choose between OpenAI and Anthropic, or make your own if needed.
+
+- 🛡️ **Schema Validation** - All generated queries are validated against your schema before execution.
+
+- 🔄 **Automatic Retries** - Built-in mechanism to retry and refine queries that fail validation.
+
+- 📦 **NPM Published** - Install via npm with first-class package support.
+
+- 🔍 **Query Introspection** - Automatically works with local or remote GraphQL schemas.
+
+- 💾 **Query Caching** - Store and reuse previously generated queries for performance.
+
+- 🔧 **CLI Tool** - Generate TypeScript types for your GQLPT queries from the command line.
+
+- 🌐 **Subgraph Support** - Works with GraphQL Federation and Apollo Supergraph architecture.
+
+- 🔢 **Variable Support** - Intelligent extraction and handling of variables for your queries.
 
 ## Installation
 
